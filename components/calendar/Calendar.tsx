@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { Calendar as CalendarNative } from "react-native-calendars";
 import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
@@ -46,6 +47,12 @@ export function Calendar() {
   const onDayPress = (date: DateData) => {
     dispatch(setCurrentDay(date.dateString));
   };
+
+  useEffect(() => {
+    if (selectedDay === "") {
+      dispatch(setCurrentDay(new Date().toISOString().split("T")[0]));
+    }
+  }, []);
 
   return (
     <CalendarNative

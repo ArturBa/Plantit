@@ -1,10 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
-import useColorScheme from "../hooks/useColorScheme";
+import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import { Calendar } from "../components/calendar";
+import { Calendar, DailyToDo } from "../components/calendar";
 
 export default function CalendarScreen({
   navigation,
@@ -12,13 +10,7 @@ export default function CalendarScreen({
   return (
     <View style={styles.container}>
       <Calendar></Calendar>
-      <Text style={styles.title}>Tab Two</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <DailyToDo></DailyToDo>
     </View>
   );
 }
@@ -26,17 +18,5 @@ export default function CalendarScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  calendar: {
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
 });
