@@ -6,6 +6,7 @@ import {
   selectPlantById,
   useAppSelector,
 } from "../../store";
+import { Card } from "../Card";
 import { Text, View } from "../Themed";
 import { PlantAction } from "./PlantAction";
 
@@ -13,7 +14,7 @@ export function DailyToDoPlant({ id }: { id: string }) {
   const action = useAppSelector((state) => selectActionsByPlantId(state, id));
   const plant = useAppSelector((state) => selectPlantById(state, id));
   return (
-    <View style={styles.content}>
+    <Card style={styles.content}>
       <View style={styles.plant}>
         <Image source={{ uri: plant.photoUrl }} style={styles.image}></Image>
         <View style={styles.plantDetails}>
@@ -32,16 +33,13 @@ export function DailyToDoPlant({ id }: { id: string }) {
         renderItem={(action) => <PlantAction action={action.item} />}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       ></FlatList>
-    </View>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
   content: {
     marginHorizontal: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderRadius: 8,
   },
   plant: {
     display: "flex",

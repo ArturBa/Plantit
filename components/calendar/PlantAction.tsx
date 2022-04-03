@@ -5,6 +5,7 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
 import { Action, setActionStatus, useAppDispatch } from "../../store";
+import { Card } from "../Card";
 import { View, Text } from "../Themed";
 
 export function PlantAction({ action }: { action: Action }) {
@@ -16,7 +17,7 @@ export function PlantAction({ action }: { action: Action }) {
   };
 
   return (
-    <View style={styles.content}>
+    <Card style={styles.content}>
       <View style={styles.action}>
         <FontAwesome5
           name="hand-holding-water"
@@ -30,7 +31,7 @@ export function PlantAction({ action }: { action: Action }) {
         color={accentColor}
         style={styles.checkbox}
       ></Checkbox>
-    </View>
+    </Card>
   );
 }
 
@@ -41,9 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginLeft: 64,
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 8,
   },
   action: {
     display: "flex",
