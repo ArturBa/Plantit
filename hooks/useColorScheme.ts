@@ -4,5 +4,7 @@ import { ColorSchemeName, useColorScheme as _useColorScheme } from 'react-native
 // type suggests that it can be null. This will not happen in practice, so this
 // makes it a bit easier to work with.
 export default function useColorScheme(): NonNullable<ColorSchemeName> {
+  // For now only the light theme is supported
+  return "light";
   return _useColorScheme() as NonNullable<ColorSchemeName>;
 }
