@@ -1,3 +1,4 @@
+import { blockStatement } from "@babel/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
@@ -30,10 +31,46 @@ const initialState: CalendarState = {
       plant: "13",
     },
     {
+      id: "5754r",
+      type: "Mist",
+      done: false,
+      plant: "15",
+    },
+    {
+      id: "57542",
+      type: "Facile",
+      done: false,
+      plant: "15",
+    },
+    {
+      id: "57522",
+      type: "Water",
+      done: false,
+      plant: "15",
+    },
+    {
       id: "57512",
       type: "Water",
       done: false,
       plant: "12",
+    },
+    {
+      id: "57515",
+      type: "Water",
+      done: false,
+      plant: "14",
+    },
+    {
+      id: "57516",
+      type: "Replant",
+      done: false,
+      plant: "14",
+    },
+    {
+      id: "57517",
+      type: "Facile",
+      done: false,
+      plant: "14",
     },
   ],
 };
@@ -45,10 +82,19 @@ export const calendarSlice = createSlice({
     setCurrentDay: (state, action: PayloadAction<string>) => {
       state.selectedDay = action.payload;
     },
+    setActionStatus: (
+      state,
+      action: PayloadAction<{ id: string; done: boolean }>
+    ) => {
+      const index = state.actions.findIndex((a) => a.id === action.payload.id);
+      if (index !== -1) {
+        state.actions[index].done = action.payload.done;
+      }
+    },
   },
 });
 
-export const { setCurrentDay } = calendarSlice.actions;
+export const { setCurrentDay, setActionStatus } = calendarSlice.actions;
 
 export const selectActionDays = (state: RootState): string[] =>
   state.calendarReducer.actionDays;

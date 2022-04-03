@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import calendarReducer from "./calendar.slice";
+import plantReducer from "./plant.slice";
 
 const isDevelopment = true; // process.env["NODE_ENV"] === "development";
 
 const reducer = {
   calendarReducer,
+  plantReducer,
 };
 
 const store = configureStore({ reducer, devTools: isDevelopment });

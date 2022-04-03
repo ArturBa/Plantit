@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Calendar as CalendarNative } from "react-native-calendars";
 import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
 import { DateData, Theme } from "react-native-calendars/src/types";
@@ -16,7 +16,11 @@ import {
 
 export function Calendar() {
   const accentColor = Colors[useColorScheme()].tint;
+  const backgroundColor = Colors[useColorScheme()].background;
+
   const calendarTheme: Theme = {
+    backgroundColor: backgroundColor,
+    calendarBackground: backgroundColor,
     indicatorColor: accentColor,
     selectedDayBackgroundColor: accentColor,
     dotColor: accentColor,
