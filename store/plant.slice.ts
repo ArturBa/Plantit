@@ -33,7 +33,7 @@ const initialState: PlantState = {
     {
       nickname: "Dracaena",
       id: "15",
-      photoUrl: "https://source.unsplash.com/1600x900/?Dracaena",
+      photoUrl: "https://source.unsplash.com/1600x900/?dracaena",
     },
   ],
 };
@@ -46,6 +46,7 @@ export const plantSlice = createSlice({
 
 export const {} = plantSlice.actions;
 
+export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: string): Plant =>
   state.plantReducer.plants.filter((plant) => plant.id === id)[0] || undefined;
 

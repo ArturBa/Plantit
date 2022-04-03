@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
 import { Action, setActionStatus, useAppDispatch } from "../../store";
-import { Card } from "../Card";
+import { Card } from "../common/Card";
 import { View, Text } from "../Themed";
 
 export function PlantAction({ action }: { action: Action }) {

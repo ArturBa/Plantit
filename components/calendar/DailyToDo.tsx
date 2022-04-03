@@ -3,6 +3,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { Action, selectActions, useAppSelector } from "../../store";
 import { DailyToDoPlant } from "./DailyToDoPlant";
 import { Text, View } from "../Themed";
+import { ListSeparator } from "../common/ListSeparator";
 
 export function DailyToDo() {
   const plantIds = [
@@ -19,8 +20,10 @@ export function DailyToDo() {
       <FlatList
         data={plantIds}
         keyExtractor={(item) => item}
-        renderItem={(item) => <DailyToDoPlant id={item.item}></DailyToDoPlant>}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        renderItem={(item) => (
+          <DailyToDoPlant plantId={item.item}></DailyToDoPlant>
+        )}
+        ItemSeparatorComponent={() => ListSeparator({ height: 8 })}
       ></FlatList>
     </View>
   );
@@ -35,8 +38,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
-  },
-  separator: {
-    height: 8,
   },
 });

@@ -1,15 +1,25 @@
 import React from "react";
-import { StyleProp, StyleSheet, ViewStyle } from "react-native";
-import { View } from "./Themed";
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
 export function Card({
   children,
   style,
+  onPress,
 }: {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }) {
-  return <View style={[styles.container, style]}>{children}</View>;
+  return (
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+      {children}
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,13 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from "react-native";
+import { Plant } from "../components/home";
 
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import { Text, View } from "../components/Themed";
+import { selectPlants, useAppSelector } from "../store";
+import { RootTabScreenProps } from "../types";
 
-export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
+  const userPlants = useAppSelector(selectPlants);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <FlatList
+        data={userPlants}
+        keyExtractor={(plant) => plant.id}
+        renderItem={(plant) => <Plant plantId={plant.item.id} />}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      ></FlatList>
     </View>
   );
 }
@@ -15,16 +23,8 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    height: 8,
   },
 });
