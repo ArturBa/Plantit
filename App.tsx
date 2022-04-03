@@ -19,7 +19,7 @@ export default function App() {
       <SafeAreaProvider>
         <Provider store={store}>
           <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+          <StatusBar style="dark" />
         </Provider>
       </SafeAreaProvider>
     );

@@ -9,14 +9,15 @@ export default function CalendarScreen({
 }: RootTabScreenProps<"Calendar">) {
   return (
     <View style={styles.container}>
-      <Calendar></Calendar>
-      <DailyToDo></DailyToDo>
+      <Calendar />
+      <DailyToDo />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     flex: 1,
   },
 });

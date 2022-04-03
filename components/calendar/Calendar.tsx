@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
 import { Calendar as CalendarNative } from "react-native-calendars";
-import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
 import { DateData, Theme } from "react-native-calendars/src/types";
+import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
+import { StyleSheet } from "react-native";
+import { useEffect } from "react";
 
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
@@ -16,7 +16,11 @@ import {
 
 export function Calendar() {
   const accentColor = Colors[useColorScheme()].tint;
+  const backgroundColor = Colors[useColorScheme()].background;
+
   const calendarTheme: Theme = {
+    backgroundColor: backgroundColor,
+    calendarBackground: backgroundColor,
     indicatorColor: accentColor,
     selectedDayBackgroundColor: accentColor,
     dotColor: accentColor,
