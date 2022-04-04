@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
+import { View } from "../Themed";
 
 export function Card({
   children,
@@ -15,11 +16,15 @@ export function Card({
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }) {
-  return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
-      {children}
-    </TouchableOpacity>
-  );
+  if (onPress) {
+    return (
+      <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+        {children}
+      </TouchableOpacity>
+    );
+  } else {
+    return <View style={[styles.container, style]}>{children}</View>;
+  }
 }
 
 const styles = StyleSheet.create({

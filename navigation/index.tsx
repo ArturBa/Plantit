@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
   DefaultTheme,
-  DarkTheme,
+  Theme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -33,11 +33,20 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const colors = Colors[colorScheme ?? "light"];
+  const theme: Theme = {
+    ...DefaultTheme,
+    colors: {
+      background: colors.background,
+      primary: colors.tint,
+      card: colors.background,
+      text: colors.tint,
+      border: colors.tint,
+      notification: colors.tint,
+    },
+  };
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration} theme={theme}>
       <RootNavigator />
     </NavigationContainer>
   );

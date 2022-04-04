@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, Platform, StyleSheet } from "react-native";
+import { Image, Platform, StyleSheet, TextInput } from "react-native";
 import { ListSeparator } from "../components/common/ListSeparator";
 
 import { Text, View } from "../components/Themed";
@@ -35,9 +35,11 @@ export default function PlantDetailsModalScreen({
         You need to take care of this little boy
       </Text>
 
-      <Text
-        style={[styles.title, { textAlign: "center", paddingVertical: 32 }]}
-      >
+      <Text style={[styles.title, { textAlign: "center", paddingTop: 32 }]}>
+        Today tasks
+      </Text>
+
+      <Text style={[styles.title, { textAlign: "center", paddingTop: 32 }]}>
         Upcoming tasks
       </Text>
 
