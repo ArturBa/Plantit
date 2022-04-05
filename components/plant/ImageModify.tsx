@@ -34,10 +34,10 @@ export function ImageModify() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={openImagePicker}>
-        <Image style={styles.plantImage} source={{ uri: photoUrl }} />
+      <TouchableOpacity style={styles.touchable} onPress={openImagePicker}>
+        <Image style={styles.image} source={{ uri: photoUrl }} />
       </TouchableOpacity>
-      <View style={styles.imageEdit}>
+      <View style={styles.editIcon}>
         <FontAwesome5
           name="pencil-alt"
           size={16}
@@ -55,7 +55,11 @@ const stylesSheet = ({ tintColor }: { tintColor: string }) =>
       height: 100,
       width: 100,
     },
-    plantImage: {
+    touchable: {
+      height: "100%",
+      width: "100%",
+    },
+    image: {
       height: "100%",
       width: "100%",
       borderRadius: 50,
@@ -63,7 +67,7 @@ const stylesSheet = ({ tintColor }: { tintColor: string }) =>
       borderColor: tintColor,
       borderWidth: 1,
     },
-    imageEdit: {
+    editIcon: {
       backgroundColor: tintColor,
       position: "absolute",
       height: 32,
