@@ -20,14 +20,17 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   PlantDetailsModal: { plantId: string };
+  PlantAddModal: undefined;
   NotFound: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
-export type RootRouteProps<Screen extends keyof RootStackParamList> =
-  RouteProp<RootStackParamList, Screen>;
+export type RootRouteProps<Screen extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  Screen
+>;
 
 export type RootTabParamList = {
   Home: undefined;

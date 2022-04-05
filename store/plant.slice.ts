@@ -10,6 +10,7 @@ export interface Plant {
 
 interface PlantState {
   plants: Plant[];
+  selected: Plant | null;
 }
 
 const initialState: PlantState = {
@@ -81,15 +82,20 @@ const initialState: PlantState = {
       photoUrl: "https://source.unsplash.com/3600x900/?dracaena",
     },
   ],
+  selected: null,
 };
 
 export const plantSlice = createSlice({
   name: "plant",
   initialState,
-  reducers: {},
+  reducers: {
+    addPlant: (state, action: PayloadAction<Plant>) => {
+      state.plants.push(action.payload);
+    },
+  },
 });
 
-export const {} = plantSlice.actions;
+export const { addPlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: string): Plant =>

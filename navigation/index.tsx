@@ -26,6 +26,7 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import PlantAddModalScreen from "../screens/PlantAddModalScreen";
 
 export default function Navigation({
   colorScheme,
@@ -75,6 +76,11 @@ function RootNavigator() {
           name="PlantDetailsModal"
           component={PlantDetailsModalScreen}
           options={{ headerTitle: "Plant Details" }}
+        />
+        <Stack.Screen
+          name="PlantAddModal"
+          component={PlantAddModalScreen}
+          options={{ headerTitle: "New Plant" }}
         />
       </Stack.Group>
     </Stack.Navigator>
