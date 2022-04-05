@@ -10,6 +10,7 @@ export function HomeHeader() {
   return (
     <View style={styles(accentColor).container}>
       <Text style={styles(accentColor).header}>Welcome back</Text>
+      <Text>Take care of your plants</Text>
     </View>
   );
 }
@@ -17,9 +18,7 @@ export function HomeHeader() {
 const styles = (accentColor: string) =>
   StyleSheet.create({
     container: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginLeft: 8,
+      marginLeft: 16,
       marginBottom: 24,
     },
     header: {
@@ -27,6 +26,5 @@ const styles = (accentColor: string) =>
       fontSize: 32,
       fontWeight: "bold",
       marginTop: StatusBar.currentHeight ?? 0 + 16,
-      marginLeft: 16,
     },
   });

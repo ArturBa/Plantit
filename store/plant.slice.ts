@@ -15,8 +15,8 @@ interface PlantState {
 const initialState: PlantState = {
   plants: [
     {
-      nickname: "Montera",
-      name: "Montera",
+      nickname: "Monstera",
+      name: "Monstera deliciosa",
       id: "13",
       photoUrl: "https://source.unsplash.com/1600x900/?monstera",
     },
@@ -32,8 +32,53 @@ const initialState: PlantState = {
     },
     {
       nickname: "Dracaena",
+      name: "Dracaena marginata",
       id: "15",
       photoUrl: "https://source.unsplash.com/1600x900/?dracaena",
+    },
+    {
+      nickname: "Monstera",
+      name: "Monstera deliciosa",
+      id: "23",
+      photoUrl: "https://source.unsplash.com/2600x900/?monstera",
+    },
+    {
+      nickname: "Aloe",
+      id: "22",
+      photoUrl: "https://source.unsplash.com/2600x900/?aloe+vera",
+    },
+    {
+      nickname: "Sansevieria",
+      id: "24",
+      photoUrl: "https://source.unsplash.com/2600x900/?sansevieria",
+    },
+    {
+      nickname: "Dracaena",
+      name: "Dracaena marginata",
+      id: "25",
+      photoUrl: "https://source.unsplash.com/2600x900/?dracaena",
+    },
+    {
+      nickname: "Monstera",
+      name: "Monstera deliciosa",
+      id: "33",
+      photoUrl: "https://source.unsplash.com/3600x900/?monstera",
+    },
+    {
+      nickname: "Aloe",
+      id: "32",
+      photoUrl: "https://source.unsplash.com/3600x900/?aloe+vera",
+    },
+    {
+      nickname: "Sansevieria",
+      id: "34",
+      photoUrl: "https://source.unsplash.com/3600x900/?sansevieria",
+    },
+    {
+      nickname: "Dracaena",
+      name: "Dracaena marginata",
+      id: "35",
+      photoUrl: "https://source.unsplash.com/3600x900/?dracaena",
     },
   ],
 };

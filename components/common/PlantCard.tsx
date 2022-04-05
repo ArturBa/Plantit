@@ -11,7 +11,7 @@ export function PlantCard({
   plant,
   onPress,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   plantId?: string;
   plant?: Plant;
   onPress?: () => void;

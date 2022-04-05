@@ -12,8 +12,6 @@ export function HomePlant({ plantId }: { plantId: string }) {
     navigation.navigate("PlantDetailsModal", { plantId });
   };
   return (
-    <PlantCard plant={plant} onPress={() => onPlantClick(plant.id)}>
-      <Text></Text>
-    </PlantCard>
+    <PlantCard plant={plant} onPress={() => onPlantClick(plant.id)}></PlantCard>
   );
 }

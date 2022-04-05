@@ -26,7 +26,6 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { HomeHeader } from "../components/home";
 
 export default function Navigation({
   colorScheme,
@@ -106,7 +105,6 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="seedling" color={color} />
           ),
-          header: () => <HomeHeader />,
         })}
       />
       <BottomTab.Screen
