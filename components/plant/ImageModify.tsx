@@ -1,17 +1,18 @@
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useState } from "react";
 
 import { View } from "../Themed";
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
-export function ImageModify() {
-  const [photoUrl, setPhotoUrl] = useState(
-    "https://source.unsplash.com/900x900/?plant"
-  );
+export type ImageModifyProps = {
+  image: string;
+  size?: number;
+  onChange: (imageUri: string) => void;
+};
 
+export function ImageModify({ image, onChange, size = 100 }: ImageModifyProps) {
   const tintColor = Colors[useColorScheme()].tint;
   const backgroundColor = Colors[useColorScheme()].background;
 
@@ -27,15 +28,15 @@ export function ImageModify() {
     if (pickerResult.cancelled) {
       return;
     }
-    setPhotoUrl(pickerResult.uri);
+    onChange(pickerResult.uri);
   };
 
-  const styles = stylesSheet({ tintColor });
+  const styles = stylesSheet({ tintColor, size });
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.touchable} onPress={openImagePicker}>
-        <Image style={styles.image} source={{ uri: photoUrl }} />
+        <Image style={styles.image} source={{ uri: image }} />
       </TouchableOpacity>
       <View style={styles.editIcon}>
         <FontAwesome5
@@ -48,12 +49,17 @@ export function ImageModify() {
   );
 }
 
-const stylesSheet = ({ tintColor }: { tintColor: string }) =>
+type ImageModifyStyleProps = {
+  tintColor: string;
+  size: number;
+};
+
+const stylesSheet = ({ tintColor, size }: ImageModifyStyleProps) =>
   StyleSheet.create({
     container: {
       position: "relative",
-      height: 100,
-      width: 100,
+      height: size,
+      width: size,
     },
     touchable: {
       height: "100%",
@@ -62,7 +68,7 @@ const stylesSheet = ({ tintColor }: { tintColor: string }) =>
     image: {
       height: "100%",
       width: "100%",
-      borderRadius: 50,
+      borderRadius: size / 2,
       overflow: "hidden",
       borderColor: tintColor,
       borderWidth: 1,

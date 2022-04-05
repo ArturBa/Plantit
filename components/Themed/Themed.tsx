@@ -3,14 +3,10 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import {
-  Button as DefaultButton,
-  Text as DefaultText,
-  View as DefaultView,
-} from "react-native";
+import { Text as DefaultText, View as DefaultView } from "react-native";
 
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../../constants/Colors";
+import useColorScheme from "../../hooks/useColorScheme";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -26,14 +22,13 @@ export function useThemeColor(
   }
 }
 
-type ThemeProps = {
+export type ThemeProps = {
   lightColor?: string;
   darkColor?: string;
 };
 
 export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
-export type ButtonProps = ThemeProps & DefaultButton["props"];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -50,20 +45,4 @@ export function View(props: ViewProps) {
   );
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
-}
-
-export function Button(props: ButtonProps) {
-  const { lightColor, darkColor, ...otherProps } = props;
-  const tintColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "tint"
-  );
-
-  return (
-    <DefaultButton
-      title={props.title}
-      onPress={props.onPress}
-      color={props.color ?? tintColor}
-    ></DefaultButton>
-  );
 }

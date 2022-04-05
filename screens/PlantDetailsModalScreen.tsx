@@ -59,16 +59,8 @@ export default function PlantDetailsModalScreen({
         You need to take care of this little boy
       </Text>
 
-      <Text style={[styles.title, { textAlign: "center", paddingTop: 32 }]}>
-        Today tasks
-      </Text>
-
-      <Text style={[styles.title, { textAlign: "center", paddingTop: 32 }]}>
-        Upcoming tasks
-      </Text>
-
       <Button
-        color="hsl(10, 37%, 38%)"
+        variant="danger"
         title="Remove plant"
         onPress={onPlantRemove}
       ></Button>

@@ -1,4 +1,5 @@
 const tintColorLight = "hsl(138, 37%, 38%)";
+const waringColor = "hsl(10, 37%, 38%)";
 const tintColorDark = "#fff";
 
 export default {
@@ -8,6 +9,7 @@ export default {
     tint: tintColorLight,
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorLight,
+    warning: waringColor,
   },
   dark: {
     text: "#fff",
@@ -15,5 +17,6 @@ export default {
     tint: tintColorDark,
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorDark,
+    warning: waringColor,
   },
 };

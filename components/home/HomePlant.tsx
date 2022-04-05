@@ -1,7 +1,5 @@
-import { Text } from "../Themed";
 import { selectPlantById, useAppSelector } from "../../store";
 import { PlantCard } from "../common/PlantCard";
-import navigation from "../../navigation";
 import { useNavigation } from "@react-navigation/native";
 
 export function HomePlant({ plantId }: { plantId: string }) {

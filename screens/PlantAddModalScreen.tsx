@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
-import { ListSeparator } from "../components/common/ListSeparator";
+import { StyleSheet } from "react-native";
 
-import { Button, Text, View } from "../components/Themed";
+import { Button, View } from "../components/Themed";
+import { TextInput } from "../components/common";
 import { addPlant, useAppDispatch } from "../store";
 import { ImageModify } from "../components/plant";
 
@@ -24,29 +24,28 @@ export default function PlantDetailsModalScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.plant}>
-        <ImageModify></ImageModify>
+        <ImageModify size={120} image={photoUrl} onChange={setPhotoUrl} />
         <View style={styles.plantDetails}>
-          <Text style={styles.subtitle}>Nickname</Text>
           <TextInput
-            style={styles.title}
-            onChangeText={setNickname}
+            label="Nickname"
             value={nickname}
-            autoCapitalize={"words"}
+            onChangeText={setNickname}
+            autoCapitalize="words"
             autoFocus
+            returnKeyType="next"
           />
-          <ListSeparator height={4} />
-          <Text style={styles.subtitle}>Name</Text>
           <TextInput
-            style={styles.title}
-            onChangeText={setName}
+            label="Name"
             value={name}
-            autoCapitalize={"words"}
+            onChangeText={setName}
+            autoCapitalize="words"
+            returnKeyLabel="done"
           />
         </View>
       </View>
       <Button
         onPress={onButtonPress}
-        title="Add new plant to a family"
+        title="Add new plant to the family"
       ></Button>
     </View>
   );
@@ -58,13 +57,14 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   plant: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 32,
+    // TODO: Think of a dynamic way to calculate the height of the plant section
+    height: 140,
   },
   plantDetails: {
-    marginLeft: 32,
+    marginLeft: 16,
     flex: 1,
   },
   title: {
