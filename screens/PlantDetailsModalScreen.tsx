@@ -4,6 +4,7 @@ import { Alert, Image, Platform, StyleSheet } from "react-native";
 import { ListSeparator } from "../components/common/ListSeparator";
 
 import { Button, Text, View } from "../components/Themed";
+import { ReadOnly } from "../components/Themed/ReadOnly";
 import {
   removePlant,
   selectPlantById,
@@ -48,16 +49,10 @@ export default function PlantDetailsModalScreen({
           source={{ uri: plant.photoUrl }}
         ></Image>
         <View style={styles.plantDetails}>
-          <Text style={styles.subtitle}>Nickname</Text>
-          <Text style={styles.title}>{plant.nickname}</Text>
-          <ListSeparator height={4} />
-          <Text style={styles.subtitle}>Name</Text>
-          <Text style={styles.title}>{plant.name}</Text>
+          <ReadOnly label="Nickname" value={plant.nickname} />
+          {plant.name && <ReadOnly label="Name" value={plant.name} />}
         </View>
       </View>
-      <Text style={styles.subtitle}>
-        You need to take care of this little boy
-      </Text>
 
       <Button
         variant="danger"
@@ -86,9 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   plantImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 50,
+    height: 120,
+    width: 120,
+    borderRadius: 60,
   },
   title: {
     fontSize: 20,

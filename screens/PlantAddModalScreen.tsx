@@ -2,8 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import { Button, View } from "../components/Themed";
-import { TextInput } from "../components/common";
+import { Button, View, TextInput } from "../components/Themed";
 import { addPlant, useAppDispatch } from "../store";
 import { ImageModify } from "../components/plant";
 
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 32,
     // TODO: Think of a dynamic way to calculate the height of the plant section
-    height: 140,
+    height: 120,
   },
   plantDetails: {
     marginLeft: 16,
