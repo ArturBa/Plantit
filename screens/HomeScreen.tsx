@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet } from "react-native";
 import { HomePlant } from "../components/home";
-import { HomeHeader } from "../components/home/Header";
+import { HomeHeader } from "../components/home/HomeHeader";
 
 import { Text, View } from "../components/Themed";
 import { selectPlants, useAppSelector } from "../store";

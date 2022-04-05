@@ -56,7 +56,7 @@ export default function PlantDetailsModalScreen({
 
       <Button
         variant="danger"
-        title="Remove plant"
+        title="Remove the Plant"
         onPress={onPlantRemove}
       ></Button>
       {/* Use a light status bar on iOS to account for the black space above the modal */}

@@ -44,7 +44,7 @@ export default function PlantDetailsModalScreen() {
       </View>
       <Button
         onPress={onButtonPress}
-        title="Add new plant to the family"
+        title="Add a New Plant to The Family"
       ></Button>
     </View>
   );

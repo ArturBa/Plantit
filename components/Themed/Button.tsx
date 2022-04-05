@@ -1,32 +1,85 @@
-import { Button as DefaultButton } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 
-import { ThemeProps, useThemeColor } from "./Themed";
+import { colors, Text, ThemeProps, useThemeColor } from "./Themed";
 
-enum buttonVariant {
-  primary = "tint",
-  // TODO: Add a secondary color
-  secondary = "background",
-  danger = "warning",
+enum ButtonVariant {
+  primary = "primary",
+  secondary = "secondary",
+  danger = "danger",
 }
 
+export const buttonVariant = new Map<
+  keyof typeof ButtonVariant,
+  {
+    background: colors;
+    text: colors;
+  }
+>([
+  [
+    "primary",
+    {
+      background: "tint",
+      text: "background",
+    },
+  ],
+  [
+    "danger",
+    {
+      background: "warning",
+      text: "background",
+    },
+  ],
+]);
+
 export type ButtonProps = ThemeProps &
-  DefaultButton["props"] & {
-    variant?: keyof typeof buttonVariant;
+  TouchableOpacity["props"] & {
+    variant?: keyof typeof ButtonVariant;
+    title?: string;
+    children?: React.ReactNode;
   };
 
 export function Button(props: ButtonProps) {
   const { lightColor, darkColor, ...otherProps } = props;
-  const tintColor = useThemeColor(
+  const variant = buttonVariant.get(props.variant ?? "primary")!!;
+
+  const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    props.variant ? buttonVariant[props.variant] : buttonVariant.primary
+    variant.background
+  );
+  const textColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    variant.text
   );
 
+  const styles = styleSheet({ backgroundColor, textColor });
+
   return (
-    <DefaultButton
+    <TouchableOpacity
       {...otherProps}
-      title={props.title}
+      style={[styles.container, props.style]}
       onPress={props.onPress}
-      color={props.color ?? tintColor}
-    ></DefaultButton>
+    >
+      {props.title && <Text style={styles.text}>{props.title}</Text>}
+      {props.children}
+    </TouchableOpacity>
   );
 }
+
+type ButtonStyleSheetProps = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+const styleSheet = ({ backgroundColor, textColor }: ButtonStyleSheetProps) =>
+  StyleSheet.create({
+    container: {
+      padding: 8,
+      backgroundColor,
+      color: textColor,
+    },
+    text: {
+      color: textColor,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+  });

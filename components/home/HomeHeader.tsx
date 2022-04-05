@@ -1,10 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useNavigation, useNavigationState } from "@react-navigation/native";
-import { StyleSheet, StatusBar, Button } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
-
-import { Text, View } from "../Themed";
+import { Button, Text, View } from "../Themed";
 
 export function HomeHeader() {
   const accentColor = Colors[useColorScheme()].tint;
@@ -14,24 +14,20 @@ export function HomeHeader() {
     navigation.navigate("PlantAddModal");
   };
 
+  const styles = styleSheet(accentColor);
+
   return (
-    <View style={styles(accentColor).container}>
-      <Text style={styles(accentColor).header}>Welcome back</Text>
-      <View>
+    <View style={styles.container}>
+      <Text style={styles.header}>Welcome back</Text>
+      <View style={styles.subheader}>
         <Text>Take care of your plants</Text>
-        <Button
-          title={"New Plant"}
-          onPress={onNewPlantPress}
-          color={accentColor}
-        >
-          {/* New plant */}
-        </Button>
+        <Button onPress={onNewPlantPress} title="Add Plant" />
       </View>
     </View>
   );
 }
 
-const styles = (accentColor: string) =>
+const styleSheet = (accentColor: string) =>
   StyleSheet.create({
     container: {
       marginHorizontal: 16,
@@ -42,5 +38,10 @@ const styles = (accentColor: string) =>
       fontSize: 32,
       fontWeight: "bold",
       marginTop: StatusBar.currentHeight ?? 0 + 16,
+    },
+    subheader: {
+      justifyContent: "space-between",
+      alignItems: "center",
+      flexDirection: "row",
     },
   });
