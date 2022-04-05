@@ -92,10 +92,15 @@ export const plantSlice = createSlice({
     addPlant: (state, action: PayloadAction<Plant>) => {
       state.plants.push(action.payload);
     },
+    removePlant: (state, action: PayloadAction<string>) => {
+      state.plants = state.plants.filter(
+        (plant) => plant.id !== action.payload
+      );
+    },
   },
 });
 
-export const { addPlant } = plantSlice.actions;
+export const { addPlant, removePlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: string): Plant =>

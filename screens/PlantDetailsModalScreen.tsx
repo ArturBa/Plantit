@@ -1,20 +1,44 @@
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Image, Platform, StyleSheet, TextInput } from "react-native";
+import { Alert, Image, Platform, StyleSheet } from "react-native";
 import { ListSeparator } from "../components/common/ListSeparator";
 
-import { Text, View } from "../components/Themed";
-import { selectPlantById, useAppSelector } from "../store";
-import { RootRouteProps, RootStackScreenProps } from "../types";
+import { Button, Text, View } from "../components/Themed";
+import {
+  removePlant,
+  selectPlantById,
+  useAppDispatch,
+  useAppSelector,
+} from "../store";
+import { RootRouteProps } from "../types";
 
 export default function PlantDetailsModalScreen({
-  navigation,
   route,
 }: {
-  navigation: RootStackScreenProps<"PlantDetailsModal">;
   route: RootRouteProps<"PlantDetailsModal">;
 }) {
   const { plantId } = route.params;
   const plant = useAppSelector((state) => selectPlantById(state, plantId));
+
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const onPlantRemove = () => {
+    Alert.alert(
+      "Remove plant",
+      `Are you sure to remove ${plant.nickname}\nThis is irreversible`,
+      [
+        { text: "Cancel", onPress: () => {} },
+        {
+          text: "Remove",
+          onPress: () => {
+            navigation.goBack();
+            dispatch(removePlant(plantId));
+          },
+          style: "destructive",
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -43,6 +67,11 @@ export default function PlantDetailsModalScreen({
         Upcoming tasks
       </Text>
 
+      <Button
+        color="hsl(10, 37%, 38%)"
+        title="Remove plant"
+        onPress={onPlantRemove}
+      ></Button>
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       {/* <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} /> */}
     </View>

@@ -63,7 +63,7 @@ export function Button(props: ButtonProps) {
     <DefaultButton
       title={props.title}
       onPress={props.onPress}
-      color={tintColor}
+      color={props.color ?? tintColor}
     ></DefaultButton>
   );
 }

@@ -1,17 +1,34 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Image, StyleSheet, TextInput } from "react-native";
+import { Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { ListSeparator } from "../components/common/ListSeparator";
 
 import { Button, Text, View } from "../components/Themed";
 import { addPlant, useAppDispatch } from "../store";
+import * as ImagePicker from "expo-image-picker";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function PlantDetailsModalScreen() {
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
   const [photoUrl, setPhotoUrl] = useState(
-    "https://reactnative.dev/img/tiny_logo.png"
+    "https://source.unsplash.com/900x900/?plant"
   );
+
+  const openImagePicker = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access media library was denied");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled) {
+      return;
+    }
+    setPhotoUrl(pickerResult.uri);
+  };
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -24,13 +41,22 @@ export default function PlantDetailsModalScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.plant}>
-        <Image style={styles.plantImage} source={{ uri: photoUrl }} />
+        <TouchableOpacity style={styles.imageView} onPress={openImagePicker}>
+          <Image style={styles.plantImage} source={{ uri: photoUrl }} />
+          <View style={styles.imageEdit}>
+            <FontAwesome5
+              name="pencil-alt"
+              size={16}
+              color="hsl(0, 0%, 97%)"
+            ></FontAwesome5>
+          </View>
+        </TouchableOpacity>
         <View style={styles.plantDetails}>
           <Text style={styles.subtitle}>Nickname</Text>
           <TextInput
             style={styles.title}
-            onChangeText={setName}
-            value={name}
+            onChangeText={setNickname}
+            value={nickname}
             autoCapitalize={"words"}
             autoFocus
           />
@@ -38,8 +64,8 @@ export default function PlantDetailsModalScreen() {
           <Text style={styles.subtitle}>Name</Text>
           <TextInput
             style={styles.title}
-            onChangeText={setNickname}
-            value={nickname}
+            onChangeText={setName}
+            value={name}
             autoCapitalize={"words"}
           />
         </View>
@@ -67,10 +93,27 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     flex: 1,
   },
-  plantImage: {
+  imageView: {
+    position: "relative",
     height: 100,
     width: 100,
+  },
+  plantImage: {
+    height: "100%",
+    width: "100%",
     borderRadius: 50,
+    overflow: "hidden",
+  },
+  imageEdit: {
+    backgroundColor: "hsl(138, 37%, 38%)",
+    position: "absolute",
+    height: 32,
+    width: 32,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 4,
+    right: 4,
   },
   title: {
     fontSize: 20,
