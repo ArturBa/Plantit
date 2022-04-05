@@ -5,19 +5,20 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
 import { Action, setActionStatus, useAppDispatch } from "../../store";
-import { Card } from "../Card";
+import { Card } from "../common/Card";
 import { View, Text } from "../Themed";
 
 export function PlantAction({ action }: { action: Action }) {
   const accentColor = Colors[useColorScheme()].tint;
   const dispatch = useAppDispatch();
 
-  const onValueChange = (newValue: boolean) => {
-    dispatch(setActionStatus({ id: action.id, done: newValue }));
+  const onValueChange = (newValue?: boolean) => {
+    const done = !action.done;
+    dispatch(setActionStatus({ id: action.id, done }));
   };
 
   return (
-    <Card style={styles.content}>
+    <Card style={styles.content} onPress={onValueChange}>
       <View style={styles.action}>
         <FontAwesome5
           name="hand-holding-water"

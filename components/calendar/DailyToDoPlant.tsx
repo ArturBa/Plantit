@@ -1,69 +1,23 @@
-import { Image, ScrollView, StyleSheet } from "react-native";
 import { FlatList } from "react-native";
 
-import {
-  selectActionsByPlantId,
-  selectPlantById,
-  useAppSelector,
-} from "../../store";
-import { Card } from "../Card";
-import { Text, View } from "../Themed";
+import { selectActionsByPlantId, useAppSelector } from "../../store";
+import { ListSeparator } from "../common/ListSeparator";
+import { PlantCard } from "../common/PlantCard";
 import { PlantAction } from "./PlantAction";
 
-export function DailyToDoPlant({ id }: { id: string }) {
-  const action = useAppSelector((state) => selectActionsByPlantId(state, id));
-  const plant = useAppSelector((state) => selectPlantById(state, id));
+export function DailyToDoPlant({ plantId }: { plantId: string }) {
+  const action = useAppSelector((state) =>
+    selectActionsByPlantId(state, plantId)
+  );
   return (
-    <Card style={styles.content}>
-      <View style={styles.plant}>
-        <Image source={{ uri: plant.photoUrl }} style={styles.image}></Image>
-        <View style={styles.plantDetails}>
-          <Text style={styles.plantNickname}>{plant.nickname}</Text>
-          {plant.name ? (
-            <Text style={styles.plantName}>{plant.name}</Text>
-          ) : (
-            <View />
-          )}
-        </View>
-      </View>
+    <PlantCard plantId={plantId}>
       <FlatList
         data={action}
         keyExtractor={(action) => action.id}
         initialNumToRender={action.length}
         renderItem={(action) => <PlantAction action={action.item} />}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => ListSeparator({ height: 4 })}
       ></FlatList>
-    </Card>
+    </PlantCard>
   );
 }
-
-const styles = StyleSheet.create({
-  content: {
-    marginHorizontal: 16,
-  },
-  plant: {
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 8,
-  },
-  image: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  plantDetails: {
-    display: "flex",
-    paddingLeft: 16,
-  },
-  plantNickname: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  plantName: {
-    fontSize: 18,
-    fontStyle: "italic",
-  },
-  separator: {
-    height: 4,
-  },
-});

@@ -1,0 +1,1 @@
+export { HomePlant } from "./HomePlant";

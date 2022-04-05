@@ -8,15 +8,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
   DefaultTheme,
-  DarkTheme,
+  Theme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import { ColorSchemeName } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
+import PlantDetailsModalScreen from "../screens/PlantDetailsModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import CalendarScreen from "../screens/CalendarScreen";
@@ -32,11 +32,20 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const colors = Colors[colorScheme ?? "light"];
+  const theme: Theme = {
+    ...DefaultTheme,
+    colors: {
+      background: colors.background,
+      primary: colors.tint,
+      card: colors.background,
+      text: colors.tint,
+      border: colors.tint,
+      notification: colors.tint,
+    },
+  };
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration} theme={theme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -62,7 +71,11 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen
+          name="PlantDetailsModal"
+          component={PlantDetailsModalScreen}
+          options={{ headerTitle: "Plant Details" }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -79,7 +92,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Calendar"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
@@ -91,21 +104,6 @@ function BottomTabNavigator() {
           title: "Home",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="seedling" color={color} />
-          ),
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome5
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
           ),
         })}
       />
