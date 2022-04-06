@@ -88,9 +88,7 @@ function RootNavigator() {
         <Stack.Screen
           name="PlantModifyModal"
           component={PlantModifyModalScreen}
-          options={{
-            headerTitle: "Update Plant",
-          }}
+          options={{ headerTitle: "Update Plant" }}
         />
       </Stack.Group>
     </Stack.Navigator>

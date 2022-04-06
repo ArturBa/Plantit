@@ -22,24 +22,6 @@ import {
 } from "../../store";
 import { RootRouteProps } from "../../types";
 
-const editIcon = ({
-  plantId,
-  navigation,
-}: {
-  plantId: string;
-  navigation: any;
-}) => {
-  const tintColor = Colors[useColorScheme()].tint;
-
-  return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("PlantModifyModal", { plantId })}
-    >
-      <FontAwesome5 name="pencil-alt" size={16} color={tintColor} />
-    </TouchableOpacity>
-  );
-};
-
 export function PlantDetailsModalScreen({
   route,
 }: {
@@ -52,11 +34,14 @@ export function PlantDetailsModalScreen({
   useEffect(() => {
     navigation.setOptions({
       headerTitle: plant.nickname,
-      headerRight: () => editIcon({ plantId, navigation }),
     });
   }, [plant.nickname]);
 
   const dispatch = useAppDispatch();
+  const onPlantModify = () => {
+    navigation.navigate("PlantModifyModal", { plantId });
+  };
+
   const onPlantRemove = () => {
     Alert.alert(
       "Remove plant",
@@ -74,7 +59,6 @@ export function PlantDetailsModalScreen({
       ]
     );
   };
-
   return (
     <View style={plantDetailsModalStyles.container}>
       <View style={plantDetailsModalStyles.plant}>
@@ -89,6 +73,12 @@ export function PlantDetailsModalScreen({
       </View>
 
       <Button
+        style={plantDetailsModalStyles.button}
+        title="Edit the Plant"
+        onPress={onPlantModify}
+      ></Button>
+      <Button
+        style={plantDetailsModalStyles.button}
         variant="danger"
         title="Remove the Plant"
         onPress={onPlantRemove}
@@ -118,5 +108,8 @@ export const plantDetailsModalStyles = StyleSheet.create({
     height: 120,
     width: 120,
     borderRadius: 60,
+  },
+  button: {
+    marginVertical: 4,
   },
 });
