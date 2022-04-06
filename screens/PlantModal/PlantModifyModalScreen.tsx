@@ -3,84 +3,68 @@ import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Formik } from "formik";
 
-import { Button, View, TextInput } from "../../components/Themed";
-import { addPlant, useAppDispatch } from "../../store";
+import { Button, View, TextInput, Text } from "../../components/Themed";
+import { updatePlant, Plant, useAppDispatch } from "../../store";
 import { ImageModify } from "../../components/plant";
+import { plantDetailsModalStyles } from "./PlantDetailsModalScreen";
+import { plantValidationSchema } from "./PlantAddModalScreen";
 
 export function PlantModifyModalScreen() {
-  const initialValues = {
-    name: "",
-    nickname: "",
-    photoUrl: "https://source.unsplash.com/900x900/?plant",
-  };
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [photoUrl, setPhotoUrl] = useState(
-    "https://source.unsplash.com/900x900/?plant"
-  );
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const onSubmit = (value: any) => {
-    const id = Math.random().toString();
-    console.log(value);
-    // dispatch(addPlant({ id }));
-    // navigation.goBack();
+  const onSubmit = (value: Plant) => {
+    dispatch(updatePlant(value));
+    navigation.goBack();
   };
 
+  const styles = plantDetailsModalStyles;
+
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <View style={styles.container}>
-          <View style={styles.plant}>
-            <ImageModify size={120} image={photoUrl} onChange={setPhotoUrl} />
-            <View style={styles.plantDetails}>
-              <TextInput
-                name="nickname"
-                label="Nickname"
-                autoCapitalize="words"
-                autoFocus
-                returnKeyType="next"
-              />
-              {/* <TextInput
-                label="Name"
-                value={name}
-                onChangeText={setName}
-                autoCapitalize="words"
-                returnKeyLabel="done"
-              /> */}
+    <View style={styles.container}>
+      <Formik
+        initialValues={{
+          validateOnMount: true,
+          id: "",
+          name: "",
+          nickname: "",
+          photoUrl: "https://source.unsplash.com/900x900/?plant",
+        }}
+        validationSchema={plantValidationSchema}
+        onSubmit={onSubmit}
+      >
+        {(formik) => (
+          <>
+            <View style={styles.plant}>
+              <ImageModify size={120} name="photoUrl" />
+              <View style={styles.plantDetails}>
+                <TextInput
+                  label="Nickname"
+                  name="nickname"
+                  autoCapitalize="words"
+                  autoFocus
+                  returnKeyType="next"
+                />
+                <TextInput
+                  label="Name"
+                  name="name"
+                  autoCapitalize="words"
+                  returnKeyLabel="done"
+                />
+              </View>
             </View>
-          </View>
-          <Button
-            onPress={onSubmit}
-            title="Add a New Plant to The Family"
-          ></Button>
-        </View>
-      )}
-    </Formik>
+            <Button
+              disabled={Object.keys(formik.touched).length === 0}
+              // disabled={!(formik.isValid && formik.dirty)}
+              // disabled={
+              //   Array.isArray(formik.errors) ||
+              //   Object.values(formik.errors).toString() != ""
+              // }
+              onPress={formik.submitForm}
+              title="Add a New Plant to The Family"
+            ></Button>
+          </>
+        )}
+      </Formik>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 32,
-  },
-  plant: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 32,
-    // TODO: Think of a dynamic way to calculate the height of the plant section
-    height: 120,
-  },
-  plantDetails: {
-    marginLeft: 16,
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 14,
-  },
-});

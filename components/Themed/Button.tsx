@@ -42,14 +42,14 @@ export function Button(props: ButtonProps) {
   const { lightColor, darkColor, ...otherProps } = props;
   const variant = buttonVariant.get(props.variant ?? "primary")!!;
 
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    variant.background
-  );
-  const textColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    variant.text
-  );
+  const isDisabled = props.disabled ?? false;
+
+  const backgroundColor = isDisabled
+    ? "hsl(0, 0%, 90%)"
+    : useThemeColor({ light: lightColor, dark: darkColor }, variant.background);
+  const textColor = isDisabled
+    ? "hsl(0, 0%, 60%)"
+    : useThemeColor({ light: lightColor, dark: darkColor }, variant.text);
 
   const styles = styleSheet({ backgroundColor, textColor });
 

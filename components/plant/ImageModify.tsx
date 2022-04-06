@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import { FieldHookConfig, useField } from "formik";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
@@ -6,13 +7,13 @@ import { View } from "../Themed";
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
-export type ImageModifyProps = {
-  image: string;
+export type ImageModifyProps = FieldHookConfig<string> & {
+  name: string;
   size?: number;
-  onChange: (imageUri: string) => void;
 };
 
-export function ImageModify({ image, onChange, size = 100 }: ImageModifyProps) {
+export function ImageModify(props: ImageModifyProps) {
+  const [field, meta, helpers] = useField(props);
   const tintColor = Colors[useColorScheme()].tint;
   const backgroundColor = Colors[useColorScheme()].background;
 
@@ -28,15 +29,15 @@ export function ImageModify({ image, onChange, size = 100 }: ImageModifyProps) {
     if (pickerResult.cancelled) {
       return;
     }
-    onChange(pickerResult.uri);
+    helpers.setValue(pickerResult.uri);
   };
 
-  const styles = stylesSheet({ tintColor, size });
+  const styles = stylesSheet({ tintColor, size: props.size ?? 100 });
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.touchable} onPress={openImagePicker}>
-        <Image style={styles.image} source={{ uri: image }} />
+        <Image style={styles.image} source={{ uri: field.value }} />
       </TouchableOpacity>
       <View style={styles.editIcon}>
         <FontAwesome5

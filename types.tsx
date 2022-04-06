@@ -20,6 +20,7 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   PlantDetailsModal: { plantId: string };
+  PlantModifyModal: { plantId: string };
   PlantAddModal: undefined;
   NotFound: undefined;
 };

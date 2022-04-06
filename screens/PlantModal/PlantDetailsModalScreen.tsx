@@ -42,13 +42,13 @@ export function PlantDetailsModalScreen({
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.plant}>
+    <View style={plantDetailsModalStyles.container}>
+      <View style={plantDetailsModalStyles.plant}>
         <Image
-          style={styles.plantImage}
+          style={plantDetailsModalStyles.plantImage}
           source={{ uri: plant.photoUrl }}
         ></Image>
-        <View style={styles.plantDetails}>
+        <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
           {plant.name && <ReadOnly label="Name" value={plant.name} />}
         </View>
@@ -65,10 +65,10 @@ export function PlantDetailsModalScreen({
   );
 }
 
-const styles = StyleSheet.create({
+export const plantDetailsModalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 32,
+    padding: 16,
   },
   plant: {
     display: "flex",
@@ -77,19 +77,12 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   plantDetails: {
-    marginLeft: 32,
+    marginLeft: 16,
     flex: 1,
   },
   plantImage: {
     height: 120,
     width: 120,
     borderRadius: 60,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 14,
   },
 });

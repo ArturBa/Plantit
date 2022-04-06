@@ -1,17 +1,20 @@
 import * as yup from "yup";
 import { Formik } from "formik";
-import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
 import { Button, View, TextInput } from "../../components/Themed";
 import { addPlant, Plant, useAppDispatch } from "../../store";
 import { ImageModify } from "../../components/plant";
+import { plantDetailsModalStyles } from "./PlantDetailsModalScreen";
+
+export const plantValidationSchema = yup.object().shape({
+  name: yup.string(),
+  nickname: yup.string().required("You need to set a nickname for your plant"),
+  photoUrl: yup.string().required(),
+});
 
 export function PlantAddModalScreen() {
-  const [photoUrl, setPhotoUrl] = useState(
-    "https://source.unsplash.com/900x900/?plant"
-  );
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (values: Omit<Plant, "id">) => {
@@ -20,13 +23,7 @@ export function PlantAddModalScreen() {
     navigation.goBack();
   };
 
-  const validationSchema = yup.object().shape({
-    name: yup.string(),
-    nickname: yup
-      .string()
-      .required("You need to set a nickname for your plant"),
-    photoUrl: yup.string().required(),
-  });
+  const styles = plantDetailsModalStyles;
 
   return (
     <View style={styles.container}>
@@ -36,13 +33,13 @@ export function PlantAddModalScreen() {
           nickname: "",
           photoUrl: "https://source.unsplash.com/900x900/?plant",
         }}
-        validationSchema={validationSchema}
+        validationSchema={plantValidationSchema}
         onSubmit={onSubmit}
       >
         {(formik) => (
           <>
             <View style={styles.plant}>
-              <ImageModify size={120} image={photoUrl} onChange={setPhotoUrl} />
+              <ImageModify size={120} name="photoUrl" />
               <View style={styles.plantDetails}>
                 <TextInput
                   label="Nickname"
@@ -60,6 +57,7 @@ export function PlantAddModalScreen() {
               </View>
             </View>
             <Button
+              disabled={!formik.isValid || !formik.dirty}
               onPress={formik.submitForm}
               title="Add a New Plant to The Family"
             ></Button>
@@ -69,28 +67,3 @@ export function PlantAddModalScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 32,
-  },
-  plant: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 32,
-    // TODO: Think of a dynamic way to calculate the height of the plant section
-    height: 120,
-  },
-  plantDetails: {
-    marginLeft: 16,
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 14,
-  },
-});

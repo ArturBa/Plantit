@@ -1,9 +1,14 @@
-import { StyleSheet, View, TextInput as DefaultTextInput } from "react-native";
+import { FieldHookConfig, useField } from "formik";
+import {
+  StyleSheet,
+  View,
+  TextInput as DefaultTextInput,
+  TextInputProps as DefaultTextInputProps,
+} from "react-native";
+import { useState } from "react";
 
 import { Text, ThemeProps, useThemeColor } from "./Themed";
 import { readOnlyStyleSheet } from "./ReadOnly";
-import { FieldHookConfig, useField, Field } from "formik";
-import { useState } from "react";
 
 export type TextInputProps = FieldHookConfig<string> &
   ThemeProps &
@@ -16,7 +21,7 @@ export const TextInput = (props: TextInputProps) => {
   const [field, meta, helpers] = useField(props);
   const { onChange, ...fieldProps } = field;
   const { label } = props;
-  const { lightColor, darkColor, ...otherProps } = props;
+  const { lightColor, darkColor, ref, ...otherProps } = props;
   const [isFocused, setIsFocused] = useState(false);
 
   const tintColor = useThemeColor(
@@ -50,6 +55,7 @@ export const TextInput = (props: TextInputProps) => {
       <Text style={[readOnlyStyles.label, styles.label]}>{label}</Text>
       <DefaultTextInput
         {...fieldProps}
+        {...otherProps}
         placeholder={props.placeholder ?? label}
         style={[readOnlyStyles.value, styles.value]}
         onChangeText={helpers.setValue}
