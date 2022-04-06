@@ -1,4 +1,3 @@
-import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 

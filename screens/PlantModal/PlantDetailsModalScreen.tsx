@@ -1,19 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { Alert, Image, Platform, StyleSheet } from "react-native";
-import { ListSeparator } from "../components/common/ListSeparator";
+import { ListSeparator } from "../../components/common/ListSeparator";
 
-import { Button, Text, View } from "../components/Themed";
-import { ReadOnly } from "../components/Themed/ReadOnly";
+import { Button, Text, View } from "../../components/Themed";
+import { ReadOnly } from "../../components/Themed/ReadOnly";
 import {
   removePlant,
   selectPlantById,
   useAppDispatch,
   useAppSelector,
-} from "../store";
-import { RootRouteProps } from "../types";
+} from "../../store";
+import { RootRouteProps } from "../../types";
 
-export default function PlantDetailsModalScreen({
+export function PlantDetailsModalScreen({
   route,
 }: {
   route: RootRouteProps<"PlantDetailsModal">;

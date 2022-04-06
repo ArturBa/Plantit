@@ -16,7 +16,11 @@ import { ColorSchemeName } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import PlantDetailsModalScreen from "../screens/PlantDetailsModalScreen";
+import {
+  PlantDetailsModalScreen,
+  PlantModifyModalScreen,
+  PlantAddModalScreen,
+} from "../screens/PlantModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import CalendarScreen from "../screens/CalendarScreen";
@@ -26,7 +30,6 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import PlantAddModalScreen from "../screens/PlantAddModalScreen";
 
 export default function Navigation({
   colorScheme,
