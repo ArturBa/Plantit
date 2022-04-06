@@ -11,8 +11,8 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
 
   return (
     <View style={styles.container}>
-      <HomeHeader />
       <FlatList
+        ListHeaderComponent={<HomeHeader />}
         data={userPlants}
         keyExtractor={(plant) => plant.id}
         renderItem={(plant) => (

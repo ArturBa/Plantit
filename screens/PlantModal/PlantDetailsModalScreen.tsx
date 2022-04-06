@@ -1,10 +1,19 @@
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Alert, Image, Platform, StyleSheet } from "react-native";
-import { ListSeparator } from "../../components/common/ListSeparator";
+import { useEffect } from "react";
+import {
+  Alert,
+  Image,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-import { Button, Text, View } from "../../components/Themed";
+import { Button, View } from "../../components/Themed";
 import { ReadOnly } from "../../components/Themed/ReadOnly";
+import Colors from "../../constants/Colors";
+import useColorScheme from "../../hooks/useColorScheme";
 import {
   removePlant,
   selectPlantById,
@@ -13,6 +22,24 @@ import {
 } from "../../store";
 import { RootRouteProps } from "../../types";
 
+const editIcon = ({
+  plantId,
+  navigation,
+}: {
+  plantId: string;
+  navigation: any;
+}) => {
+  const tintColor = Colors[useColorScheme()].tint;
+
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("PlantModifyModal", { plantId })}
+    >
+      <FontAwesome5 name="pencil-alt" size={16} color={tintColor} />
+    </TouchableOpacity>
+  );
+};
+
 export function PlantDetailsModalScreen({
   route,
 }: {
@@ -20,8 +47,15 @@ export function PlantDetailsModalScreen({
 }) {
   const { plantId } = route.params;
   const plant = useAppSelector((state) => selectPlantById(state, plantId));
-
   const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: plant.nickname,
+      headerRight: () => editIcon({ plantId, navigation }),
+    });
+  }, [plant.nickname]);
+
   const dispatch = useAppDispatch();
   const onPlantRemove = () => {
     Alert.alert(

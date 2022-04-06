@@ -4,31 +4,43 @@ import { StyleSheet } from "react-native";
 import { Formik } from "formik";
 
 import { Button, View, TextInput, Text } from "../../components/Themed";
-import { updatePlant, Plant, useAppDispatch } from "../../store";
+import {
+  updatePlant,
+  Plant,
+  useAppDispatch,
+  useAppSelector,
+  selectPlantById,
+} from "../../store";
 import { ImageModify } from "../../components/plant";
 import { plantDetailsModalStyles } from "./PlantDetailsModalScreen";
 import { plantValidationSchema } from "./PlantAddModalScreen";
+import { useEffect } from "react";
+import { RootRouteProps } from "../../types";
 
-export function PlantModifyModalScreen() {
+export function PlantModifyModalScreen({
+  route,
+}: {
+  route: RootRouteProps<"PlantModifyModal">;
+}) {
+  const { plantId } = route.params;
+  const plant = useAppSelector((state) => selectPlantById(state, plantId));
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (value: Plant) => {
     dispatch(updatePlant(value));
     navigation.goBack();
   };
+  let initialValues = { ...plant };
+  useEffect(() => {
+    navigation.setOptions({ headerTitle: `Edit ${plant.nickname}` });
+  }, []);
 
   const styles = plantDetailsModalStyles;
 
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{
-          validateOnMount: true,
-          id: "",
-          name: "",
-          nickname: "",
-          photoUrl: "https://source.unsplash.com/900x900/?plant",
-        }}
+        initialValues={initialValues}
         validationSchema={plantValidationSchema}
         onSubmit={onSubmit}
       >
@@ -53,14 +65,9 @@ export function PlantModifyModalScreen() {
               </View>
             </View>
             <Button
-              disabled={Object.keys(formik.touched).length === 0}
-              // disabled={!(formik.isValid && formik.dirty)}
-              // disabled={
-              //   Array.isArray(formik.errors) ||
-              //   Object.values(formik.errors).toString() != ""
-              // }
+              disabled={!formik.isValid}
               onPress={formik.submitForm}
-              title="Add a New Plant to The Family"
+              title={`Update ${plant.nickname}`}
             ></Button>
           </>
         )}
