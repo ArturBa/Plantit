@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import { Button, View, TextInput, Text } from "../../components/Themed";
 import {
   updatePlant,
-  Plant,
+  PlantInterface,
   useAppDispatch,
   useAppSelector,
   selectPlantById,
@@ -26,7 +26,7 @@ export function PlantModifyModalScreen({
   const plant = useAppSelector((state) => selectPlantById(state, plantId));
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const onSubmit = (value: Plant) => {
+  const onSubmit = (value: PlantInterface) => {
     dispatch(updatePlant(value));
     navigation.goBack();
   };

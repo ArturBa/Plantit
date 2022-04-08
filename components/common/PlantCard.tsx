@@ -1,7 +1,7 @@
 import { Image, StyleSheet } from "react-native";
 import { ReactNode } from "react";
 
-import { Plant, selectPlantById, useAppSelector } from "../../store";
+import { PlantInterface, selectPlantById, useAppSelector } from "../../store";
 import { Card } from "./Card";
 import { View, Text } from "../Themed";
 
@@ -13,7 +13,7 @@ export function PlantCard({
 }: {
   children?: ReactNode;
   plantId?: string;
-  plant?: Plant;
+  plant?: PlantInterface;
   onPress?: () => void;
 }) {
   let displayPlant = plant;

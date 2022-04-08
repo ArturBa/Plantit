@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
 import { Button, View, TextInput } from "../../components/Themed";
-import { addPlant, Plant, useAppDispatch } from "../../store";
+import { addPlant, PlantInterface, useAppDispatch } from "../../store";
 import { ImageModify } from "../../components/plant";
 import { plantDetailsModalStyles } from "./PlantDetailsModalScreen";
 
@@ -17,7 +17,7 @@ export const plantValidationSchema = yup.object().shape({
 export function PlantAddModalScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const onSubmit = (values: Omit<Plant, "id">) => {
+  const onSubmit = (values: Omit<PlantInterface, "id">) => {
     const id = Math.random().toString();
     dispatch(addPlant({ ...values, id }));
     navigation.goBack();
