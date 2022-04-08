@@ -13,8 +13,10 @@ export class DbContext {
   databaseName: string = "mydatabase.db";
   database: IDatabase<TableNames>;
   constructor() {
-    this.database = createDbContext<TableNames>(tables, async () =>
-      SQLite.openDatabase(this.databaseName)
+    this.database = createDbContext<TableNames>(
+      tables,
+      async () =>
+        SQLite.openDatabase(this.databaseName)
     );
   }
 }

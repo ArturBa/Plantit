@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import calendarReducer from "./calendar.slice";
-import plantReducer from "./plant.slice";
+import plantReducer, { getPlantsFromDb } from "./plant.slice";
 
+// TODO: check while is recognized wrongly
 const isDevelopment = true; // process.env["NODE_ENV"] === "development";
 
 const reducer = {
@@ -13,6 +14,7 @@ const reducer = {
 const store = configureStore({ reducer, devTools: isDevelopment });
 
 export function configureAppStore() {
+  getPlantsFromDb();
   return store;
 }
 

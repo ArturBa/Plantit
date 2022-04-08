@@ -3,22 +3,22 @@ import { ColumnType, IBaseModule, TableStructor } from "expo-sqlite-wrapper";
 import { TableNames } from ".";
 import { PlantInterface } from "../store";
 
-const tableName = "Plants";
+export const PlantsTableName = "Plants";
 
-export class Plant extends IBaseModule<TableNames> {
+export class Plant extends IBaseModule<TableNames> implements PlantInterface {
   name?: string;
   nickname: string;
   photoUrl: string;
 
   constructor({ name, nickname, photoUrl }: PlantInterface) {
-    super(tableName);
+    super(PlantsTableName);
     this.name = name || undefined;
     this.nickname = nickname;
     this.photoUrl = photoUrl;
   }
 
   static GetTableStructor() {
-    return new TableStructor<Plant, TableNames>(tableName, [
+    return new TableStructor<Plant, TableNames>(PlantsTableName, [
       {
         columnName: (x) => x.id,
         columnType: ColumnType.Number,
