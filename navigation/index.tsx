@@ -16,7 +16,11 @@ import { ColorSchemeName } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import PlantDetailsModalScreen from "../screens/PlantDetailsModalScreen";
+import {
+  PlantDetailsModalScreen,
+  PlantModifyModalScreen,
+  PlantAddModalScreen,
+} from "../screens/PlantModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import CalendarScreen from "../screens/CalendarScreen";
@@ -75,6 +79,16 @@ function RootNavigator() {
           name="PlantDetailsModal"
           component={PlantDetailsModalScreen}
           options={{ headerTitle: "Plant Details" }}
+        />
+        <Stack.Screen
+          name="PlantAddModal"
+          component={PlantAddModalScreen}
+          options={{ headerTitle: "New Plant" }}
+        />
+        <Stack.Screen
+          name="PlantModifyModal"
+          component={PlantModifyModalScreen}
+          options={{ headerTitle: "Update Plant" }}
         />
       </Stack.Group>
     </Stack.Navigator>

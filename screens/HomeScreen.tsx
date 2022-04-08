@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet } from "react-native";
 import { HomePlant } from "../components/home";
-import { HomeHeader } from "../components/home/Header";
+import { HomeHeader } from "../components/home/HomeHeader";
 
 import { Text, View } from "../components/Themed";
 import { selectPlants, useAppSelector } from "../store";
@@ -12,11 +12,15 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
   return (
     <View style={styles.container}>
       <FlatList
-        ListHeaderComponent={() => <HomeHeader />}
+        ListHeaderComponent={<HomeHeader />}
         data={userPlants}
         keyExtractor={(plant) => plant.id}
-        renderItem={(plant) => <HomePlant plantId={plant.item.id} />}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        renderItem={(plant) => (
+          <>
+            <HomePlant plantId={plant.item.id} />
+            <View style={styles.separator} />
+          </>
+        )}
       ></FlatList>
     </View>
   );

@@ -86,10 +86,27 @@ const initialState: PlantState = {
 export const plantSlice = createSlice({
   name: "plant",
   initialState,
-  reducers: {},
+  reducers: {
+    addPlant: (state, action: PayloadAction<Plant>) => {
+      state.plants.push(action.payload);
+    },
+    updatePlant: (state, action: PayloadAction<Plant>) => {
+      const plantIndex = state.plants.findIndex(
+        (p) => p.id === action.payload.id
+      );
+      if (plantIndex !== -1) {
+        state.plants[plantIndex] = action.payload;
+      }
+    },
+    removePlant: (state, action: PayloadAction<string>) => {
+      state.plants = state.plants.filter(
+        (plant) => plant.id !== action.payload
+      );
+    },
+  },
 });
 
-export const {} = plantSlice.actions;
+export const { addPlant, updatePlant, removePlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: string): Plant =>
