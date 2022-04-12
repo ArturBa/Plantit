@@ -106,7 +106,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Calendar"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
