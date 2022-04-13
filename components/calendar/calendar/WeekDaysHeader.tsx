@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   weekday: {
     textAlign: "center",
+    color: "hsl(0, 0%, 50%)",
     width: Layout.window.width / 7,
   },
 });

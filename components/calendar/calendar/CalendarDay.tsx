@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Moment } from "moment";
 import {
   StyleProp,
@@ -8,6 +9,7 @@ import {
   ViewStyle,
 } from "react-native";
 import Layout from "../../../constants/Layout";
+import { CalendarTheme } from "./Calendar";
 
 type CalendarDayProps = {
   date: Moment;
@@ -15,6 +17,7 @@ type CalendarDayProps = {
   isSelectedDay?: boolean;
   isMarked?: boolean;
   onDayPress?: () => void;
+  theme: CalendarTheme;
 };
 
 export function CalendarDay({
@@ -23,7 +26,11 @@ export function CalendarDay({
   onDayPress,
   isSelectedDay,
   isMarked,
+  theme,
 }: CalendarDayProps) {
+  const isToday = date.startOf("day").isSame(moment().startOf("day"));
+  const styles = stylesSheet(theme);
+
   return (
     <View style={[styles.container, styles.center, style && style]}>
       <TouchableOpacity
@@ -34,7 +41,15 @@ export function CalendarDay({
         ]}
         onPress={() => onDayPress && onDayPress()}
       >
-        <Text style={styles.dayText}>{date.format("DD")}</Text>
+        <Text
+          style={[
+            styles.dayText,
+            isToday && styles.today,
+            isSelectedDay && styles.todaySelected,
+          ]}
+        >
+          {date.format("DD")}
+        </Text>
         {isMarked && <View style={styles.marker} />}
       </TouchableOpacity>
     </View>
@@ -45,41 +60,55 @@ const itemWidth = Layout.window.width / 7;
 const containerPadding = 8;
 const markerSize = 4;
 
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: itemWidth / 2,
-    width: itemWidth,
-    height: itemWidth,
-    overflow: "hidden",
-    padding: containerPadding,
-  },
-  center: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  selectedDay: {
-    backgroundColor: "red",
-  },
-  touchable: {
-    width: itemWidth - 2 * containerPadding,
-    height: itemWidth - 2 * containerPadding,
-    borderRadius: (itemWidth - 2 * containerPadding) / 2,
-  },
-  dayText: {
-    fontSize: 20,
-  },
-  marker: {
-    position: "absolute",
-    bottom: 4,
-    left: "50%",
-    width: markerSize,
-    height: markerSize,
-    borderRadius: markerSize / 2,
-    backgroundColor: "purple",
-    transform: [
-      {
-        translateX: -markerSize / 2,
-      },
-    ],
-  },
-});
+const stylesSheet = ({
+  selectedDayBackgroundColor,
+  backgroundColor,
+  dotColor,
+  todayTextColor,
+  textColor,
+}: CalendarTheme) =>
+  StyleSheet.create({
+    container: {
+      borderRadius: itemWidth / 2,
+      width: itemWidth,
+      height: itemWidth,
+      overflow: "hidden",
+      padding: containerPadding,
+    },
+    center: {
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    selectedDay: {
+      backgroundColor: selectedDayBackgroundColor,
+    },
+    touchable: {
+      width: itemWidth - 2 * containerPadding,
+      height: itemWidth - 2 * containerPadding,
+      borderRadius: (itemWidth - 2 * containerPadding) / 2,
+    },
+    dayText: {
+      fontSize: 20,
+      color: textColor,
+    },
+    today: {
+      color: todayTextColor,
+    },
+    todaySelected: {
+      color: backgroundColor,
+    },
+    marker: {
+      position: "absolute",
+      bottom: 4,
+      left: "50%",
+      width: markerSize,
+      height: markerSize,
+      borderRadius: markerSize / 2,
+      backgroundColor: dotColor,
+      transform: [
+        {
+          translateX: -markerSize / 2,
+        },
+      ],
+    },
+  });
