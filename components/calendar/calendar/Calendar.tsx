@@ -1,5 +1,7 @@
 import {
   FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   StyleProp,
   StyleSheet,
   Text,
@@ -10,7 +12,7 @@ import { CalendarDay } from "./CalendarDay";
 import moment, { Moment } from "moment";
 import Layout from "../../../constants/Layout";
 import { WeekDaysHeader } from "./WeekDaysHeader";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CalendarMonthHeader } from "./CalendarMonthHeader";
 
 export interface CalendarTheme {
@@ -42,6 +44,21 @@ type CalendarProps = {
 
 const width = Layout.window.width;
 
+const renderedDays = (currentDate: Moment): Moment[] => {
+  const days: Moment[] = [];
+  const baseDay = currentDate.isValid() ? currentDate : moment().startOf("day");
+  const weekdaySelected = baseDay.weekday();
+
+  const baseDayWeekStart = baseDay.clone().subtract(weekdaySelected, "day");
+
+  [...Array(7 * 3 - 1).keys()].forEach((i) => {
+    const newDay = moment(baseDayWeekStart).add(i - 7, "day");
+    days.push(newDay);
+  });
+
+  return days;
+};
+
 function toMomentDate(date: string | Date | Moment): Moment {
   if (typeof date === "string") {
     return moment(date).startOf("day");
@@ -62,31 +79,39 @@ export function Calendar({
   const themeToUse = { ...defaultTheme, ...theme };
   const flatListRef = useRef<FlatList<Moment>>(null);
 
-  selectedDay = toMomentDate(selectedDay);
+  const selectedDayMoment = toMomentDate(selectedDay);
   const markedDaysMoment = markedDays?.map(toMomentDate);
+  const renderDays: Moment[] = useMemo(
+    () => renderedDays(selectedDayMoment),
+    [selectedDayMoment]
+  );
 
-  const renderDays = [moment().weekday(0).startOf("day")];
-  [...Array(7 * 3 - 1).keys()].forEach((i) => {
-    const newDay = moment(renderDays[0]).add(i + 1, "day");
-    renderDays.push(newDay);
-  });
-
-  let currentWeekIndex = 0;
-  const nextWeek = () => {
-    console.log(currentWeekIndex);
+  let currentWeekIndex = 1;
+  const onNextWeek = () => {
     currentWeekIndex++;
-    flatListRef.current?.scrollToIndex({
-      index: currentWeekIndex * 7,
-      animated: true,
-    });
+    goToCurrentIndex();
   };
-  const prevWeek = () => {
-    console.log(currentWeekIndex);
+  const onPrevWeek = () => {
     currentWeekIndex--;
-    flatListRef.current?.scrollToIndex({
-      index: currentWeekIndex * 7,
-      animated: true,
-    });
+    goToCurrentIndex();
+  };
+
+  const goToCurrentIndex = (animated = true) => {
+    try {
+      flatListRef.current?.scrollToIndex({
+        index: currentWeekIndex * 7,
+        animated,
+      });
+    } catch {
+      console.log("Web: Scroll to index failed");
+    }
+  };
+
+  const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    currentWeekIndex = Math.floor(
+      Math.floor(event.nativeEvent.contentOffset.x) /
+        Math.floor(event.nativeEvent.layoutMeasurement.width)
+    );
   };
 
   const styles = styleSheet(themeToUse);
@@ -95,40 +120,36 @@ export function Calendar({
     <View style={[styles.container, style && style]}>
       <CalendarMonthHeader
         theme={themeToUse}
-        nextWeek={nextWeek}
-        prevWeek={prevWeek}
-        middleWeekDate={moment(renderDays[3]).add(currentWeekIndex * 7, "day")}
+        nextWeek={onNextWeek}
+        prevWeek={onPrevWeek}
+        middleWeekDate={moment(renderDays[10])}
       />
       <WeekDaysHeader />
-      <FlatList
-        horizontal
-        ref={flatListRef}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        data={renderDays}
-        snapToInterval={width}
-        decelerationRate="fast"
-        keyExtractor={(item) => item.toISOString()}
-        onMomentumScrollEnd={(event) => {
-          const index = Math.floor(
-            Math.floor(event.nativeEvent.contentOffset.x) /
-              Math.floor(event.nativeEvent.layoutMeasurement.width)
-          );
-          console.log("index", index);
-          currentWeekIndex = index;
-        }}
-        renderItem={({ item }) => (
-          <CalendarDay
-            date={item}
-            theme={themeToUse}
-            onDayPress={() => onDayPressed && onDayPressed(item)}
-            isSelectedDay={item.isSame(selectedDay)}
-            isMarked={markedDaysMoment?.some((markedDay) =>
-              markedDay.isSame(item)
-            )}
-          />
-        )}
-      />
+      {renderDays.length > 0 && (
+        <FlatList
+          style={[{ flex: 1 }]}
+          horizontal
+          ref={flatListRef}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          data={renderDays}
+          snapToInterval={width}
+          decelerationRate="fast"
+          keyExtractor={(item) => item.toISOString()}
+          onMomentumScrollEnd={onScrollEnd}
+          renderItem={({ item }) => (
+            <CalendarDay
+              date={item}
+              theme={themeToUse}
+              onDayPress={() => onDayPressed && onDayPressed(item)}
+              isSelectedDay={item.isSame(selectedDay)}
+              isMarked={markedDaysMoment?.some((markedDay) =>
+                markedDay.isSame(item)
+              )}
+            />
+          )}
+        />
+      )}
     </View>
   );
 }

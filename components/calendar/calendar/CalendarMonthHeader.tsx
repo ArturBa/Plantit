@@ -1,6 +1,5 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { ThemeProvider } from "@react-navigation/native";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 import { CalendarTheme } from "./Calendar";

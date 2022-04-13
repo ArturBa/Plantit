@@ -1,5 +1,4 @@
-import moment from "moment";
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
 import {
   StyleProp,
   StyleSheet,
@@ -48,7 +47,7 @@ export function CalendarDay({
             isSelectedDay && styles.todaySelected,
           ]}
         >
-          {date.format("DD")}
+          {date.format("D")}
         </Text>
         {isMarked && <View style={styles.marker} />}
       </TouchableOpacity>
