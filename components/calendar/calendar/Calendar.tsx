@@ -58,9 +58,28 @@ const getBaseWeekDays = (currentDate: Moment): Moment[] => {
 
   return days;
 };
+const prevWeekDays = (currentDate: Moment): Moment[] => {
+  const days: Moment[] = [];
+  [...Array(7).keys()].forEach((i) => {
+    const newDay = moment(currentDate).subtract(i + 1, "day");
+    days.push(newDay);
+  });
+  return days.sort((a, b) => a.diff(b));
+};
+const nextWeekDays = (currentDate: Moment): Moment[] => {
+  const days: Moment[] = [];
+  [...Array(7).keys()].forEach((i) => {
+    const newDay = moment(currentDate).add(i + 1, "day");
+    days.push(newDay);
+  });
+  return days.sort((a, b) => a.diff(b));
+};
+
 const renderedDays = (currentDate: Moment): Moment[] => {
   const baseDays = getBaseWeekDays(currentDate);
-  return baseDays;
+  const previousDays = prevWeekDays(baseDays[0]);
+  const nextDays = nextWeekDays(baseDays[6]);
+  return [...previousDays, ...baseDays, ...nextDays];
 };
 
 function toMomentDate(date: string | Date | Moment): Moment {
@@ -80,7 +99,7 @@ export function Calendar({
   markedDays,
   onDayPressed,
 }: CalendarProps) {
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const selectedDayMoment = toMomentDate(selectedDay);
   const [renderDays, setRenderDays] = useState(renderedDays(selectedDayMoment));
@@ -95,6 +114,19 @@ export function Calendar({
 
   useEffect(() => {
     scrollToPage();
+    console.log("current page", currentPage);
+    if (currentPage === 0) {
+      setRenderDays([
+        ...prevWeekDays(renderDays[0]),
+        ...renderDays.slice(0, 14 - 1),
+      ]);
+    }
+    if (currentPage === 2) {
+      setRenderDays([
+        ...renderDays.slice(7, 21 - 1),
+        ...nextWeekDays(renderDays[20]),
+      ]);
+    }
   }, [currentPage]);
 
   const scrollToPage = (animated = true) => {
@@ -141,11 +173,6 @@ export function Calendar({
         snapToInterval={width}
         decelerationRate="fast"
         keyExtractor={(item) => item.toISOString()}
-        // getItemLayout={(data, index) => ({
-        //   length: width / 7,
-        //   offset: (width / 7) * index,
-        //   index,
-        // })}
         onMomentumScrollEnd={onScrollEnd}
         renderItem={({ item }) => (
           <CalendarDay
