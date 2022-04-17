@@ -1,4 +1,4 @@
-import moment, { Moment } from "moment";
+import moment, { Moment } from 'moment';
 import {
   StyleProp,
   StyleSheet,
@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-} from "react-native";
-import Layout from "../../../constants/Layout";
-import { CalendarTheme } from "./Calendar";
+} from 'react-native';
+import Layout from '../../../constants/Layout';
+import { CalendarTheme } from './CalendarTheme';
 
 type CalendarDayProps = {
   date: Moment;
@@ -27,7 +27,7 @@ export function CalendarDay({
   isMarked,
   theme,
 }: CalendarDayProps) {
-  const isToday = date.startOf("day").isSame(moment().startOf("day"));
+  const isToday = date.startOf('day').isSame(moment().startOf('day'));
   const styles = stylesSheet(theme);
 
   return (
@@ -47,7 +47,7 @@ export function CalendarDay({
             isSelectedDay && styles.todaySelected,
           ]}
         >
-          {date.format("D")}
+          {date.format('D')}
         </Text>
         {isMarked && <View style={styles.marker} />}
       </TouchableOpacity>
@@ -71,12 +71,12 @@ const stylesSheet = ({
       borderRadius: itemWidth / 2,
       width: itemWidth,
       height: itemWidth,
-      overflow: "hidden",
+      overflow: 'hidden',
       padding: containerPadding,
     },
     center: {
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     selectedDay: {
       backgroundColor: selectedDayBackgroundColor,
@@ -97,9 +97,9 @@ const stylesSheet = ({
       color: backgroundColor,
     },
     marker: {
-      position: "absolute",
+      position: 'absolute',
       bottom: 4,
-      left: "50%",
+      left: '50%',
       width: markerSize,
       height: markerSize,
       borderRadius: markerSize / 2,

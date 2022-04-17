@@ -1,17 +1,17 @@
-import { FlatList, StyleSheet, Text } from "react-native";
-import { useEffect } from "react";
+import { StyleSheet } from 'react-native';
+import { useEffect } from 'react';
 
-import Colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
+import Colors from '../../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
 import {
   useAppSelector,
   selectActionDays,
   selectSelectedDay,
   useAppDispatch,
   setCurrentDay,
-} from "../../store";
-import { Calendar, CalendarTheme } from "./calendar";
-import { Moment } from "moment";
+} from '../../store';
+import { Calendar, CalendarTheme } from './calendar-strip';
+import { Moment } from 'moment';
 
 export function CalendarWrapper() {
   const accentColor = Colors[useColorScheme()].tint;
@@ -33,12 +33,12 @@ export function CalendarWrapper() {
 
   const dispatch = useAppDispatch();
   const onDayPress = (date: Moment) => {
-    dispatch(setCurrentDay(date.format("YYYY-MM-DD")));
+    dispatch(setCurrentDay(date.format('YYYY-MM-DD')));
   };
 
   useEffect(() => {
-    if (selectedDay === "") {
-      dispatch(setCurrentDay(new Date().toISOString().split("T")[0]));
+    if (selectedDay === '') {
+      dispatch(setCurrentDay(new Date().toISOString().split('T')[0]));
     }
   }, []);
 
@@ -50,11 +50,6 @@ export function CalendarWrapper() {
       markedDays={actionDay}
       onDayPressed={onDayPress}
     />
-
-    // <CalendarNative
-    //   enableSwipeMonths={true}
-    //   hideArrows={false}
-    // ></CalendarNative>
   );
 }
 

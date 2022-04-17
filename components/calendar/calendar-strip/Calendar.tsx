@@ -12,27 +12,9 @@ import { CalendarDay } from './CalendarDay';
 import moment, { Moment } from 'moment';
 import Layout from '../../../constants/Layout';
 import { WeekDaysHeader } from './WeekDaysHeader';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CalendarMonthHeader } from './CalendarMonthHeader';
-
-export interface CalendarTheme {
-  backgroundColor?: string;
-  textColor?: string;
-  indicatorColor?: string;
-  selectedDayBackgroundColor?: string;
-  dotColor?: string;
-  arrowColor?: string;
-  todayTextColor?: string;
-}
-const defaultTheme: CalendarTheme = {
-  backgroundColor: 'white',
-  indicatorColor: 'green',
-  textColor: 'black',
-  selectedDayBackgroundColor: 'green',
-  dotColor: 'green',
-  arrowColor: 'green',
-  todayTextColor: 'green',
-};
+import { CalendarTheme, defaultTheme } from './CalendarTheme';
 
 type CalendarProps = {
   theme?: CalendarTheme;
@@ -40,6 +22,7 @@ type CalendarProps = {
   selectedDay: string | Date | Moment;
   onDayPressed?: (date: Moment) => void;
   markedDays?: string[] | Date[] | Moment[];
+  hideArrows?: boolean;
 };
 
 const width = Layout.window.width;
@@ -78,9 +61,6 @@ const nextWeekDays = (currentDate: Moment): Moment[] => {
 const renderedDays = (currentDate: Moment): Moment[] => {
   const baseDays = getBaseWeekDays(currentDate);
   return baseDays;
-  const previousDays = prevWeekDays(baseDays[0]);
-  const nextDays = nextWeekDays(baseDays[6]);
-  return [...previousDays, ...baseDays, ...nextDays];
 };
 
 function toMomentDate(date: string | Date | Moment): Moment {
@@ -99,6 +79,7 @@ export function Calendar({
   selectedDay,
   markedDays,
   onDayPressed,
+  hideArrows,
 }: CalendarProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -149,6 +130,7 @@ export function Calendar({
         nextWeek={() => setCurrentPage(currentPage + 1)}
         prevWeek={() => setCurrentPage(currentPage - 1)}
         middleWeekDate={moment(renderDays[10])}
+        hideArrows={true}
       />
       <WeekDaysHeader />
       <FlatList

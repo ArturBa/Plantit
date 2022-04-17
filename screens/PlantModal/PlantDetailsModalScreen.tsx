@@ -68,7 +68,7 @@ export function PlantDetailsModalScreen({
         ></Image>
         <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
-          {plant.name && <ReadOnly label="Name" value={plant.name} />}
+          {/* {plant.name && <ReadOnly label="Name" value={plant.name} />} */}
         </View>
       </View>
 
@@ -76,13 +76,13 @@ export function PlantDetailsModalScreen({
         style={plantDetailsModalStyles.button}
         title="Edit the Plant"
         onPress={onPlantModify}
-      ></Button>
+      />
       <Button
         style={plantDetailsModalStyles.button}
         variant="danger"
         title="Remove the Plant"
         onPress={onPlantRemove}
-      ></Button>
+      />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       {/* <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} /> */}
     </View>
