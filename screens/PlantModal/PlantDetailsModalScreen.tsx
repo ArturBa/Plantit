@@ -1,31 +1,22 @@
-import { FontAwesome5 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import {
-  Alert,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import { Alert, Image, Platform, StyleSheet } from 'react-native';
 
-import { Button, View } from "../../components/Themed";
-import { ReadOnly } from "../../components/Themed/ReadOnly";
-import Colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
+import { Button, View } from '../../components/Themed';
+import { ReadOnly } from '../../components/Themed/ReadOnly';
 import {
   removePlant,
   selectPlantById,
   useAppDispatch,
   useAppSelector,
-} from "../../store";
-import { RootRouteProps } from "../../types";
+} from '../../store';
+import { RootRouteProps } from '../../types';
 
 export function PlantDetailsModalScreen({
   route,
 }: {
-  route: RootRouteProps<"PlantDetailsModal">;
+  route: RootRouteProps<'PlantDetailsModal'>;
 }) {
   const { plantId } = route.params;
   const plant = useAppSelector((state) => selectPlantById(state, plantId));
@@ -39,22 +30,22 @@ export function PlantDetailsModalScreen({
 
   const dispatch = useAppDispatch();
   const onPlantModify = () => {
-    navigation.navigate("PlantModifyModal", { plantId });
+    navigation.navigate('PlantModifyModal', { plantId });
   };
 
   const onPlantRemove = () => {
     Alert.alert(
-      "Remove plant",
+      'Remove plant',
       `Are you sure to remove ${plant.nickname}\nThis is irreversible`,
       [
-        { text: "Cancel", onPress: () => {} },
+        { text: 'Cancel', onPress: () => {} },
         {
-          text: "Remove",
+          text: 'Remove',
           onPress: () => {
             navigation.goBack();
             dispatch(removePlant(plantId));
           },
-          style: "destructive",
+          style: 'destructive',
         },
       ]
     );
@@ -68,7 +59,7 @@ export function PlantDetailsModalScreen({
         ></Image>
         <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
-          {plant.name && <ReadOnly label="Name" value={plant.name} />}
+          {/* {plant.name && <ReadOnly label="Name" value={plant.name} />} */}
         </View>
       </View>
 
@@ -76,13 +67,13 @@ export function PlantDetailsModalScreen({
         style={plantDetailsModalStyles.button}
         title="Edit the Plant"
         onPress={onPlantModify}
-      ></Button>
+      />
       <Button
         style={plantDetailsModalStyles.button}
         variant="danger"
         title="Remove the Plant"
         onPress={onPlantRemove}
-      ></Button>
+      />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       {/* <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} /> */}
     </View>
@@ -95,9 +86,9 @@ export const plantDetailsModalStyles = StyleSheet.create({
     padding: 16,
   },
   plant: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 32,
   },
   plantDetails: {
