@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Alert, Image, StyleSheet } from 'react-native';
+import { Alert, Image, Platform, StyleSheet } from 'react-native';
 
 import { Button, View } from '../../components/Themed';
 import { ReadOnly } from '../../components/Themed/ReadOnly';
@@ -58,7 +59,7 @@ export function PlantDetailsModalScreen({
         />
         <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
-          {plant.name && <ReadOnly label="Name" value={plant.name} />}
+          {/* {plant.name && <ReadOnly label="Name" value={plant.name} />} */}
         </View>
       </View>
 

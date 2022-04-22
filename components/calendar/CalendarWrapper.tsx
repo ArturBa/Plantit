@@ -1,6 +1,3 @@
-import { Calendar as CalendarNative } from 'react-native-calendars';
-import { DateData, Theme } from 'react-native-calendars/src/types';
-import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
 import { StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 
@@ -13,15 +10,18 @@ import {
   useAppDispatch,
   setCurrentDay,
 } from '../../store';
+import { Calendar, CalendarTheme } from './calendar-strip';
+import { Moment } from 'moment';
 
-export function Calendar() {
+export function CalendarWrapper() {
   const accentColor = Colors[useColorScheme()].tint;
   const backgroundColor = Colors[useColorScheme()].background;
+  const textColor = Colors[useColorScheme()].text;
 
-  const calendarTheme: Theme = {
-    backgroundColor,
-    calendarBackground: backgroundColor,
+  const calendarTheme: CalendarTheme = {
+    backgroundColor: backgroundColor,
     indicatorColor: accentColor,
+    textColor,
     selectedDayBackgroundColor: accentColor,
     dotColor: accentColor,
     arrowColor: accentColor,
@@ -30,42 +30,25 @@ export function Calendar() {
 
   const selectedDay = useAppSelector(selectSelectedDay);
   const actionDay = useAppSelector(selectActionDays);
-  const markedDates: { [key: string]: MarkingProps } = actionDay.reduce(
-    (previous, next: string) => {
-      return {
-        ...previous,
-        [next]: {
-          ...previous[next],
-          marked: true,
-        },
-      };
-    },
-    {
-      [selectedDay]: {
-        selected: true,
-      } as MarkingProps,
-    },
-  );
 
   const dispatch = useAppDispatch();
-  const onDayPress = (date: DateData) => {
-    dispatch(setCurrentDay(date.dateString));
+  const onDayPress = (date: Moment) => {
+    dispatch(setCurrentDay(date.format('YYYY-MM-DD')));
   };
 
   useEffect(() => {
     if (selectedDay === '') {
       dispatch(setCurrentDay(new Date().toISOString().split('T')[0]));
     }
-  }, [selectedDay, dispatch]);
+  }, []);
 
   return (
-    <CalendarNative
+    <Calendar
       theme={calendarTheme}
       style={styles.calendar}
-      enableSwipeMonths
-      hideArrows={false}
-      markedDates={markedDates}
-      onDayPress={onDayPress}
+      selectedDay={selectedDay}
+      markedDays={actionDay}
+      onDayPressed={onDayPress}
     />
   );
 }
