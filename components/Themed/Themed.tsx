@@ -3,25 +3,25 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, View as DefaultView } from "react-native";
+import { Text as DefaultText, View as DefaultView } from 'react-native';
 
-import Colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
+import ColorConst from '../../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
 
-export type colors = keyof typeof Colors.light & keyof typeof Colors.dark;
+export type Colors = keyof typeof ColorConst.light &
+  keyof typeof ColorConst.dark;
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
-  colorName: colors
+  colorName: Colors,
 ) {
   const theme = useColorScheme();
   const colorFromProps = props[theme];
 
   if (colorFromProps) {
     return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
   }
+  return ColorConst[theme][colorName];
 }
 
 export type ThemeProps = {
@@ -29,22 +29,32 @@ export type ThemeProps = {
   darkColor?: string;
 };
 
-export type TextProps = ThemeProps & DefaultText["props"];
-export type ViewProps = ThemeProps & DefaultView["props"];
+export type TextProps = ThemeProps & DefaultText['props'];
+export type ViewProps = ThemeProps & DefaultView['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
   return <DefaultText style={[{ color }, style]} {...otherProps} />;
 }
+
+Text.defaultProps = {
+  lightColor: null,
+  darkColor: null,
+};
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "background"
+    'background',
   );
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+View.defaultProps = {
+  lightColor: null,
+  darkColor: null,
+};

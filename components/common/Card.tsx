@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
-} from "react-native";
-import { View } from "../Themed";
+} from 'react-native';
+import { View } from '../Themed';
 
 export function Card({
   children,
@@ -22,10 +22,14 @@ export function Card({
         {children}
       </TouchableOpacity>
     );
-  } else {
-    return <View style={[styles.container, style]}>{children}</View>;
   }
+  return <View style={[styles.container, style]}>{children}</View>;
 }
+
+Card.defaultProps = {
+  style: null,
+  onPress: null,
+};
 
 const styles = StyleSheet.create({
   container: {

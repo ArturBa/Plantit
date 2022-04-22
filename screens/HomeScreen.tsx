@@ -1,12 +1,12 @@
-import { FlatList, StyleSheet } from "react-native";
-import { HomePlant } from "../components/home";
-import { HomeHeader } from "../components/home/HomeHeader";
+import { FlatList, StyleSheet } from 'react-native';
+import { HomePlant } from '../components/home';
+import { HomeHeader } from '../components/home/HomeHeader';
 
-import { Text, View } from "../components/Themed";
-import { selectPlants, useAppSelector } from "../store";
-import { RootTabScreenProps } from "../types";
+import { View } from '../components/Themed';
+import { selectPlants, useAppSelector } from '../store';
+import { RootTabScreenProps } from '../types';
 
-export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
+export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
   const userPlants = useAppSelector(selectPlants);
 
   return (
@@ -14,14 +14,14 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
       <FlatList
         ListHeaderComponent={<HomeHeader />}
         data={userPlants}
-        keyExtractor={(plant) => plant.id}
-        renderItem={(plant) => (
+        keyExtractor={plant => plant.id}
+        renderItem={plant => (
           <>
             <HomePlant plantId={plant.item.id} />
             <View style={styles.separator} />
           </>
         )}
-      ></FlatList>
+      />
     </View>
   );
 }

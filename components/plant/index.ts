@@ -1,1 +1,1 @@
-export { ImageModify } from "./ImageModify";
+export { ImageModify } from './ImageModify';

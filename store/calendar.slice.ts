@@ -1,6 +1,5 @@
-import { blockStatement } from "@babel/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "./store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from './store';
 
 export interface Action {
   done: boolean;
@@ -15,68 +14,68 @@ interface CalendarState {
 }
 
 const initialState: CalendarState = {
-  actionDays: ["2022-04-15", "2022-04-16", "2022-04-22", "2022-04-21"],
-  selectedDay: "",
+  actionDays: ['2022-04-15', '2022-04-16', '2022-04-22', '2022-04-21'],
+  selectedDay: '',
   actions: [
     {
-      id: "57510",
-      type: "Water",
+      id: '57510',
+      type: 'Water',
       done: false,
-      plant: "13",
+      plant: '13',
     },
     {
-      id: "57511",
-      type: "Facile",
+      id: '57511',
+      type: 'Facile',
       done: false,
-      plant: "13",
+      plant: '13',
     },
     {
-      id: "5754r",
-      type: "Mist",
+      id: '5754r',
+      type: 'Mist',
       done: false,
-      plant: "15",
+      plant: '15',
     },
     {
-      id: "57542",
-      type: "Facile",
+      id: '57542',
+      type: 'Facile',
       done: false,
-      plant: "15",
+      plant: '15',
     },
     {
-      id: "57522",
-      type: "Water",
+      id: '57522',
+      type: 'Water',
       done: false,
-      plant: "15",
+      plant: '15',
     },
     {
-      id: "57512",
-      type: "Water",
+      id: '57512',
+      type: 'Water',
       done: false,
-      plant: "12",
+      plant: '12',
     },
     {
-      id: "57515",
-      type: "Water",
+      id: '57515',
+      type: 'Water',
       done: false,
-      plant: "14",
+      plant: '14',
     },
     {
-      id: "57516",
-      type: "Replant",
+      id: '57516',
+      type: 'Replant',
       done: false,
-      plant: "14",
+      plant: '14',
     },
     {
-      id: "57517",
-      type: "Facile",
+      id: '57517',
+      type: 'Facile',
       done: false,
-      plant: "14",
+      plant: '14',
     },
   ],
 };
 
 export const calendarSlice = createSlice({
-  name: "calendar",
+  name: 'calendar',
   initialState,
   reducers: {
     setCurrentDay: (state, action: PayloadAction<string>) => {
@@ -84,9 +83,9 @@ export const calendarSlice = createSlice({
     },
     setActionStatus: (
       state,
-      action: PayloadAction<{ id: string; done: boolean }>
+      action: PayloadAction<{ id: string; done: boolean }>,
     ) => {
-      const index = state.actions.findIndex((a) => a.id === action.payload.id);
+      const index = state.actions.findIndex(a => a.id === action.payload.id);
       if (index !== -1) {
         state.actions[index].done = action.payload.done;
       }
@@ -110,8 +109,8 @@ export const selectActionIds = (state: RootState): string[] =>
   }, []);
 export const selectActionsByPlantId = (
   state: RootState,
-  id: string
+  id: string,
 ): Action[] =>
-  state.calendarReducer.actions.filter((action) => action.plant === id);
+  state.calendarReducer.actions.filter(action => action.plant === id);
 
 export default calendarSlice.reducer;

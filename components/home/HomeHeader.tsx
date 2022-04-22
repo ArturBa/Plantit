@@ -1,16 +1,16 @@
-import { StyleSheet, StatusBar } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import Colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
-import { Button, Text, View } from "../Themed";
+import Colors from '../../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
+import { Button, Text, View } from '../Themed';
 
 export function HomeHeader() {
   const accentColor = Colors[useColorScheme()].tint;
 
   const navigation = useNavigation();
   const onNewPlantPress = () => {
-    navigation.navigate("PlantAddModal");
+    navigation.navigate('PlantAddModal');
   };
 
   const styles = styleSheet(accentColor);
@@ -35,12 +35,12 @@ const styleSheet = (accentColor: string) =>
     header: {
       color: accentColor,
       fontSize: 32,
-      fontWeight: "bold",
+      fontWeight: 'bold',
       marginTop: StatusBar.currentHeight ?? 0 + 16,
     },
     subheader: {
-      justifyContent: "space-between",
-      alignItems: "center",
-      flexDirection: "row",
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
     },
   });
