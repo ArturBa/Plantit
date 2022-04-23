@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 
+import { Moment } from 'moment';
 import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 import {
@@ -11,17 +12,18 @@ import {
   setCurrentDay,
 } from '../../store';
 import { Calendar, CalendarTheme } from './calendar-strip';
-import { Moment } from 'moment';
 
 export function CalendarWrapper() {
   const accentColor = Colors[useColorScheme()].tint;
   const backgroundColor = Colors[useColorScheme()].background;
   const textColor = Colors[useColorScheme()].text;
+  const textLightColor = Colors[useColorScheme()].textLight;
 
   const calendarTheme: CalendarTheme = {
-    backgroundColor: backgroundColor,
+    backgroundColor,
     indicatorColor: accentColor,
     textColor,
+    textLightColor,
     selectedDayBackgroundColor: accentColor,
     dotColor: accentColor,
     arrowColor: accentColor,
@@ -40,7 +42,7 @@ export function CalendarWrapper() {
     if (selectedDay === '') {
       dispatch(setCurrentDay(new Date().toISOString().split('T')[0]));
     }
-  }, []);
+  }, [selectedDay, dispatch]);
 
   return (
     <Calendar

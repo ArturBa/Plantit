@@ -19,6 +19,13 @@ type CalendarDayProps = {
   theme: CalendarTheme;
 };
 
+CalendarDay.defaultProps = {
+  style: {},
+  isSelectedDay: false,
+  isMarked: false,
+  onDayPress: () => {},
+};
+
 export function CalendarDay({
   date,
   style,

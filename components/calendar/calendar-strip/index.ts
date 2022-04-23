@@ -1,2 +1,2 @@
-export { Calendar } from "./Calendar";
-export { CalendarTheme } from "./CalendarTheme"
+export { Calendar } from './Calendar';
+export { CalendarTheme } from './CalendarTheme';

@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Moment } from 'moment';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useMemo } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { CalendarTheme } from './CalendarTheme';
 
@@ -12,6 +13,12 @@ type CalendarMonthHeaderProps = {
   hideArrows?: boolean;
 };
 
+CalendarMonthHeader.defaultProps = {
+  nextWeek: () => {},
+  prevWeek: () => {},
+  hideArrows: false,
+};
+
 const size = 16;
 
 export function CalendarMonthHeader({
@@ -21,6 +28,9 @@ export function CalendarMonthHeader({
   middleWeekDate,
   hideArrows,
 }: CalendarMonthHeaderProps) {
+  const lightText = theme.textLightColor;
+  const styles = useMemo(() => styleSheet({ lightText }), [lightText]);
+
   return (
     <View style={styles.container}>
       {hideArrows ? null : (
@@ -52,22 +62,23 @@ export function CalendarMonthHeader({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  monthText: {
-    fontSize: size,
-    fontWeight: 'bold',
-    color: 'hsl(0, 0%, 50%)',
-    paddingVertical: 4,
-    textAlign: 'center',
-    flex: 1,
-  },
-  touchableIcon: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-});
+const styleSheet = ({ lightText }: { lightText: string }) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    monthText: {
+      fontSize: size,
+      fontWeight: 'bold',
+      color: lightText,
+      paddingVertical: 4,
+      textAlign: 'center',
+      flex: 1,
+    },
+    touchableIcon: {
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+    },
+  });

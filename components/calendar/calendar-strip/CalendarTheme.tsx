@@ -1,6 +1,7 @@
 export interface CalendarTheme {
   backgroundColor?: string;
   textColor?: string;
+  textLightColor: string;
   indicatorColor?: string;
   selectedDayBackgroundColor?: string;
   dotColor?: string;
@@ -12,6 +13,7 @@ export const defaultTheme: CalendarTheme = {
   backgroundColor: 'white',
   indicatorColor: 'green',
   textColor: 'black',
+  textLightColor: 'grey',
   selectedDayBackgroundColor: 'green',
   dotColor: 'green',
   arrowColor: 'green',

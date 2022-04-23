@@ -4,15 +4,14 @@ import {
   NativeSyntheticEvent,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
-import { CalendarDay } from './CalendarDay';
 import moment, { Moment } from 'moment';
+import { useEffect, useRef, useState } from 'react';
+import { CalendarDay } from './CalendarDay';
 import Layout from '../../../constants/Layout';
 import { WeekDaysHeader } from './WeekDaysHeader';
-import { useEffect, useRef, useState } from 'react';
 import { CalendarMonthHeader } from './CalendarMonthHeader';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
 
@@ -25,7 +24,15 @@ type CalendarProps = {
   hideArrows?: boolean;
 };
 
-const width = Layout.window.width;
+Calendar.defaultProps = {
+  theme: defaultTheme,
+  style: {},
+  onDayPressed: () => {},
+  markedDays: [],
+  hideArrows: false,
+};
+
+const { width } = Layout.window;
 
 const getBaseWeekDays = (currentDate: Moment): Moment[] => {
   const days: Moment[] = [];
@@ -34,7 +41,7 @@ const getBaseWeekDays = (currentDate: Moment): Moment[] => {
 
   const baseDayWeekStart = baseDay.clone().subtract(weekdaySelected, 'day');
 
-  [...Array(7).keys()].forEach((i) => {
+  [...Array(7).keys()].forEach(i => {
     const newDay = moment(baseDayWeekStart).add(i, 'day');
     days.push(newDay);
   });
@@ -43,7 +50,7 @@ const getBaseWeekDays = (currentDate: Moment): Moment[] => {
 };
 const prevWeekDays = (currentDate: Moment): Moment[] => {
   const days: Moment[] = [];
-  [...Array(7).keys()].forEach((i) => {
+  [...Array(7).keys()].forEach(i => {
     const newDay = moment(currentDate).subtract(i + 1, 'day');
     days.push(newDay);
   });
@@ -51,7 +58,7 @@ const prevWeekDays = (currentDate: Moment): Moment[] => {
 };
 const nextWeekDays = (currentDate: Moment): Moment[] => {
   const days: Moment[] = [];
-  [...Array(7).keys()].forEach((i) => {
+  [...Array(7).keys()].forEach(i => {
     const newDay = moment(currentDate).add(i + 1, 'day');
     days.push(newDay);
   });
@@ -90,14 +97,6 @@ export function Calendar({
 
   const markedDaysMoment = markedDays?.map(toMomentDate);
 
-  useEffect(() => {
-    scrollToPage(false);
-  }, [flatListRef]);
-
-  useEffect(() => {
-    scrollToPage();
-  }, [currentPage]);
-
   const scrollToPage = (animated = true) => {
     try {
       flatListRef.current?.scrollToIndex({
@@ -109,12 +108,22 @@ export function Calendar({
     }
   };
 
+  useEffect(() => {
+    scrollToPage(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flatListRef]);
+
+  useEffect(() => {
+    scrollToPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
   const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     setCurrentPage(
       Math.floor(
         Math.floor(event.nativeEvent.contentOffset.x) /
-          Math.floor(event.nativeEvent.layoutMeasurement.width)
-      )
+          Math.floor(event.nativeEvent.layoutMeasurement.width),
+      ),
     );
   };
 
@@ -130,11 +139,10 @@ export function Calendar({
         nextWeek={() => setCurrentPage(currentPage + 1)}
         prevWeek={() => setCurrentPage(currentPage - 1)}
         middleWeekDate={moment(renderDays[10])}
-        hideArrows={true}
+        hideArrows={hideArrows}
       />
-      <WeekDaysHeader />
+      <WeekDaysHeader theme={themeToUse} />
       <FlatList
-        // style={[{ flex: 1 }]}
         horizontal
         ref={flatListRef}
         pagingEnabled
@@ -142,7 +150,7 @@ export function Calendar({
         data={renderDays}
         snapToInterval={width}
         decelerationRate="fast"
-        keyExtractor={(item) => item.toISOString()}
+        keyExtractor={item => item.toISOString()}
         onMomentumScrollEnd={onScrollEnd}
         renderItem={({ item }) => (
           <CalendarDay
@@ -150,8 +158,8 @@ export function Calendar({
             theme={themeToUse}
             onDayPress={() => onDayPressed && onDayPressed(item)}
             isSelectedDay={item.isSame(selectedDay)}
-            isMarked={markedDaysMoment?.some((markedDay) =>
-              markedDay.isSame(item)
+            isMarked={markedDaysMoment?.some(markedDay =>
+              markedDay.isSame(item),
             )}
           />
         )}
@@ -163,7 +171,7 @@ export function Calendar({
 const styleSheet = ({ backgroundColor }: CalendarTheme) =>
   StyleSheet.create({
     container: {
-      width: width,
+      width,
       paddingVertical: 4,
       backgroundColor,
     },

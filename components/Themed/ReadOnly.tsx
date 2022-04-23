@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 
-import { ThemeProps, useThemeColor, Text } from './Themed';
+import { ThemeProps, Text } from './Themed';
 
 export type ReadOnlyProps = ThemeProps & {
   label: string;
@@ -8,13 +8,12 @@ export type ReadOnlyProps = ThemeProps & {
 };
 
 export const ReadOnly = (props: ReadOnlyProps) => {
-  const { lightColor, darkColor, ...otherProps } = props;
-  const { value, label } = props;
+  const { value, label, lightColor, darkColor, ...otherProps } = props;
 
   const styles = readOnlyStyleSheet();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...otherProps}>
       <Text style={styles.label}>{label}</Text>
       <Text style={[styles.value]}>{value}</Text>
     </View>
