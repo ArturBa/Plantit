@@ -1,39 +1,38 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { StyleSheet } from "react-native";
-import { Formik } from "formik";
+import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
 
-import { Button, View, TextInput, Text } from "../../components/Themed";
+import { Button, View, TextInput } from '../../components/Themed';
 import {
   updatePlant,
   Plant,
   useAppDispatch,
   useAppSelector,
   selectPlantById,
-} from "../../store";
-import { ImageModify } from "../../components/plant";
-import { plantDetailsModalStyles } from "./PlantDetailsModalScreen";
-import { plantValidationSchema } from "./PlantAddModalScreen";
-import { useEffect } from "react";
-import { RootRouteProps } from "../../types";
+} from '../../store';
+import { ImageModify } from '../../components/plant';
+import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
+import { plantValidationSchema } from './PlantAddModalScreen';
+import { RootRouteProps } from '../../types';
 
 export function PlantModifyModalScreen({
   route,
 }: {
-  route: RootRouteProps<"PlantModifyModal">;
+  route: RootRouteProps<'PlantModifyModal'>;
 }) {
   const { plantId } = route.params;
-  const plant = useAppSelector((state) => selectPlantById(state, plantId));
+  const plant = useAppSelector(state => selectPlantById(state, plantId));
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (value: Plant) => {
     dispatch(updatePlant(value));
     navigation.goBack();
   };
-  let initialValues = { ...plant };
+  const initialValues = { ...plant };
+
   useEffect(() => {
     navigation.setOptions({ headerTitle: `Edit ${plant.nickname}` });
-  }, []);
+  }, [navigation, plant.nickname]);
 
   const styles = plantDetailsModalStyles;
 
@@ -44,7 +43,7 @@ export function PlantModifyModalScreen({
         validationSchema={plantValidationSchema}
         onSubmit={onSubmit}
       >
-        {(formik) => (
+        {formik => (
           <>
             <View style={styles.plant}>
               <ImageModify size={120} name="photoUrl" />
@@ -68,7 +67,7 @@ export function PlantModifyModalScreen({
               disabled={!formik.isValid}
               onPress={formik.submitForm}
               title={`Update ${plant.nickname}`}
-            ></Button>
+            />
           </>
         )}
       </Formik>

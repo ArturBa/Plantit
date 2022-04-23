@@ -19,14 +19,14 @@ export function PlantDetailsModalScreen({
   route: RootRouteProps<'PlantDetailsModal'>;
 }) {
   const { plantId } = route.params;
-  const plant = useAppSelector((state) => selectPlantById(state, plantId));
+  const plant = useAppSelector(state => selectPlantById(state, plantId));
   const navigation = useNavigation();
 
   useEffect(() => {
     navigation.setOptions({
       headerTitle: plant.nickname,
     });
-  }, [plant.nickname]);
+  }, [plant.nickname, navigation]);
 
   const dispatch = useAppDispatch();
   const onPlantModify = () => {
@@ -47,7 +47,7 @@ export function PlantDetailsModalScreen({
           },
           style: 'destructive',
         },
-      ]
+      ],
     );
   };
   return (
@@ -56,7 +56,7 @@ export function PlantDetailsModalScreen({
         <Image
           style={plantDetailsModalStyles.plantImage}
           source={{ uri: plant.photoUrl }}
-        ></Image>
+        />
         <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
           {/* {plant.name && <ReadOnly label="Name" value={plant.name} />} */}

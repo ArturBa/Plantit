@@ -28,6 +28,7 @@ export const readOnlyStyleSheet = () =>
       marginBottom: 8,
       padding: 8,
     },
+    // eslint-disable-next-line react-native/no-color-literals
     label: {
       fontSize: 14,
       color: 'hsla(0, 0%, 0%, 0.54)',
