@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { PlantModel } from '../model';
 import type { RootState } from './store';
 
-export interface Plant {
-  nickname: string;
-  name?: string;
-  id: string;
-  photoUrl: string;
-}
-
 interface PlantState {
-  plants: Plant[];
+  plants: PlantModel[];
 }
 
 const initialState: PlantState = {
@@ -87,10 +82,10 @@ export const plantSlice = createSlice({
   name: 'plant',
   initialState,
   reducers: {
-    addPlant: (state, action: PayloadAction<Plant>) => {
+    addPlant: (state, action: PayloadAction<PlantModel>) => {
       state.plants.push(action.payload);
     },
-    updatePlant: (state, action: PayloadAction<Plant>) => {
+    updatePlant: (state, action: PayloadAction<PlantModel>) => {
       const plantIndex = state.plants.findIndex(
         p => p.id === action.payload.id,
       );
@@ -107,7 +102,7 @@ export const plantSlice = createSlice({
 export const { addPlant, updatePlant, removePlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
-export const selectPlantById = (state: RootState, id: string): Plant =>
+export const selectPlantById = (state: RootState, id: string): PlantModel =>
   state.plantReducer.plants.filter(plant => plant.id === id)[0] || undefined;
 
 export default plantSlice.reducer;
