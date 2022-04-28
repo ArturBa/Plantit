@@ -1,28 +1,44 @@
 import React, {
-  useState,
+  createContext,
   useCallback,
-  useEffect,
   useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Platform } from 'react-native';
 import { Connection, createConnection } from 'typeorm';
-import { PlantRepository } from '../repository/Plant.repository';
-import { dbConnectionOptions } from './config';
 import {
-  DatabaseConnectionContext,
-  DatabaseConnectionContextData,
-} from './connection';
+  Connection as ConnectionBrowser,
+  createConnection as createConnectionBrowser,
+} from 'typeorm-browser';
+
+import { PlantRepository } from '../repository/Plant.repository';
+import { mobileDbConnection, webDbConnection } from './config';
+
+interface DatabaseConnectionContextData {
+  plantsRepository: PlantRepository;
+}
+
+const DatabaseConnectionContext = createContext<DatabaseConnectionContextData>(
+  {} as DatabaseConnectionContextData,
+);
 
 export const DatabaseConnectionProvider: React.FC = ({ children }) => {
-  const [connection, setConnection] = useState<Connection | null>(null);
+  const [connection, setConnection] = useState<
+    Connection | ConnectionBrowser | null
+  >(null);
 
   const connect = useCallback(async () => {
-    const dbOptions = dbConnectionOptions();
-    console.log('dbOptions', dbOptions);
-    const createdConnection = await createConnection(dbOptions);
-
-    setConnection(createdConnection);
+    const createConnectionInstance = async (): Promise<
+      Connection | ConnectionBrowser
+    > => {
+      if (Platform.OS === 'web') {
+        return createConnectionBrowser(webDbConnection);
+      }
+      return createConnection(mobileDbConnection);
+    };
+    createConnectionInstance().then(setConnection).catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -31,26 +47,27 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
     }
   }, [connect, connection]);
 
-  if (!connection) {
+  const databaseConnectionContextData: DatabaseConnectionContextData | null =
+    useMemo(() => {
+      if (!connection) {
+        return null;
+      }
+
+      return {
+        plantsRepository: new PlantRepository(connection as Connection),
+      };
+    }, [connection]);
+
+  if (!connection || !databaseConnectionContextData) {
     return <ActivityIndicator />;
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const databaseValue = useMemo<DatabaseConnectionContextData>(
-  //   () => ({
-  //     plantsRepository: new PlantRepository(connection),
-  //   }),
-  //   [connection],
-  // );
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const databaseValue = {
-    plantsRepository: new PlantRepository(connection),
-  };
-
   return (
-    <DatabaseConnectionContext.Provider value={databaseValue}>
+    /* eslint-disable react/jsx-no-constructed-context-values */
+    <DatabaseConnectionContext.Provider value={databaseConnectionContextData}>
       {children}
     </DatabaseConnectionContext.Provider>
+    /* eslint-enable react/jsx-no-constructed-context-values */
   );
 };
 

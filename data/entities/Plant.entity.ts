@@ -7,7 +7,7 @@ export class PlantEntity extends BaseEntity implements PlantModel {
   @Column({
     nullable: true,
   })
-  name: string | null;
+  name: string | undefined;
 
   @Column()
   nickname: string;
