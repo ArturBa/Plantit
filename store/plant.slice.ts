@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { useDatabaseConnection } from '../data/config/ConnectionProvider';
+import { PlantRepository } from '../data/repository/Plant.repository';
 
 import { PlantModel } from '../model';
 import type { RootState } from './store';
@@ -12,69 +14,69 @@ const initialState: PlantState = {
     {
       nickname: 'Monstera',
       name: 'Monstera deliciosa',
-      id: '13',
+      id: 13,
       photoUrl: 'https://source.unsplash.com/1600x900/?monstera',
     },
     {
       nickname: 'Aloe',
-      id: '12',
+      id: 12,
       photoUrl: 'https://source.unsplash.com/1600x900/?aloe+vera',
     },
     {
       nickname: 'Sansevieria',
-      id: '14',
+      id: 14,
       photoUrl: 'https://source.unsplash.com/1600x900/?sansevieria',
     },
     {
       nickname: 'Dracaena',
       name: 'Dracaena marginata',
-      id: '15',
+      id: 15,
       photoUrl: 'https://source.unsplash.com/1600x900/?dracaena',
     },
-    {
-      nickname: 'Monstera',
-      name: 'Monstera deliciosa',
-      id: '23',
-      photoUrl: 'https://source.unsplash.com/2600x900/?monstera',
-    },
-    {
-      nickname: 'Aloe',
-      id: '22',
-      photoUrl: 'https://source.unsplash.com/2600x900/?aloe+vera',
-    },
-    {
-      nickname: 'Sansevieria',
-      id: '24',
-      photoUrl: 'https://source.unsplash.com/2600x900/?sansevieria',
-    },
-    {
-      nickname: 'Dracaena',
-      name: 'Dracaena marginata',
-      id: '25',
-      photoUrl: 'https://source.unsplash.com/2600x900/?dracaena',
-    },
-    {
-      nickname: 'Monstera',
-      name: 'Monstera deliciosa',
-      id: '33',
-      photoUrl: 'https://source.unsplash.com/3600x900/?monstera',
-    },
-    {
-      nickname: 'Aloe',
-      id: '32',
-      photoUrl: 'https://source.unsplash.com/3600x900/?aloe+vera',
-    },
-    {
-      nickname: 'Sansevieria',
-      id: '34',
-      photoUrl: 'https://source.unsplash.com/3600x900/?sansevieria',
-    },
-    {
-      nickname: 'Dracaena',
-      name: 'Dracaena marginata',
-      id: '35',
-      photoUrl: 'https://source.unsplash.com/3600x900/?dracaena',
-    },
+    // {
+    //   nickname: 'Monstera',
+    //   name: 'Monstera deliciosa',
+    //   id: '23',
+    //   photoUrl: 'https://source.unsplash.com/2600x900/?monstera',
+    // },
+    // {
+    //   nickname: 'Aloe',
+    //   id: '22',
+    //   photoUrl: 'https://source.unsplash.com/2600x900/?aloe+vera',
+    // },
+    // {
+    //   nickname: 'Sansevieria',
+    //   id: '24',
+    //   photoUrl: 'https://source.unsplash.com/2600x900/?sansevieria',
+    // },
+    // {
+    //   nickname: 'Dracaena',
+    //   name: 'Dracaena marginata',
+    //   id: '25',
+    //   photoUrl: 'https://source.unsplash.com/2600x900/?dracaena',
+    // },
+    // {
+    //   nickname: 'Monstera',
+    //   name: 'Monstera deliciosa',
+    //   id: '33',
+    //   photoUrl: 'https://source.unsplash.com/3600x900/?monstera',
+    // },
+    // {
+    //   nickname: 'Aloe',
+    //   id: '32',
+    //   photoUrl: 'https://source.unsplash.com/3600x900/?aloe+vera',
+    // },
+    // {
+    //   nickname: 'Sansevieria',
+    //   id: '34',
+    //   photoUrl: 'https://source.unsplash.com/3600x900/?sansevieria',
+    // },
+    // {
+    //   nickname: 'Dracaena',
+    //   name: 'Dracaena marginata',
+    //   id: '35',
+    //   photoUrl: 'https://source.unsplash.com/3600x900/?dracaena',
+    // },
   ],
 };
 
@@ -105,4 +107,5 @@ export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: string): PlantModel =>
   state.plantReducer.plants.filter(plant => plant.id === id)[0] || undefined;
 
+// export const plantReducer = plantSlice.reducer;
 export default plantSlice.reducer;

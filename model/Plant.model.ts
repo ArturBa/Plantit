@@ -1,6 +1,6 @@
 export interface PlantModel {
   nickname: string;
   name?: string;
-  id: string;
+  id: number;
   photoUrl: string;
 }

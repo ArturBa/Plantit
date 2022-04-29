@@ -1,4 +1,5 @@
 import { Connection, getRepository, Repository } from 'typeorm';
+import { PlantModel } from '../../model';
 import { PlantEntity } from '../entities/Plant.entity';
 
 export class PlantRepository {
@@ -11,5 +12,12 @@ export class PlantRepository {
   public async getAll(): Promise<PlantEntity[]> {
     const plants = await this.ormRepository.find();
     return plants;
+  }
+
+  public async create(
+    plant: Omit<PlantModel, 'id' | 'createdAt' | 'updatedAt'>,
+  ): Promise<PlantEntity> {
+    const createdPlant = await this.ormRepository.save(plant);
+    return createdPlant;
   }
 }

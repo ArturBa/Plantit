@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-const tableName = 'Plant';
+const tableName = 'plants';
 
 export class CreatePlantsTable1650721556938 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -9,13 +9,12 @@ export class CreatePlantsTable1650721556938 implements MigrationInterface {
       new Table({
         name: tableName,
         columns: [
-          {
-            name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
-          },
+          // {
+          //   name: 'id',
+          //   type: 'integer',
+          //   isPrimary: true,
+          //   isGenerated: true,
+          // },
           {
             name: 'name',
             type: 'string',

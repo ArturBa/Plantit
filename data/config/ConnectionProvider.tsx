@@ -73,6 +73,5 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
 
 export function useDatabaseConnection() {
   const context = useContext(DatabaseConnectionContext);
-
   return context;
 }
