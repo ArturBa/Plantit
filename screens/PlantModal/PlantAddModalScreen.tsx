@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, View, TextInput } from '../../components/Themed';
 import { ImageModify } from '../../components/plant';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
-import { useDatabaseConnection } from '../../data/config/ConnectionProvider';
 import { PlantModel } from '../../model';
+import { addPlantAsync, useAppDispatch } from '../../store';
 
 export const plantValidationSchema = yup.object().shape({
   name: yup.string(),
@@ -15,15 +15,12 @@ export const plantValidationSchema = yup.object().shape({
 });
 
 export function PlantAddModalScreen() {
-  // const dispatch = useAppDispatch();
-  const { plantsRepository } = useDatabaseConnection();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (values: Omit<PlantModel, 'id'>) => {
-    plantsRepository.create(values);
-    // const id = Math.random().toString();
-    // dispatch(addPlant({ ...values, id }));
-
-    navigation.goBack();
+    dispatch(addPlantAsync(values))
+      .unwrap()
+      .then(() => navigation.goBack());
   };
 
   const styles = plantDetailsModalStyles;
