@@ -9,12 +9,12 @@ export class CreatePlantsTable1650721556938 implements MigrationInterface {
       new Table({
         name: tableName,
         columns: [
-          // {
-          //   name: 'id',
-          //   type: 'integer',
-          //   isPrimary: true,
-          //   isGenerated: true,
-          // },
+          {
+            name: 'id',
+            type: 'integer',
+            isPrimary: true,
+            isGenerated: true,
+          },
           {
             name: 'name',
             type: 'string',
