@@ -38,6 +38,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Cache
         uses: c-hive/gha-yarn-cache@v2
+      - name: Install
+        run: yarn install --frozen-lockfile
       - name: Linting eslint
         run: yarn eslint .
       - name: Linting prettier
