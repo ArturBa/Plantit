@@ -40,7 +40,7 @@ const initialState: PlantState = {
   ],
 };
 
-export const addPlantAsync = createAsyncThunk(
+export const addPlant = createAsyncThunk(
   'plant/addPlantAsync',
   async (plant: Omit<PlantModel, 'id'>): Promise<PlantModel> => {
     const returnValue: PlantModel = {
@@ -55,14 +55,19 @@ export const addPlantAsync = createAsyncThunk(
   },
 );
 
+export const removePlant = createAsyncThunk(
+  'plant/removePlantAsync',
+  async (plantId: number): Promise<number> => {
+    const { plantsRepository } = await DatabaseContext.getContext();
+    await plantsRepository.delete(plantId);
+    return plantId;
+  },
+);
+
 export const plantSlice = createSlice({
   name: 'plant',
   initialState,
   reducers: {
-    addPlant: (state, action: PayloadAction<PlantModel>) => {
-      state.status = 'loading';
-      // state.plants.push(action.payload);
-    },
     updatePlant: (state, action: PayloadAction<PlantModel>) => {
       const plantIndex = state.plants.findIndex(
         p => p.id === action.payload.id,
@@ -77,20 +82,29 @@ export const plantSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(addPlantAsync.pending, (state, action) => {
+      .addCase(addPlant.pending, (state, action) => {
         state.status = 'loading';
       })
       .addCase(
-        addPlantAsync.fulfilled,
+        addPlant.fulfilled,
         (state, action: PayloadAction<PlantModel>) => {
           state.status = 'succeeded';
           state.plants.push(action.payload);
+        },
+      )
+      .addCase(
+        removePlant.fulfilled,
+        (state, action: PayloadAction<number>) => {
+          state.plants = state.plants.filter(
+            plant => plant.id !== action.payload,
+          );
+          state.status = 'succeeded';
         },
       );
   },
 });
 
-export const { addPlant, updatePlant, removePlant } = plantSlice.actions;
+export const { updatePlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: number): PlantModel =>

@@ -20,4 +20,8 @@ export class PlantRepository {
     const createdPlant = await this.ormRepository.save(plant);
     return createdPlant;
   }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }

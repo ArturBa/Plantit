@@ -6,7 +6,7 @@ import { Button, View, TextInput } from '../../components/Themed';
 import { ImageModify } from '../../components/plant';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
 import { PlantModel } from '../../model';
-import { addPlantAsync, useAppDispatch } from '../../store';
+import { addPlant, useAppDispatch } from '../../store';
 
 export const plantValidationSchema = yup.object().shape({
   name: yup.string(),
@@ -18,7 +18,7 @@ export function PlantAddModalScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (values: Omit<PlantModel, 'id'>) => {
-    dispatch(addPlantAsync(values))
+    dispatch(addPlant(values))
       .unwrap()
       .then(() => navigation.goBack());
   };
