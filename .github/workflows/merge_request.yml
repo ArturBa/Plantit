@@ -1,0 +1,44 @@
+name: Merge request
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  install:
+    name: Install packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache
+        uses: c-hive/gha-yarn-cache@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 16.x
+      - name: Install
+        run: yarn install --frozen-lockfile
+  # build:
+  #   name: Build package
+  #   runs-on: ubuntu-latest
+  #   needs: install
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Cache
+  #       uses: c-hive/gha-yarn-cache@v2
+  analysis:
+    name: Analysis
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache
+        uses: c-hive/gha-yarn-cache@v2
+      - name: Linting eslint
+        run: yarn eslint .
+      - name: Linting prettier
+        run: yarn prettier --check .
