@@ -3,9 +3,9 @@ import type { RootState } from './store';
 
 export interface Action {
   done: boolean;
-  plant: string;
+  plant: number;
   type: string;
-  id: string;
+  id: number;
 }
 interface CalendarState {
   actionDays: string[];
@@ -18,58 +18,16 @@ const initialState: CalendarState = {
   selectedDay: '',
   actions: [
     {
-      id: '57510',
-      type: 'Water',
-      done: false,
-      plant: '13',
-    },
-    {
-      id: '57511',
+      id: 57511,
       type: 'Facile',
       done: false,
-      plant: '13',
+      plant: 1,
     },
     {
-      id: '5754r',
-      type: 'Mist',
-      done: false,
-      plant: '15',
-    },
-    {
-      id: '57542',
-      type: 'Facile',
-      done: false,
-      plant: '15',
-    },
-    {
-      id: '57522',
+      id: 57542,
       type: 'Water',
       done: false,
-      plant: '15',
-    },
-    {
-      id: '57512',
-      type: 'Water',
-      done: false,
-      plant: '12',
-    },
-    {
-      id: '57515',
-      type: 'Water',
-      done: false,
-      plant: '14',
-    },
-    {
-      id: '57516',
-      type: 'Replant',
-      done: false,
-      plant: '14',
-    },
-    {
-      id: '57517',
-      type: 'Facile',
-      done: false,
-      plant: '14',
+      plant: 1,
     },
   ],
 };
@@ -83,7 +41,7 @@ export const calendarSlice = createSlice({
     },
     setActionStatus: (
       state,
-      action: PayloadAction<{ id: string; done: boolean }>,
+      action: PayloadAction<{ id: number; done: boolean }>,
     ) => {
       const index = state.actions.findIndex(a => a.id === action.payload.id);
       if (index !== -1) {
@@ -101,15 +59,15 @@ export const selectSelectedDay = (state: RootState): string =>
   state.calendarReducer.selectedDay;
 export const selectActions = (state: RootState): Action[] =>
   state.calendarReducer.actions;
-export const selectActionIds = (state: RootState): string[] =>
-  state.calendarReducer.actions.reduce((prev: string[], next: Action) => {
+export const selectActionIds = (state: RootState): number[] =>
+  state.calendarReducer.actions.reduce((prev: number[], next: Action) => {
     const array = [...prev];
     array.push(next.id);
     return array;
   }, []);
 export const selectActionsByPlantId = (
   state: RootState,
-  id: string,
+  id: number,
 ): Action[] =>
   state.calendarReducer.actions.filter(action => action.plant === id);
 

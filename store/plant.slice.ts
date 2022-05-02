@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Entity } from 'typeorm';
 import { DatabaseContext } from '../data/config/ConnectionProvider';
 
 import { PlantModel } from '../model';
@@ -64,6 +63,20 @@ export const removePlant = createAsyncThunk(
   },
 );
 
+export const getPlants = createAsyncThunk(
+  'plant/getPlantsAsync',
+  async (): Promise<PlantModel[]> => {
+    const { plantsRepository } = await DatabaseContext.getContext();
+    const plants = await plantsRepository.getAll();
+    return plants.map(p => ({
+      id: p.id,
+      nickname: p.nickname,
+      name: p.name,
+      photoUrl: p.photoUrl,
+    }));
+  },
+);
+
 export const plantSlice = createSlice({
   name: 'plant',
   initialState,
@@ -76,9 +89,6 @@ export const plantSlice = createSlice({
         state.plants[plantIndex] = action.payload;
       }
     },
-    removePlant: (state, action: PayloadAction<number>) => {
-      state.plants = state.plants.filter(plant => plant.id !== action.payload);
-    },
   },
   extraReducers(builder) {
     builder
@@ -88,8 +98,8 @@ export const plantSlice = createSlice({
       .addCase(
         addPlant.fulfilled,
         (state, action: PayloadAction<PlantModel>) => {
-          state.status = 'succeeded';
           state.plants.push(action.payload);
+          state.status = 'succeeded';
         },
       )
       .addCase(
@@ -98,6 +108,13 @@ export const plantSlice = createSlice({
           state.plants = state.plants.filter(
             plant => plant.id !== action.payload,
           );
+          state.status = 'succeeded';
+        },
+      )
+      .addCase(
+        getPlants.fulfilled,
+        (state, action: PayloadAction<PlantModel[]>) => {
+          state.plants = action.payload;
           state.status = 'succeeded';
         },
       );

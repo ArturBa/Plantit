@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Platform } from 'react-native';
 import { Connection, createConnection } from 'typeorm';
 import {

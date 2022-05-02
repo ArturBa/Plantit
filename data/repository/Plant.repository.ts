@@ -24,4 +24,9 @@ export class PlantRepository {
   public async delete(id: number): Promise<void> {
     await this.ormRepository.delete(id);
   }
+
+  public async getById(id: number): Promise<PlantEntity | undefined> {
+    const plant = await this.ormRepository.findOne(id);
+    return plant;
+  }
 }
