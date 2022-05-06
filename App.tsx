@@ -17,6 +17,7 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   }
+
   return (
     <DatabaseConnectionProvider>
       <SafeAreaProvider>
