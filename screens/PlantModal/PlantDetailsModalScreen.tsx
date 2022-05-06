@@ -23,10 +23,12 @@ export function PlantDetailsModalScreen({
   const navigation = useNavigation();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerTitle: plant.nickname,
-    });
-  }, [plant.nickname, navigation]);
+    if (plant?.nickname) {
+      navigation.setOptions({
+        headerTitle: plant.nickname,
+      });
+    }
+  }, [plant?.nickname, navigation]);
 
   const dispatch = useAppDispatch();
   const onPlantModify = () => {
@@ -50,6 +52,12 @@ export function PlantDetailsModalScreen({
       ],
     );
   };
+
+  if (!plant) {
+    // TODO: Add skeleton loading
+    return <View />;
+  }
+
   return (
     <View style={plantDetailsModalStyles.container}>
       <View style={plantDetailsModalStyles.plant}>
@@ -59,7 +67,9 @@ export function PlantDetailsModalScreen({
         />
         <View style={plantDetailsModalStyles.plantDetails}>
           <ReadOnly label="Nickname" value={plant.nickname} />
-          {/* {plant.name && <ReadOnly label="Name" value={plant.name} />} */}
+          {plant.name && plant.name !== '' ? (
+            <ReadOnly label="Name" value={plant.name} />
+          ) : null}
         </View>
       </View>
 

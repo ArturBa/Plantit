@@ -7,36 +7,11 @@ import type { RootState } from './store';
 interface PlantState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   plants: PlantModel[];
-  visiblePlants: number;
 }
 
 const initialState: PlantState = {
   status: 'idle',
-  visiblePlants: 20,
-  plants: [
-    {
-      nickname: 'Monstera',
-      name: 'Monstera deliciosa',
-      id: 13,
-      photoUrl: 'https://source.unsplash.com/1600x900/?monstera',
-    },
-    {
-      nickname: 'Aloe',
-      id: 12,
-      photoUrl: 'https://source.unsplash.com/1600x900/?aloe+vera',
-    },
-    {
-      nickname: 'Sansevieria',
-      id: 14,
-      photoUrl: 'https://source.unsplash.com/1600x900/?sansevieria',
-    },
-    {
-      nickname: 'Dracaena',
-      name: 'Dracaena marginata',
-      id: 15,
-      photoUrl: 'https://source.unsplash.com/1600x900/?dracaena',
-    },
-  ],
+  plants: [],
 };
 
 export const addPlant = createAsyncThunk(
@@ -50,6 +25,19 @@ export const addPlant = createAsyncThunk(
     const { plantsRepository } = await DatabaseContext.getContext();
     const plantEntity = await plantsRepository.create(plant);
     returnValue.id = plantEntity.id;
+    return returnValue;
+  },
+);
+
+export const updatePlant = createAsyncThunk(
+  'plant/updatePlantAsync',
+  async (plant: PlantModel): Promise<PlantModel> => {
+    const returnValue: PlantModel = {
+      ...plant,
+    };
+
+    const { plantsRepository } = await DatabaseContext.getContext();
+    await plantsRepository.update(plant);
     return returnValue;
   },
 );
@@ -80,16 +68,7 @@ export const getPlants = createAsyncThunk(
 export const plantSlice = createSlice({
   name: 'plant',
   initialState,
-  reducers: {
-    updatePlant: (state, action: PayloadAction<PlantModel>) => {
-      const plantIndex = state.plants.findIndex(
-        p => p.id === action.payload.id,
-      );
-      if (plantIndex !== -1) {
-        state.plants[plantIndex] = action.payload;
-      }
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(addPlant.pending, (state, action) => {
@@ -102,6 +81,9 @@ export const plantSlice = createSlice({
           state.status = 'succeeded';
         },
       )
+      .addCase(removePlant.pending, (state, action) => {
+        state.status = 'loading';
+      })
       .addCase(
         removePlant.fulfilled,
         (state, action: PayloadAction<number>) => {
@@ -111,21 +93,36 @@ export const plantSlice = createSlice({
           state.status = 'succeeded';
         },
       )
+      .addCase(getPlants.pending, (state, action) => {
+        state.status = 'loading';
+      })
       .addCase(
         getPlants.fulfilled,
         (state, action: PayloadAction<PlantModel[]>) => {
           state.plants = action.payload;
           state.status = 'succeeded';
         },
+      )
+      .addCase(updatePlant.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(
+        updatePlant.fulfilled,
+        (state, action: PayloadAction<PlantModel>) => {
+          const plantIndex = state.plants.findIndex(
+            p => p.id === action.payload.id,
+          );
+          if (plantIndex !== -1) {
+            state.plants[plantIndex] = action.payload;
+          }
+          state.status = 'succeeded';
+        },
       );
   },
 });
-
-export const { updatePlant } = plantSlice.actions;
 
 export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: number): PlantModel =>
   state.plantReducer.plants.filter(plant => plant.id === id)[0] || undefined;
 
-// export const plantReducer = plantSlice.reducer;
 export default plantSlice.reducer;

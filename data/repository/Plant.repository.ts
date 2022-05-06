@@ -29,4 +29,9 @@ export class PlantRepository {
     const plant = await this.ormRepository.findOne(id);
     return plant;
   }
+
+  public async update(plant: PlantModel): Promise<PlantEntity> {
+    const updatedPlant = await this.ormRepository.save(plant);
+    return updatedPlant;
+  }
 }
