@@ -34,7 +34,6 @@
     "expo-status-bar": "~1.2.0",
     "expo-web-browser": "~10.1.0",
     "formik": "^2.2.9",
-    "localstorage-polyfill": "^1.0.1",
     "moment": "^2.29.2",
     "path": "^0.12.7",
     "react": "17.0.1",
