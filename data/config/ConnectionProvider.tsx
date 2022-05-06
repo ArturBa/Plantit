@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Platform } from 'react-native';
-import { Connection, createConnection } from 'typeorm';
-import {
-  Connection as ConnectionBrowser,
-  createConnection as createConnectionBrowser,
-} from 'typeorm-browser';
+import { Connection } from 'typeorm';
 
 import { PlantRepository } from '../repository/Plant.repository';
 import { mobileDbConnection, webDbConnection } from './config';
@@ -19,12 +15,12 @@ const DatabaseConnectionContext = createContext<DatabaseConnectionContextData>(
 
 export class DatabaseContext {
   protected static async connect() {
-    const createConnectionInstance = async (): Promise<
-      Connection | ConnectionBrowser
-    > => {
+    const createConnectionInstance = async (): Promise<Connection> => {
       if (Platform.OS === 'web') {
-        return createConnectionBrowser(webDbConnection);
+        const { createConnection } = await import('typeorm-browser');
+        return createConnection(webDbConnection) as unknown as Connection;
       }
+      const { createConnection } = await import('typeorm');
       return createConnection(mobileDbConnection);
     };
 
@@ -34,10 +30,10 @@ export class DatabaseContext {
   }
 
   protected static createDatabaseConnectionContext = (
-    connection: Connection | ConnectionBrowser,
+    connection: Connection,
   ) => {
     this.databaseConnectionContext = {
-      plantsRepository: new PlantRepository(connection as Connection),
+      plantsRepository: new PlantRepository(connection),
     };
   };
 

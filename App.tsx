@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'localstorage-polyfill';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';

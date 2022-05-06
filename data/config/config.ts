@@ -1,5 +1,5 @@
 import { ConnectionOptions } from 'typeorm';
-import { ConnectionOptions as ConnectionOptionsBrowser } from 'typeorm-browser';
+// import { ConnectionOptions as ConnectionOptionsBrowser } from 'typeorm-browser';
 import * as ExpoSQLite from 'expo-sqlite';
 
 import { PlantEntity } from '../entities/Plant.entity';
@@ -22,7 +22,7 @@ export const mobileDbConnection: ConnectionOptions = {
   ...commonDbConnection,
 };
 
-export const webDbConnection: ConnectionOptionsBrowser = {
+export const webDbConnection: any = {
   type: 'websql',
   ...commonDbConnection,
 };
