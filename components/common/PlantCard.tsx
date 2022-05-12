@@ -1,9 +1,10 @@
 import { Image, StyleSheet } from 'react-native';
 import { ReactNode } from 'react';
 
-import { Plant, selectPlantById, useAppSelector } from '../../store';
+import { selectPlantById, useAppSelector } from '../../store';
 import { Card } from './Card';
 import { View, Text } from '../Themed';
+import { PlantModel } from '../../model';
 
 PlantCard.defaultProps = {
   onPress: () => {},
@@ -19,8 +20,8 @@ export function PlantCard({
   onPress,
 }: {
   children?: ReactNode;
-  plantId?: string;
-  plant?: Plant;
+  plantId?: number;
+  plant?: PlantModel;
   onPress?: () => void;
 }) {
   if (!plant && !plantId) {
@@ -32,7 +33,7 @@ export function PlantCard({
   }
   /* eslint-disable react-hooks/rules-of-hooks */
   const displayPlant =
-    plant ?? useAppSelector(state => selectPlantById(state, plantId ?? ''));
+    plant ?? useAppSelector(state => selectPlantById(state, plantId ?? 0));
   /* eslint-enable react-hooks/rules-of-hooks */
 
   return (

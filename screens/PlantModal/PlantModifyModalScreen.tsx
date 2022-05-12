@@ -5,7 +5,6 @@ import { Formik } from 'formik';
 import { Button, View, TextInput } from '../../components/Themed';
 import {
   updatePlant,
-  Plant,
   useAppDispatch,
   useAppSelector,
   selectPlantById,
@@ -14,6 +13,7 @@ import { ImageModify } from '../../components/plant';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
 import { plantValidationSchema } from './PlantAddModalScreen';
 import { RootRouteProps } from '../../types';
+import { PlantModel } from '../../model';
 
 export function PlantModifyModalScreen({
   route,
@@ -24,9 +24,12 @@ export function PlantModifyModalScreen({
   const plant = useAppSelector(state => selectPlantById(state, plantId));
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const onSubmit = (value: Plant) => {
-    dispatch(updatePlant(value));
-    navigation.goBack();
+  const onSubmit = (value: PlantModel) => {
+    dispatch(updatePlant(value))
+      .unwrap()
+      .then(() => {
+        navigation.goBack();
+      });
   };
   const initialValues = { ...plant };
 

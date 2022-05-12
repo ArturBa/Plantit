@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { selectPlantById, useAppSelector } from '../../store';
 import { PlantCard } from '../common/PlantCard';
 
-export function HomePlant({ plantId }: { plantId: string }) {
+export function HomePlant({ plantId }: { plantId: number }) {
   const plant = useAppSelector(state => selectPlantById(state, plantId));
   const navigation = useNavigation();
 

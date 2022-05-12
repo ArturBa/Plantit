@@ -2,10 +2,11 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 
-import { addPlant, Plant, useAppDispatch } from '../../store';
 import { Button, View, TextInput } from '../../components/Themed';
 import { ImageModify } from '../../components/plant';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
+import { PlantModel } from '../../model';
+import { addPlant, useAppDispatch } from '../../store';
 
 export const plantValidationSchema = yup.object().shape({
   name: yup.string(),
@@ -16,10 +17,10 @@ export const plantValidationSchema = yup.object().shape({
 export function PlantAddModalScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const onSubmit = (values: Omit<Plant, 'id'>) => {
-    const id = Math.random().toString();
-    dispatch(addPlant({ ...values, id }));
-    navigation.goBack();
+  const onSubmit = (values: Omit<PlantModel, 'id'>) => {
+    dispatch(addPlant(values))
+      .unwrap()
+      .then(() => navigation.goBack());
   };
 
   const styles = plantDetailsModalStyles;
