@@ -6,7 +6,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-export class BaseEntity {
+export class AbstractEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
