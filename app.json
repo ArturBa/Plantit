@@ -31,6 +31,15 @@
     },
     "packagerOpts": {
       "config": "metro.config.js"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/images/favicon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ]
   }
 }

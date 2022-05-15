@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -30,6 +30,7 @@ import {
   RootTabScreenProps,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import SettingsScreen from '../screens/SettingsScreen';
 
 export default function Navigation({
   colorScheme,
@@ -127,6 +128,14 @@ function BottomTabNavigator() {
           tabBarIcon: CalendarTabBarIcon,
         }}
       />
+      <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: SettingsTabBarIcon,
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -136,6 +145,16 @@ function HomeTabBarIcon({ color }: { color: string }) {
 }
 function CalendarTabBarIcon({ color }: { color: string }) {
   return <TabBarIcon name="calendar" color={color} />;
+}
+function SettingsTabBarIcon({ color }: { color: string }) {
+  return (
+    <FontAwesome
+      size={30}
+      style={tabBarIconStyle.icon}
+      name="gear"
+      color={color}
+    />
+  );
 }
 
 /**

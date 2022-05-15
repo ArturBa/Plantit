@@ -38,6 +38,7 @@ export type RootRouteProps<Screen extends keyof RootStackParamList> = RouteProp<
 export type RootTabParamList = {
   Home: undefined;
   Calendar: undefined;
+  Settings: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
