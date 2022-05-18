@@ -1,13 +1,13 @@
 import 'reflect-metadata';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { configureAppStore } from './store/store';
-import { DatabaseConnectionProvider } from './data/config/ConnectionProvider';
+import { ProviderCombo } from './components/provider';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -19,13 +19,11 @@ export default function App() {
   }
 
   return (
-    <DatabaseConnectionProvider>
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar style={colorScheme} />
-        </Provider>
-      </SafeAreaProvider>
-    </DatabaseConnectionProvider>
+    <ProviderCombo>
+      <Provider store={store}>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar style={colorScheme} />
+      </Provider>
+    </ProviderCombo>
   );
 }

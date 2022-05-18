@@ -6,6 +6,7 @@ import { Text, View, Button, Platform } from 'react-native';
 import {
   registerForPushNotificationsAsync,
   schedulePushNotification,
+  DailyReminderButtonType,
 } from './config';
 
 export default function NotificationTest() {
@@ -22,12 +23,21 @@ export default function NotificationTest() {
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener(n => {
-        setNotification(n);
+        // setNotification(n);
       });
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener(response => {
         console.log(response);
+        if (
+          response.actionIdentifier === DailyReminderButtonType.REMIND_LATER
+        ) {
+          console.log("Notification action: 'Remind me later'");
+          Notifications.dismissNotificationAsync(
+            response.notification.request.identifier,
+          );
+          schedulePushNotification();
+        }
       });
 
     return () => {

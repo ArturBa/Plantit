@@ -3,28 +3,47 @@ import { Platform } from 'react-native';
 
 const dailyReminderCategory = 'dailyReminder';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+export enum DailyReminderButtonType {
+  OPEN_CALENDAR = 'OPEN_CALENDAR',
+  REMIND_LATER = 'REMIND_LATER',
+}
 
-Notifications.setNotificationCategoryAsync(dailyReminderCategory, [
-  {
-    identifier: 'yes',
-    buttonTitle: 'Yes',
-  },
-]);
+if (Platform.OS !== 'web') {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+
+  Notifications.setNotificationCategoryAsync(dailyReminderCategory, [
+    {
+      identifier: DailyReminderButtonType.REMIND_LATER,
+      buttonTitle: 'Remind me later',
+      options: {
+        opensAppToForeground: false,
+      },
+    },
+    {
+      identifier: DailyReminderButtonType.OPEN_CALENDAR,
+      buttonTitle: `Let's do it!`,
+      options: {
+        opensAppToForeground: true,
+      },
+    },
+  ]);
+}
 
 export async function schedulePushNotification() {
+  console.log('schedulePushNotification');
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "It's time to take care of your plants",
-      body: 'Remember to water them!',
-      data: { data: 'goes here' },
+      title: 'Take care of your plants 🌱',
+      body: 'By taking care regularly your plants are growing bigger and bigger',
+      data: {},
       categoryIdentifier: dailyReminderCategory,
+      autoDismiss: true,
     },
     trigger: { seconds: 2 },
   });
@@ -52,8 +71,8 @@ export async function registerForPushNotificationsAsync(): Promise<
   console.log('generated new token', token);
 
   if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
+    Notifications.setNotificationChannelAsync('PlantItNotification', {
+      name: 'PlantItNotification',
       importance: Notifications.AndroidImportance.DEFAULT,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FF231F7C',
