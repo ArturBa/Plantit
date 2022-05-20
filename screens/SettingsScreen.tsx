@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import NotificationTest from '../components/notification/Test';
+import { CareScheduledNotification } from '../components/notification/CareScheduledNotification';
 
 import { Button, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
 
 export default function SettingsScreen() {
+  const onClick = () => {
+    CareScheduledNotification();
+  };
+
   return (
     <View style={styles.container}>
-      <Button title="Notify" />
-      <NotificationTest />
+      <Button title="Notify" onPress={onClick} />
     </View>
   );
 }
