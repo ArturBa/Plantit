@@ -1,7 +1,6 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DatabaseConnectionProvider } from '../../data/config/ConnectionProvider';
-import { NotificationProvider } from '../notification/NotificationProvider';
 
 const compose = (
   providers: React.FC<{ children: React.ReactNode }>[],
@@ -19,5 +18,4 @@ const compose = (
 export const ProviderCombo = compose([
   SafeAreaProvider,
   DatabaseConnectionProvider,
-  NotificationProvider,
 ]);

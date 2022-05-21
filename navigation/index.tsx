@@ -31,6 +31,7 @@ import {
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import SettingsScreen from '../screens/SettingsScreen';
+import { NotificationProvider } from '../components/notification/NotificationProvider';
 
 export default function Navigation({
   colorScheme,
@@ -51,7 +52,9 @@ export default function Navigation({
   };
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={theme}>
-      <RootNavigator />
+      <NotificationProvider>
+        <RootNavigator />
+      </NotificationProvider>
     </NavigationContainer>
   );
 }

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 
 import useCachedResources from './hooks/useCachedResources';
@@ -18,11 +18,16 @@ export default function App() {
     return null;
   }
 
+  const statusBarStyle: StatusBarStyle = 'inverted';
+
   return (
     <ProviderCombo>
       <Provider store={store}>
         <Navigation colorScheme={colorScheme} />
-        <StatusBar style={colorScheme} />
+        <StatusBar
+          // eslint-disable-next-line react/style-prop-object
+          style={statusBarStyle}
+        />
       </Provider>
     </ProviderCombo>
   );

@@ -2,12 +2,15 @@ import React, {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Subscription } from 'expo-modules-core';
 import * as Notifications from 'expo-notifications';
+import { useNavigation } from '@react-navigation/native';
+
 import { registerForPushNotificationsAsync } from './config';
 import { CareScheduledNotificationHandler } from './CareScheduledNotification';
 import { AbstractNotificationHandler } from './AbstractNotificationHandler';
@@ -21,10 +24,6 @@ const NotificationContext = createContext<NotificationContextData>(
   {} as NotificationContextData,
 );
 
-const notificationHandlers: AbstractNotificationHandler[] = [
-  new CareScheduledNotificationHandler(),
-];
-
 export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -34,6 +33,12 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
   >(undefined);
   const notificationListener = useRef<Subscription>();
   const responseListener = useRef<Subscription>();
+
+  const navigation = useNavigation();
+
+  const notificationHandlers: AbstractNotificationHandler[] = useMemo(() => {
+    return [new CareScheduledNotificationHandler(navigation)];
+  }, [navigation]);
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -62,7 +67,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       Notifications.removeNotificationSubscription(responseListener.current!);
     };
-  }, []);
+  }, [notificationHandlers]);
 
   useEffect(() => {
     setNotificationContextData({

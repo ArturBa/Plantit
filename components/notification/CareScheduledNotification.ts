@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { NavigationProp } from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
@@ -55,7 +56,14 @@ export async function CareScheduledNotification({ seconds } = { seconds: 2 }) {
 }
 
 export class CareScheduledNotificationHandler extends AbstractNotificationHandler {
-  onNotificationReceived(notification: Notifications.Notification): void {
+  navigation: NavigationProp<ReactNavigation.RootParamList>;
+
+  constructor(navigation: NavigationProp<ReactNavigation.RootParamList>) {
+    super();
+    this.navigation = navigation;
+  }
+
+  onNotificationReceived(_: Notifications.Notification): void {
     console.log(
       'CareScheduledNotificationHandler.onNotificationReceivedListener',
     );
@@ -68,7 +76,9 @@ export class CareScheduledNotificationHandler extends AbstractNotificationHandle
       notification.actionIdentifier ===
       CareScheduledNotificationType.OPEN_CALENDAR
     ) {
-      console.log('OPEN_CALENDAR');
+      this.navigation.navigate('Root', {
+        screen: 'Calendar',
+      });
     }
     if (
       notification.actionIdentifier ===
