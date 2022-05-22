@@ -95,7 +95,8 @@ type ButtonStyleSheetProps = {
 const styleSheet = ({ backgroundColor, textColor }: ButtonStyleSheetProps) =>
   StyleSheet.create({
     container: {
-      padding: 8,
+      padding: 12,
+      borderRadius: 8,
       backgroundColor,
       color: textColor,
     },

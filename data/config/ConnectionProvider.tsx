@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import {
   Connection,
   createConnection as createConnectionMobile,
 } from 'typeorm';
+import { ActivityIndicatorScreen } from '../../screens/ActivityIndicatorScreen';
 
 import { PlantRepository } from '../repository/Plant.repository';
 import { mobileDbConnection, webDbConnection } from './config';
@@ -60,7 +61,7 @@ export const DatabaseConnectionProvider: React.FC = ({ children }) => {
   }, []);
 
   if (!databaseConnectionContextData) {
-    return <ActivityIndicator />;
+    return <ActivityIndicatorScreen title="Illuminate Plants" />;
   }
 
   return (
