@@ -63,11 +63,7 @@ export class CareScheduledNotificationHandler extends AbstractNotificationHandle
     this.navigation = navigation;
   }
 
-  onNotificationReceived(_: Notifications.Notification): void {
-    console.log(
-      'CareScheduledNotificationHandler.onNotificationReceivedListener',
-    );
-  }
+  onNotificationReceived(_: Notifications.Notification): void {}
 
   onNotificationResponseReceived(
     notification: Notifications.NotificationResponse,
@@ -85,9 +81,9 @@ export class CareScheduledNotificationHandler extends AbstractNotificationHandle
       CareScheduledNotificationType.REMIND_LATER
     ) {
       CareScheduledNotification({ seconds: 60 });
-      Notifications.dismissNotificationAsync(
-        notification.notification.request.identifier,
-      );
     }
+    Notifications.dismissNotificationAsync(
+      notification.notification.request.identifier,
+    );
   }
 }

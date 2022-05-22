@@ -34,7 +34,7 @@ export async function registerForPushNotificationsAsync(): Promise<
   if (Platform.OS === 'android') {
     Notifications.setNotificationChannelAsync('PlantItNotification', {
       name: 'PlantItNotification',
-      importance: Notifications.AndroidImportance.DEFAULT,
+      importance: Notifications.AndroidImportance.HIGH,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FF231F7C',
     });
