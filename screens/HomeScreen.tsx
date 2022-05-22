@@ -18,7 +18,6 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
     dispatch(getPlants());
   }, [dispatch]);
   const userPlants = useAppSelector(selectPlants);
-  console.log('User plants', userPlants);
 
   return (
     <View style={styles.container}>

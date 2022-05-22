@@ -25,6 +25,11 @@ const linking: LinkingOptions<RootStackParamList> = {
               CalendarScreen: 'calendar',
             },
           },
+          Settings: {
+            screens: {
+              SettingsScreen: 'settings',
+            },
+          },
         },
       },
       PlantDetailsModal: 'plantDetailsModal',

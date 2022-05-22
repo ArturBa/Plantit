@@ -1,13 +1,13 @@
 import 'reflect-metadata';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from 'react';
+import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { configureAppStore } from './store/store';
-import { DatabaseConnectionProvider } from './data/config/ConnectionProvider';
+import { ProviderCombo } from './components/provider';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -18,14 +18,17 @@ export default function App() {
     return null;
   }
 
+  const statusBarStyle: StatusBarStyle = 'inverted';
+
   return (
-    <DatabaseConnectionProvider>
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar style={colorScheme} />
-        </Provider>
-      </SafeAreaProvider>
-    </DatabaseConnectionProvider>
+    <ProviderCombo>
+      <Provider store={store}>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar
+          // eslint-disable-next-line react/style-prop-object
+          style={statusBarStyle}
+        />
+      </Provider>
+    </ProviderCombo>
   );
 }
