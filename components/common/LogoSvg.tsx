@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import Animated, {
-  useAnimatedProps,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-  withRepeat,
   Easing,
+  useAnimatedProps,
+  useSharedValue,
+  withRepeat,
+  withTiming,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
 
@@ -28,11 +27,6 @@ export const LogoSvg: React.FC<LogoSvgProps> = (props: LogoSvgProps) => {
       -1,
     );
   }, [progress]);
-  // const widthValue = useSharedValue(size || 100);
-
-  // const animatedOuterProps = useAnimatedProps(() => ({
-  //   strokeDashoffset: widthValue.value,
-  // }));
 
   const strokeDasharray = Math.floor(size! * 0.65);
   const logoOuterProps = useAnimatedProps(() => {
