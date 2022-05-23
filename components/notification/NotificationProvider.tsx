@@ -75,7 +75,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   }, [expoPushToken]);
 
-  if (!notificationContextData) {
+  if (true) {
     return <ActivityIndicatorScreen title="Watering Plants" />;
   }
 

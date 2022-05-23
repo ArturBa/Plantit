@@ -5,6 +5,7 @@ module.exports = api => {
     plugins: [
       '@babel/transform-react-jsx-source',
       'babel-plugin-transform-typescript-metadata',
+      'react-native-reanimated/plugin',
     ],
   };
 };
