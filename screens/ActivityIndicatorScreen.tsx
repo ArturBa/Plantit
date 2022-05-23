@@ -1,8 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
-import { Text, View } from '../components/Themed';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import { StyleSheet } from 'react-native';
+import Animated, { FadeOut } from 'react-native-reanimated';
+import { LogoSvg } from '../components/common/LogoSvg';
+import { Text } from '../components/Themed';
 
 export interface ActivityIndicatorScreenProps {
   title: string;
@@ -11,13 +11,11 @@ export interface ActivityIndicatorScreenProps {
 export function ActivityIndicatorScreen({
   title,
 }: ActivityIndicatorScreenProps): React.ReactElement {
-  const accentColor = Colors[useColorScheme()].tint;
-
   return (
-    <View style={styles.container}>
+    <Animated.View style={styles.container} exiting={FadeOut}>
       <Text style={styles.text}>{title}</Text>
-      <ActivityIndicator size="large" color={accentColor} />
-    </View>
+      <LogoSvg />
+    </Animated.View>
   );
 }
 
