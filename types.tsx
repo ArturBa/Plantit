@@ -25,8 +25,6 @@ export type RootStackParamList = {
   PlantModifyModal: { plantId: number };
   PlantAddModal: undefined;
   NotFound: undefined;
-
-  Storybook: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

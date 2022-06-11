@@ -1,27 +1,44 @@
-import { storiesOf } from '@storybook/react-native';
-import { boolean, select, text } from '@storybook/addon-knobs';
+// Button.stories.ts|tsx
+import React from 'react';
 import { action } from '@storybook/addon-actions';
+import { Text } from 'react-native';
+import { boolean, text, select } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/react-native';
 
 import { Button, ButtonVariant } from './Button';
 import { CenterView } from '../../storybook/CenterView';
 
+const actions = {
+  onTouch: action('onTouch'),
+};
+
 const variants: ButtonVariant[] = ['primary', 'secondary', 'inline', 'danger'];
 
-storiesOf('components/Button', module)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-  .add('Primary', () => (
+storiesOf('Button', module)
+  .addDecorator(story => <CenterView>{story()}</CenterView>)
+  .add('Default', () => (
+    <Button title={text('text', 'Primary')} onPress={actions.onTouch} />
+  ))
+  .add('Disabled', () => (
     <Button
-      disabled={boolean('disabled', false)}
-      variant={select('variant', variants, variants[0])}
-      title={text('title', 'Button')}
-      onPress={action('onPress executed')}
+      title="Disabled"
+      disabled={boolean('disabled', true)}
+      onPress={actions.onTouch}
+      variant="primary"
     />
   ))
-  .add('Secondary', () => (
+  .add('Variant', () => (
     <Button
-      disabled={boolean('disabled', false)}
-      variant={select('variant', variants, variants[1])}
-      title={text('title', 'Button')}
-      onPress={action('onPress executed')}
+      title="Button"
+      onPress={actions.onTouch}
+      variant={select('variant', variants, variants[0])}
     />
+  ))
+  .add('With children', () => (
+    <Button
+      onPress={actions.onTouch}
+      variant={select('variant', variants, variants[0])}
+    >
+      <Text>Children</Text>
+    </Button>
   ));

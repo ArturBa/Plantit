@@ -9,15 +9,10 @@ export default function SettingsScreen() {
   const onNotifyClick = () => {
     CareScheduledNotification();
   };
-  const nav = useNavigation();
-  const onStorybookClick = () => {
-    nav.navigate('Storybook');
-  };
 
   return (
     <View style={styles.container}>
       <Button title="Notify" onPress={onNotifyClick} />
-      <Button title="Storybook" onPress={onStorybookClick} />
     </View>
   );
 }

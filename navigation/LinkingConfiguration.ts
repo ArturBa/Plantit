@@ -30,11 +30,6 @@ const linking: LinkingOptions<RootStackParamList> = {
               SettingsScreen: 'settings',
             },
           },
-          Development: {
-            screens: {
-              Storybook: 'storybook',
-            },
-          },
         },
       },
       PlantDetailsModal: 'plantDetailsModal',
