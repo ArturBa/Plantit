@@ -24,8 +24,9 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
   return (
     <View style={styles.container}>
+      <HomeHeader />
       <FlatList
-        ListHeaderComponent={<HomeHeader />}
+        ListHeaderComponent={<View />}
         ListHeaderComponentStyle={styles.header}
         ListFooterComponentStyle={styles.footer}
         ListFooterComponent={<View />}
@@ -41,6 +42,7 @@ const styleSheet = (accent: string) =>
   StyleSheet.create({
     container: {
       padding: 16,
+      flex: 1,
     },
     header: {
       borderBottomWidth: 1,
