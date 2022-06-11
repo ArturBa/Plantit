@@ -1,12 +1,11 @@
 import { StyleSheet, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import { colors, Typography } from '../../constants';
 import { Button, Text, View } from '../Themed';
 
 export function HomeHeader() {
-  const accentColor = Colors[useColorScheme()].tint;
+  const accentColor = colors.accentBasic;
 
   const navigation = useNavigation();
   const onNewPlantPress = () => {
@@ -19,8 +18,8 @@ export function HomeHeader() {
     <View style={styles.container}>
       <Text style={styles.header}>Welcome back</Text>
       <View style={styles.subheader}>
-        <Text>Take care of your plants</Text>
-        <Button onPress={onNewPlantPress} title="Add Plant" />
+        <Text style={styles.subheader_text}>Take care of your plants</Text>
+        <Button onPress={onNewPlantPress} title="Add" />
       </View>
     </View>
   );
@@ -30,17 +29,19 @@ const styleSheet = (accentColor: string) =>
   StyleSheet.create({
     container: {
       marginHorizontal: 16,
+      marginTop: StatusBar.currentHeight ?? 0 + 16,
       marginBottom: 24,
     },
     header: {
       color: accentColor,
-      fontSize: 32,
-      fontWeight: 'bold',
-      marginTop: StatusBar.currentHeight ?? 0 + 16,
+      ...Typography.title_1,
     },
     subheader: {
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
+    },
+    subheader_text: {
+      ...Typography.subtitle_1,
     },
   });

@@ -1,8 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import { colors } from '../constants';
 
 export interface ActivityIndicatorScreenProps {
   title: string;
@@ -11,7 +10,7 @@ export interface ActivityIndicatorScreenProps {
 export function ActivityIndicatorScreen({
   title,
 }: ActivityIndicatorScreenProps): React.ReactElement {
-  const accentColor = Colors[useColorScheme()].tint;
+  const accentColor = colors.accentBasic;
 
   return (
     <View style={styles.container}>

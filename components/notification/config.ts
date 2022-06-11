@@ -15,7 +15,7 @@ export async function registerForPushNotificationsAsync(): Promise<
   string | null
 > {
   if (Platform.OS === 'web') {
-    alert('Push notifications are not supported on web');
+    // alert('Push notifications are not supported on web');
     return null;
   }
 

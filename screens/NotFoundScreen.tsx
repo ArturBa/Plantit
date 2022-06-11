@@ -1,14 +1,13 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import { colors } from '../constants';
 import { RootStackScreenProps } from '../types';
 
 export default function NotFoundScreen({
   navigation,
 }: RootStackScreenProps<'NotFound'>) {
-  const accent = Colors[useColorScheme()].tint;
+  const accent = colors.accentBasic;
   const styles = styleSheets(accent);
 
   return (

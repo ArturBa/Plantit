@@ -4,8 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { View } from '../Themed';
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import { colors } from '../../constants';
 
 export type ImageModifyProps = FieldHookConfig<string> & {
   size?: number;
@@ -13,8 +12,8 @@ export type ImageModifyProps = FieldHookConfig<string> & {
 
 export function ImageModify(props: ImageModifyProps) {
   const [field, , helpers] = useField(props);
-  const tintColor = Colors[useColorScheme()].tint;
-  const backgroundColor = Colors[useColorScheme()].background;
+  const tintColor = colors.accentBasic;
+  const backgroundColor = colors.background;
   const { size } = props;
 
   const openImagePicker = async () => {

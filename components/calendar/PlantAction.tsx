@@ -1,15 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { StyleSheet } from 'react-native';
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import { colors } from '../../constants';
 
 import { Action, setActionStatus, useAppDispatch } from '../../store';
 import { Card } from '../common/Card';
 import { View, Text } from '../Themed';
 
 export function PlantAction({ action }: { action: Action }) {
-  const accentColor = Colors[useColorScheme()].tint;
+  const accentColor = colors.accentBasic;
   const dispatch = useAppDispatch();
 
   const onValueChange = () => {
