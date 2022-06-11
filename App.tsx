@@ -44,5 +44,5 @@ function StoryBook() {
   );
 }
 
-const IS_STORYBOOK = true;
+const IS_STORYBOOK = false;
 export default IS_STORYBOOK ? StoryBook : App;
