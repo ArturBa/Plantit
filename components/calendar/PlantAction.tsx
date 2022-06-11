@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 import { Action, setActionStatus, useAppDispatch } from '../../store';
-import { Card } from '../common/Card';
 import { View, Text } from '../Themed';
 
 export function PlantAction({ action }: { action: Action }) {
@@ -17,7 +16,7 @@ export function PlantAction({ action }: { action: Action }) {
   };
 
   return (
-    <Card style={styles.content} onPress={onValueChange}>
+    <>
       <View style={styles.action}>
         <FontAwesome5 name="hand-holding-water" style={styles.icon} />
         <Text style={styles.text}>{action.type}</Text>
@@ -28,7 +27,7 @@ export function PlantAction({ action }: { action: Action }) {
         color={accentColor}
         style={styles.checkbox}
       />
-    </Card>
+    </>
   );
 }
 
