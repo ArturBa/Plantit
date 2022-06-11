@@ -42,7 +42,6 @@ export default function Navigation({
     colors: {
       background: colors.background,
       primary: colors.accentBasic,
-      card: colors.background,
       text: colors.accentBasic,
       border: colors.accentBasic,
       notification: colors.accentBasic,
