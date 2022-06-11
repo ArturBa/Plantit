@@ -19,14 +19,6 @@ module.exports = {
     createDefaultProgram: true,
     project: ['./tsconfig.json'], // Specify it only for TypeScript files
   },
-  // overrides: [
-  //   {
-  //     files: ['*.ts', '*.tsx'],
-  //     parserOptions: {
-  //       project: ['./tsconfig.json'],
-  //     },
-  //   },
-  // ],
   plugins: ['@typescript-eslint', 'prettier', 'react', 'react-native'],
   rules: {
     'import/prefer-default-export': 'off',
@@ -44,6 +36,13 @@ module.exports = {
       'error',
       { props: true, ignorePropertyModificationsFor: ['state'] },
     ],
-    'import/no-extraneous-dependencies': ['warn'],
   },
+  overrides: [
+    {
+      files: ['*story.tsx'],
+      rules: {
+        'import/no-extraneous-dependencies': ['off'],
+      },
+    },
+  ],
 };

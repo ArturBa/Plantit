@@ -10,11 +10,21 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "prepare": "husky install",
+    "prestorybook": "rnstl",
     "storybook": "start-storybook -p 7007",
     "build-storybook": "build-storybook"
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./components"
+      ],
+      "pattern": "**/*.story.tsx",
+      "outputFile": "./storybook/stories.js"
+    }
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -84,6 +94,7 @@
     "jest-expo": "~44.0.1",
     "lint-staged": "^12.4.0",
     "prettier": "^2.6.2",
+    "react-native-storybook-loader": "^2.0.5",
     "react-test-renderer": "17.0.1",
     "typescript": "~4.3.5"
   },

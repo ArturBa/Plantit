@@ -1,39 +1,28 @@
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+  StyleSheet,
+} from 'react-native';
+import { Colors } from '../../constants';
 
-import { Colors, Text, ThemeProps, useThemeColor } from './Themed';
+import { Text, ThemeProps, useThemeColor } from './Themed';
 
-enum ButtonVariant {
-  primary = 'primary',
-  secondary = 'secondary',
-  danger = 'danger',
-}
+export type ButtonVariant = 'primary' | 'secondary' | 'danger';
 
 export const buttonVariant = new Map<
-  keyof typeof ButtonVariant,
+  ButtonVariant,
   {
-    background: Colors;
-    text: Colors;
+    background: keyof Colors;
+    text: keyof Colors;
   }
 >([
-  [
-    'primary',
-    {
-      background: 'tint',
-      text: 'background',
-    },
-  ],
-  [
-    'danger',
-    {
-      background: 'warning',
-      text: 'background',
-    },
-  ],
+  ['primary', { background: 'accentBasic', text: 'background' }],
+  ['danger', { background: 'warning', text: 'background' }],
 ]);
 
 export type ButtonProps = ThemeProps &
-  TouchableOpacity['props'] & {
-    variant?: keyof typeof ButtonVariant;
+  TouchableOpacityProps & {
+    variant?: ButtonVariant;
     title?: string;
     children?: React.ReactNode;
     disabled?: boolean;
