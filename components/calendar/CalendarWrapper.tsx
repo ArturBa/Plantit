@@ -2,8 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 
 import { Moment } from 'moment';
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import { colors } from '../../constants';
 import {
   useAppSelector,
   selectActionDays,
@@ -14,10 +13,10 @@ import {
 import { Calendar, CalendarTheme } from './calendar-strip';
 
 export function CalendarWrapper() {
-  const accentColor = Colors[useColorScheme()].tint;
-  const backgroundColor = Colors[useColorScheme()].background;
-  const textColor = Colors[useColorScheme()].text;
-  const textLightColor = Colors[useColorScheme()].textLight;
+  const accentColor = colors.accentBasic;
+  const backgroundColor = colors.background;
+  const textColor = colors.textBlack;
+  const textLightColor = colors.textGray;
 
   const calendarTheme: CalendarTheme = {
     backgroundColor,

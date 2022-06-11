@@ -1,27 +1,42 @@
-const tintColorLight = 'hsl(138, 37%, 38%)';
-const waringColor = 'hsl(10, 37%, 38%)';
-const tintColorDark = '#fff';
+import useColorScheme from '../hooks/useColorScheme';
 
-const textColor = 'hsl(138, 15%, 12%)';
-const textColorLight = 'hsl(138, 15%, 42%)';
+const textColorBlack = 'hsl(140, 15%, 12%)';
+const textColorGray = 'hsl(140, 4%, 52%)';
 
 const backgroundColor = 'hsl(0, 0%, 97%)';
 
-export default {
+const accentColorBasic = 'hsl(137, 37%, 26%)';
+const accentColorLight = 'hsl(139, 15%, 42%)';
+
+const waringColor = 'hsl(10, 37%, 38%)';
+
+export interface Colors {
+  textBlack: string;
+  textGray: string;
+  background: string;
+  accentBasic: string;
+  accentLight: string;
+  warning: string;
+}
+
+export const colorPallettes: { light: Colors; dark: Colors } = {
   light: {
-    text: textColor,
-    textLight: textColorLight,
+    textBlack: textColorBlack,
+    textGray: textColorGray,
     background: backgroundColor,
-    tint: tintColorLight,
-    tabIconSelected: tintColorLight,
+    accentBasic: accentColorBasic,
+    accentLight: accentColorLight,
     warning: waringColor,
   },
   dark: {
-    text: '#fff',
-    textLight: textColorLight,
-    background: '#000',
-    tint: tintColorDark,
-    tabIconSelected: tintColorDark,
+    textBlack: textColorBlack,
+    textGray: textColorGray,
+    background: backgroundColor,
+    accentBasic: accentColorBasic,
+    accentLight: accentColorLight,
     warning: waringColor,
   },
 };
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+export const colors = colorPallettes[useColorScheme()];

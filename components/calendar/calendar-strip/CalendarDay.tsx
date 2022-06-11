@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import Layout from '../../../constants/Layout';
+import { Layout } from '../../../constants';
 import { CalendarTheme } from './CalendarTheme';
 
 type CalendarDayProps = {

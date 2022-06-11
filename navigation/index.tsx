@@ -14,8 +14,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, StyleSheet } from 'react-native';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import { colors } from '../constants';
 import {
   PlantDetailsModalScreen,
   PlantModifyModalScreen,
@@ -38,16 +37,15 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
-  const colors = Colors[colorScheme ?? 'light'];
   const theme: Theme = {
     ...DefaultTheme,
     colors: {
       background: colors.background,
-      primary: colors.tint,
+      primary: colors.accentBasic,
       card: colors.background,
-      text: colors.tint,
-      border: colors.tint,
-      notification: colors.tint,
+      text: colors.accentBasic,
+      border: colors.accentBasic,
+      notification: colors.accentBasic,
     },
   };
   return (
@@ -106,21 +104,19 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: colors.accentBasic,
       }}
     >
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={({ navigation }: RootTabScreenProps<'Home'>) => ({
-          title: 'Home',
           tabBarIcon: HomeTabBarIcon,
+          headerShown: false,
         })}
       />
       <BottomTab.Screen
