@@ -45,6 +45,7 @@ export default function Navigation({
       text: colors.accentBasic,
       border: colors.accentBasic,
       notification: colors.accentBasic,
+      card: colors.background,
     },
   };
   return (
