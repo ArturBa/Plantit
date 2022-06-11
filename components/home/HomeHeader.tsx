@@ -19,7 +19,7 @@ export function HomeHeader() {
       <Text style={styles.header}>Welcome back</Text>
       <View style={styles.subheader}>
         <Text style={styles.subheader_text}>Take care of your plants</Text>
-        <Button onPress={onNewPlantPress} variant="inline" title="Add" />
+        <Button onPress={onNewPlantPress} title="Add" variant="inline" />
       </View>
     </View>
   );
