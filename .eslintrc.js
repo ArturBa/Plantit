@@ -44,5 +44,6 @@ module.exports = {
       'error',
       { props: true, ignorePropertyModificationsFor: ['state'] },
     ],
+    'import/no-extraneous-dependencies': ['warn'],
   },
 };
