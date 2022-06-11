@@ -31,6 +31,7 @@ import {
 import LinkingConfiguration from './LinkingConfiguration';
 import SettingsScreen from '../screens/SettingsScreen';
 import { NotificationProvider } from '../components/notification/NotificationProvider';
+import { StorybookUIRoot } from '../storybook';
 
 export default function Navigation({
   colorScheme,
@@ -91,6 +92,13 @@ function RootNavigator() {
           name="PlantModifyModal"
           component={PlantModifyModalScreen}
           options={{ headerTitle: 'Update Plant' }}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+          name="Storybook"
+          component={StorybookUIRoot}
+          options={{ headerShown: false }}
         />
       </Stack.Group>
     </Stack.Navigator>

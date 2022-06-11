@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { Button, ButtonVariant } from './Button';
 import { CenterView } from '../../storybook/CenterView';
 
-const variants: ButtonVariant[] = ['primary', 'secondary', 'danger'];
+const variants: ButtonVariant[] = ['primary', 'secondary', 'inline', 'danger'];
 
 storiesOf('components/Button', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
@@ -13,6 +13,14 @@ storiesOf('components/Button', module)
     <Button
       disabled={boolean('disabled', false)}
       variant={select('variant', variants, variants[0])}
+      title={text('title', 'Button')}
+      onPress={action('onPress executed')}
+    />
+  ))
+  .add('Secondary', () => (
+    <Button
+      disabled={boolean('disabled', false)}
+      variant={select('variant', variants, variants[1])}
       title={text('title', 'Button')}
       onPress={action('onPress executed')}
     />

@@ -1,4 +1,4 @@
-// /storybook/index.js
+import { AppRegistry } from 'react-native';
 import {
   getStorybookUI,
   configure,
@@ -16,8 +16,8 @@ configure(() => {
   loadStories();
 }, module);
 
-const StorybookUIRoot = getStorybookUI({
+export const StorybookUIRoot = getStorybookUI({
   asyncStorage: null,
 });
 
-export default StorybookUIRoot;
+AppRegistry.registerComponent('StorybookReactNative', () => StorybookUIRoot);

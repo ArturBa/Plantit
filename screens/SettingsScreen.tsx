@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { CareScheduledNotification } from '../components/notification/CareScheduledNotification';
@@ -5,13 +6,18 @@ import { CareScheduledNotification } from '../components/notification/CareSchedu
 import { Button, View } from '../components/Themed';
 
 export default function SettingsScreen() {
-  const onClick = () => {
+  const onNotifyClick = () => {
     CareScheduledNotification();
+  };
+  const nav = useNavigation();
+  const onStorybookClick = () => {
+    nav.navigate('Storybook');
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Notify" onPress={onClick} />
+      <Button title="Notify" onPress={onNotifyClick} />
+      <Button title="Storybook" onPress={onStorybookClick} />
     </View>
   );
 }

@@ -2,22 +2,27 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
-import { Colors } from '../../constants';
 
-import { Text, ThemeProps, useThemeColor } from './Themed';
+import { colors, Colors, Typography } from '../../constants';
+import { Text, ThemeProps } from './Themed';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'inline' | 'danger';
 
 export const buttonVariant = new Map<
-  ButtonVariant,
+  ButtonVariant | 'disabled',
   {
     background: keyof Colors;
     text: keyof Colors;
   }
 >([
   ['primary', { background: 'accentBasic', text: 'background' }],
+  ['secondary', { background: 'background', text: 'accentBasic' }],
+  ['inline', { background: 'background', text: 'accentBasic' }],
   ['danger', { background: 'warning', text: 'background' }],
+  ['disabled', { background: 'textGray', text: 'background' }],
 ]);
 
 export type ButtonProps = ThemeProps &
@@ -29,38 +34,43 @@ export type ButtonProps = ThemeProps &
   };
 
 export function Button(props: ButtonProps) {
-  const {
-    lightColor,
-    darkColor,
-    disabled,
-    variant,
-    style,
-    title,
-    children,
-    onPress,
-    ...otherProps
-  } = props;
+  const { disabled, variant, style, title, children, onPress, ...otherProps } =
+    props;
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const selectedVariant = buttonVariant.get(variant ?? 'primary')!;
-  const backgroundColorTheme = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    selectedVariant.background,
-  );
-  const textColorTheme = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    selectedVariant.text,
-  );
+  const getButtonColors = (): {
+    backgroundColor: string;
+    textColor: string;
+  } => {
+    const selectedVariant = disabled ? 'disabled' : variant ?? 'primary';
+    const buttonVariantColors =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      buttonVariant.get(selectedVariant) ?? buttonVariant.get('primary')!;
 
-  const backgroundColor = disabled ? 'hsl(0, 0%, 90%)' : backgroundColorTheme;
-  const textColor = disabled ? 'hsl(0, 0%, 60%)' : textColorTheme;
+    return {
+      backgroundColor: colors[buttonVariantColors.background],
+      textColor: colors[buttonVariantColors.text],
+    };
+  };
 
-  const styles = styleSheet({ backgroundColor, textColor });
+  const styles = styleSheet(getButtonColors());
+
+  const getVariantStyles = (): StyleProp<ViewStyle> => {
+    switch (variant) {
+      case 'inline':
+        return styles.inline;
+      case 'secondary':
+        return styles.border;
+      default:
+        return null;
+    }
+  };
+
+  const variantStyle = getVariantStyles();
 
   return (
     <TouchableOpacity
       {...otherProps}
-      style={[styles.container, style && style]}
+      style={[styles.container, variantStyle && variantStyle, style && style]}
       onPress={onPress}
     >
       {title && <Text style={styles.text}>{title}</Text>}
@@ -87,11 +97,19 @@ const styleSheet = ({ backgroundColor, textColor }: ButtonStyleSheetProps) =>
       padding: 12,
       borderRadius: 8,
       backgroundColor,
-      color: textColor,
+    },
+    border: {
+      borderWidth: 2,
+      borderColor: textColor,
+    },
+    // eslint-disable-next-line react-native/no-color-literals
+    inline: {
+      borderRadius: 0,
+      backgroundColor: 'transparent',
     },
     text: {
       color: textColor,
-      fontWeight: 'bold',
       textAlign: 'center',
+      ...Typography.subtitle_2,
     },
   });
