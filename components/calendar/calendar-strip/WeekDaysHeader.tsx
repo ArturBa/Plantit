@@ -2,7 +2,7 @@ import { weekdaysShort } from 'moment';
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Layout from '../../../constants/Layout';
+import { Layout } from '../../../constants';
 import { CalendarTheme } from './CalendarTheme';
 
 type CalendarMonthHeaderProps = {
