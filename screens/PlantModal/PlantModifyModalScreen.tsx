@@ -49,15 +49,16 @@ export function PlantModifyModalScreen({
       >
         {formik => (
           <>
-            <View style={styles.plant}>
+            <View style={styles.details}>
               <ImageModify size={120} name="photoUrl" />
-              <View style={styles.plantDetails}>
+              <View style={styles.data}>
                 <TextInput
                   label="Nickname"
                   name="nickname"
                   autoCapitalize="words"
                   autoFocus
                   returnKeyType="next"
+                  style={styles.readonlyGap}
                 />
                 <TextInput
                   label="Name"

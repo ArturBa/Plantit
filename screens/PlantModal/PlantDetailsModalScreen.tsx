@@ -60,30 +60,36 @@ export function PlantDetailsModalScreen({
 
   return (
     <View style={plantDetailsModalStyles.container}>
-      <View style={plantDetailsModalStyles.plant}>
+      <View style={plantDetailsModalStyles.details}>
         <Image
           style={plantDetailsModalStyles.plantImage}
           source={{ uri: plant.photoUrl }}
         />
-        <View style={plantDetailsModalStyles.plantDetails}>
-          <ReadOnly label="Nickname" value={plant.nickname} />
+        <View style={plantDetailsModalStyles.data}>
+          <ReadOnly
+            label="Nickname"
+            value={plant.nickname}
+            style={plantDetailsModalStyles.readonlyGap}
+          />
           {plant.name && plant.name !== '' ? (
             <ReadOnly label="Name" value={plant.name} />
           ) : null}
         </View>
       </View>
 
-      <Button
-        style={plantDetailsModalStyles.button}
-        title="Edit the Plant"
-        onPress={onPlantModify}
-      />
-      <Button
-        style={plantDetailsModalStyles.button}
-        variant="danger"
-        title="Remove the Plant"
-        onPress={onPlantRemove}
-      />
+      <View>
+        <Button
+          style={plantDetailsModalStyles.button}
+          title="Edit the Plant"
+          onPress={onPlantModify}
+        />
+        <Button
+          style={plantDetailsModalStyles.button}
+          variant="danger"
+          title="Remove the Plant"
+          onPress={onPlantRemove}
+        />
+      </View>
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       {/* <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} /> */}
     </View>
@@ -95,15 +101,17 @@ export const plantDetailsModalStyles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  plant: {
-    display: 'flex',
+  details: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 16,
+    padding: 16,
   },
-  plantDetails: {
-    marginLeft: 16,
+  data: {
+    marginLeft: 20,
     flex: 1,
+  },
+  readonlyGap: {
+    marginBottom: 8,
   },
   plantImage: {
     height: 120,
@@ -111,6 +119,6 @@ export const plantDetailsModalStyles = StyleSheet.create({
     borderRadius: 60,
   },
   button: {
-    marginVertical: 4,
+    marginBottom: 8,
   },
 });

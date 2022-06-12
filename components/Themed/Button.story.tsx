@@ -1,4 +1,3 @@
-// Button.stories.ts|tsx
 import { ComponentMeta, ComponentStory } from '@storybook/react-native';
 import React from 'react';
 import { Text } from 'react-native';

@@ -1,39 +1,50 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
-import { ThemeProps, Text } from './Themed';
+import { Text } from './Themed';
 
-export type ReadOnlyProps = ThemeProps & {
+import { colors, Typography } from '../../constants';
+
+export type ReadOnlyProps = {
   label: string;
-  value: string | undefined;
+  value: string;
+  style?: ViewStyle;
 };
 
 export const ReadOnly = (props: ReadOnlyProps) => {
-  const { value, label, lightColor, darkColor, ...otherProps } = props;
+  const { value, label, style, ...otherProps } = props;
 
   const styles = readOnlyStyleSheet();
 
   return (
-    <View style={styles.container} {...otherProps}>
+    <View style={[styles.container, style && style]} {...otherProps}>
       <Text style={styles.label}>{label}</Text>
-      <Text style={[styles.value]}>{value}</Text>
+      <Text style={styles.value}>{value}</Text>
+      <View style={styles.error} />
     </View>
   );
+};
+
+ReadOnly.defaultProps = {
+  style: null,
 };
 
 export const readOnlyStyleSheet = () =>
   StyleSheet.create({
     container: {
       flex: 1,
-      marginBottom: 8,
-      padding: 8,
     },
-    // eslint-disable-next-line react-native/no-color-literals
     label: {
-      fontSize: 14,
-      color: 'hsla(0, 0%, 0%, 0.54)',
+      ...Typography.subtitle_2,
+      color: colors.textGray,
+      marginBottom: 2,
     },
     value: {
-      fontSize: 20,
-      fontWeight: 'bold',
+      ...Typography.subtitle_1,
+      paddingVertical: 4,
+      marginBottom: 2,
+    },
+    error: {
+      ...Typography.caption_1,
+      height: Typography.caption_1.lineHeight,
     },
   });
