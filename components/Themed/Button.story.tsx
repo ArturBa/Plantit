@@ -23,12 +23,12 @@ Basic.args = {
   disabled: false,
 };
 
-export const Child: ButtonStory = args => (
+export const WithChild: ButtonStory = args => (
   <Button {...args}>
     <Text>Child</Text>
   </Button>
 );
-Child.args = {
+WithChild.args = {
   variant: 'primary',
   disabled: false,
 };
