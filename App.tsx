@@ -2,16 +2,14 @@ import 'reflect-metadata';
 import React from 'react';
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { Provider } from 'react-redux';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { configureAppStore } from './store/store';
 import { ProviderCombo } from './components/provider';
-import { StorybookUIRoot } from './storybook';
 
-function App() {
+export function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   const store = configureAppStore();
@@ -35,14 +33,18 @@ function App() {
   );
 }
 
-function StoryBook() {
-  return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <SafeAreaProvider style={{ marginTop: 32 }}>
-      <StorybookUIRoot />
-    </SafeAreaProvider>
-  );
+// STORYBOOK ONLY
+const IS_STORYBOOK = true;
+console.log('🚀 ~ file: App.tsx ~ line 38 ~ IS_STORYBOOK', IS_STORYBOOK);
+
+// eslint-disable-next-line import/no-mutable-exports
+let exportDefault = App;
+if (IS_STORYBOOK) {
+  /* eslint-disable global-require */
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { StoryBook } = require('./AppStorybook');
+  exportDefault = StoryBook;
+  /* eslint-enable global-require */
 }
 
-const IS_STORYBOOK = false;
-export default IS_STORYBOOK ? StoryBook : App;
+export default exportDefault;
