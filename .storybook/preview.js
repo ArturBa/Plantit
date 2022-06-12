@@ -11,5 +11,11 @@ export const decorators = [
 export const parameters = {};
 
 const styles = StyleSheet.create({
-  container: { padding: 8, flex: 1 },
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#F4F4F9',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24,
+  },
 });

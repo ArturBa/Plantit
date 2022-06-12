@@ -7,6 +7,9 @@ import { Button } from './Button';
 const ButtonMeta: ComponentMeta<typeof Button> = {
   title: 'Themed/Button',
   component: Button,
+  argTypes: {
+    onPress: { action: 'clicked' },
+  },
 };
 
 export default ButtonMeta;
