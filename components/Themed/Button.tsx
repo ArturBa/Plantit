@@ -6,8 +6,9 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { Text } from './Themed';
+
 import { colors, Colors, Typography } from '../../constants';
-import { Text, ThemeProps } from './Themed';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'inline' | 'danger';
 

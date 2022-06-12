@@ -7,8 +7,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { Layout } from '../../../constants';
+
 import { CalendarTheme } from './CalendarTheme';
+
+import { Layout } from '../../../constants';
 
 type CalendarDayProps = {
   date: Moment;

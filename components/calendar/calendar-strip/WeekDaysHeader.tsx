@@ -2,8 +2,9 @@ import { weekdaysShort } from 'moment';
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Layout } from '../../../constants';
 import { CalendarTheme } from './CalendarTheme';
+
+import { Layout } from '../../../constants';
 
 type CalendarMonthHeaderProps = {
   theme: CalendarTheme;

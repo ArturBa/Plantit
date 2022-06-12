@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
+import { useEffect } from 'react';
 
+import { plantValidationSchema } from './PlantAddModalScreen';
+import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
+
+import { ImageModify } from '../../components/plant';
 import { Button, View, TextInput } from '../../components/Themed';
+import { PlantModel } from '../../model';
 import {
   updatePlant,
   useAppDispatch,
   useAppSelector,
   selectPlantById,
 } from '../../store';
-import { ImageModify } from '../../components/plant';
-import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
-import { plantValidationSchema } from './PlantAddModalScreen';
 import { RootRouteProps } from '../../types';
-import { PlantModel } from '../../model';
 
 export function PlantModifyModalScreen({
   route,

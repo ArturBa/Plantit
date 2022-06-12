@@ -4,10 +4,11 @@ import {
   Connection,
   createConnection as createConnectionMobile,
 } from 'typeorm';
-import { ActivityIndicatorScreen } from '../../screens/ActivityIndicatorScreen';
 
-import { PlantRepository } from '../repository/Plant.repository';
 import { mobileDbConnection, webDbConnection } from './config';
+
+import { ActivityIndicatorScreen } from '../../screens/ActivityIndicatorScreen';
+import { PlantRepository } from '../repository/Plant.repository';
 
 interface DatabaseConnectionContextData {
   plantsRepository: PlantRepository;

@@ -1,7 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { useEffect } from 'react';
-
 import { Moment } from 'moment';
+import { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
+
+import { Calendar, CalendarTheme } from './calendar-strip';
+
 import { colors } from '../../constants';
 import {
   useAppSelector,
@@ -10,7 +12,6 @@ import {
   useAppDispatch,
   setCurrentDay,
 } from '../../store';
-import { Calendar, CalendarTheme } from './calendar-strip';
 
 export function CalendarWrapper() {
   const accentColor = colors.accentBasic;

@@ -1,10 +1,10 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { FieldHookConfig, useField } from 'formik';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { View } from '../Themed';
 import { colors } from '../../constants';
+import { View } from '../Themed';
 
 export type ImageModifyProps = FieldHookConfig<string> & {
   size?: number;

@@ -1,14 +1,14 @@
 import { FieldHookConfig, useField } from 'formik';
+import { useState } from 'react';
 import {
   StyleSheet,
   View,
   TextInput as DefaultTextInput,
   TextInputProps as DefaultTextInputProps,
 } from 'react-native';
-import { useState } from 'react';
 
-import { Text, ThemeProps, useThemeColor } from './Themed';
 import { readOnlyStyleSheet } from './ReadOnly';
+import { Text, ThemeProps, useThemeColor } from './Themed';
 
 export type TextInputProps = FieldHookConfig<string> &
   ThemeProps &

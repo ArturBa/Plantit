@@ -1,6 +1,6 @@
+import * as ExpoSQLite from 'expo-sqlite';
 import { ConnectionOptions } from 'typeorm';
 import { ConnectionOptions as ConnectionOptionsBrowser } from 'typeorm-browser';
-import * as ExpoSQLite from 'expo-sqlite';
 
 import { PlantEntity } from '../entities/Plant.entity';
 import { CreatePlantsTable1650721556938 } from '../migrations';

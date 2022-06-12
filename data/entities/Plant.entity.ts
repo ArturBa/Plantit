@@ -1,6 +1,8 @@
 import { Column, Entity } from 'typeorm';
-import { PlantModel } from '../../model';
+
 import { BaseEntity } from './Base.entity';
+
+import { PlantModel } from '../../model';
 
 @Entity({ name: 'plants' })
 export class PlantEntity extends BaseEntity implements PlantModel {

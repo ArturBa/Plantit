@@ -1,9 +1,10 @@
 import { FlatList, StyleSheet } from 'react-native';
 
-import { Action, selectActions, useAppSelector } from '../../store';
 import { DailyToDoPlant } from './DailyToDoPlant';
-import { Text, View } from '../Themed';
+
+import { Action, selectActions, useAppSelector } from '../../store';
 import { ListSeparator } from '../common/ListSeparator';
+import { Text, View } from '../Themed';
 
 export function DailyToDo() {
   const plantIds = [

@@ -1,5 +1,5 @@
-import { StyleSheet, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, StatusBar } from 'react-native';
 
 import { colors, Typography } from '../../constants';
 import { Button, Text, View } from '../Themed';

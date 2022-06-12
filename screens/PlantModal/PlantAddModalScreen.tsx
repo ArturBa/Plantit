@@ -1,10 +1,11 @@
-import * as yup from 'yup';
-import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
-import { Button, View, TextInput } from '../../components/Themed';
-import { ImageModify } from '../../components/plant';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
+
+import { ImageModify } from '../../components/plant';
+import { Button, View, TextInput } from '../../components/Themed';
 import { PlantModel } from '../../model';
 import { addPlant, useAppDispatch } from '../../store';
 

@@ -1,7 +1,8 @@
 // Button.stories.ts|tsx
-import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react-native';
+import React from 'react';
 import { Text } from 'react-native';
+
 import { Button } from './Button';
 
 const ButtonMeta: ComponentMeta<typeof Button> = {
