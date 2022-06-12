@@ -5,14 +5,17 @@ import {
   View,
   TextInput as DefaultTextInput,
   TextInputProps as DefaultTextInputProps,
+  ViewStyle,
 } from 'react-native';
 
 import { readOnlyStyleSheet } from './ReadOnly';
-import { Text, ThemeProps, useThemeColor } from './Themed';
+import { Text } from './Themed';
+
+import { colors, Typography } from '../../constants';
 
 export type TextInputProps = FieldHookConfig<string> &
-  ThemeProps &
   DefaultTextInputProps & {
+    style?: ViewStyle;
     label: string;
     name: string;
   };
@@ -20,19 +23,12 @@ export type TextInputProps = FieldHookConfig<string> &
 export const TextInput = (props: TextInputProps) => {
   const [field, meta, helpers] = useField(props);
   const { onChange, ...fieldProps } = field;
-  const { lightColor, darkColor, ref, label, placeholder, ...otherProps } =
-    props;
+  const { ref, label, placeholder, style, ...otherProps } = props;
   const [isFocused, setIsFocused] = useState(false);
 
-  const tintColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'tint',
-  );
-  const warningColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    'warning',
-  );
-  const unfocusedColor = 'hsla(0, 0%, 0%, 0.26)';
+  const accentColor = colors.accentBasic;
+  const warningColor = colors.warning;
+  const unfocusedColor = colors.textGray;
 
   const isError = (): boolean => meta.touched && meta.error !== undefined;
   const underlineColor = () => {
@@ -40,7 +36,7 @@ export const TextInput = (props: TextInputProps) => {
       return warningColor;
     }
     if (isFocused) {
-      return tintColor;
+      return accentColor;
     }
     return unfocusedColor;
   };
@@ -51,12 +47,12 @@ export const TextInput = (props: TextInputProps) => {
   };
 
   const styles = textInputStylesSheet({
-    underlineColor: underlineColor(),
+    color: underlineColor(),
   });
   const readOnlyStyles = readOnlyStyleSheet();
 
   return (
-    <View style={[readOnlyStyles.container]}>
+    <View style={[readOnlyStyles.container, style && style]}>
       <Text style={[readOnlyStyles.label, styles.label]}>{label}</Text>
       <DefaultTextInput
         {...otherProps}
@@ -67,36 +63,38 @@ export const TextInput = (props: TextInputProps) => {
         onFocus={() => setIsFocused(true)}
         onBlur={onBlur}
       />
-      {meta.error && (
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.error}>
-          {meta.error}
-        </Text>
-      )}
+      <Text
+        numberOfLines={1}
+        ellipsizeMode="tail"
+        style={[readOnlyStyles.error, styles.error]}
+      >
+        {meta.error}
+      </Text>
     </View>
   );
 };
 
-type TextInputStyleProps = {
-  underlineColor: string;
+TextInput.defaultProps = {
+  style: null,
 };
 
-export const textInputStylesSheet = ({
-  underlineColor,
-}: TextInputStyleProps) => {
+type TextInputStyleProps = {
+  color: string;
+};
+
+export const textInputStylesSheet = ({ color }: TextInputStyleProps) => {
   return StyleSheet.create({
-    label: { color: underlineColor },
+    label: { color, ...Typography.subtitle_2, marginBottom: 2 },
     value: {
-      fontSize: 20,
-      borderBottomWidth: 2,
-      fontWeight: 'normal',
-      borderBottomColor: underlineColor,
+      borderColor: color,
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
     },
     error: {
-      fontSize: 12,
-      color: underlineColor,
-      position: 'absolute',
-      bottom: -16,
-      left: 8,
+      color: colors.warning,
+      marginLeft: 8,
       overflow: 'hidden',
     },
   });
