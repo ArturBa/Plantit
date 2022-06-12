@@ -9,7 +9,10 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prestart": "sb-rn-get-stories",
+    "storybook-watcher": "sb-rn-watcher",
+    "storybook": "start-storybook -p 6006"
   },
   "jest": {
     "preset": "jest-expo"
@@ -54,6 +57,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-community/datetimepicker": "4.0.0",
+    "@react-native-community/slider": "4.1.12",
+    "@storybook/addon-actions": "~6.3.0",
+    "@storybook/addon-controls": "~6.3.0",
+    "@storybook/addon-essentials": "~6.3.0",
+    "@storybook/addon-links": "~6.3.0",
+    "@storybook/addon-ondevice-actions": "^6.0.1-beta.6",
+    "@storybook/addon-ondevice-backgrounds": "^6.0.1-beta.6",
+    "@storybook/addon-ondevice-controls": "^6.0.1-beta.6",
+    "@storybook/addon-ondevice-notes": "^6.0.1-beta.6",
+    "@storybook/react-native": "^6.0.1-beta.6",
+    "@storybook/react": "~6.3.0",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/eslint-plugin": "^5.20.0",

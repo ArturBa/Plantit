@@ -9,7 +9,7 @@ import Navigation from './navigation';
 import { configureAppStore } from './store/store';
 import { ProviderCombo } from './components/provider';
 
-export default function App() {
+export function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   const store = configureAppStore();
@@ -32,3 +32,5 @@ export default function App() {
     </ProviderCombo>
   );
 }
+
+export default App;
