@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
 
+import { colors } from '../../constants';
 import { Action, setActionStatus, useAppDispatch } from '../../store';
 import { View, Text } from '../Themed';
 

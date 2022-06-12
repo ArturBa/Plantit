@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { CareScheduledNotification } from '../components/notification/CareScheduledNotification';
 
+import { CareScheduledNotification } from '../components/notification/CareScheduledNotification';
 import { Button, View } from '../components/Themed';
 
 export default function SettingsScreen() {

@@ -1,13 +1,13 @@
 import 'reflect-metadata';
-import React from 'react';
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
+import React from 'react';
 import { Provider } from 'react-redux';
 
+import { ProviderCombo } from './components/provider';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { configureAppStore } from './store/store';
-import { ProviderCombo } from './components/provider';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

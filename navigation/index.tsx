@@ -14,23 +14,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, StyleSheet } from 'react-native';
 
+import LinkingConfiguration from './LinkingConfiguration';
+
+import { NotificationProvider } from '../components/notification/NotificationProvider';
 import { colors } from '../constants';
+import CalendarScreen from '../screens/CalendarScreen';
+import HomeScreen from '../screens/HomeScreen';
+import NotFoundScreen from '../screens/NotFoundScreen';
 import {
   PlantDetailsModalScreen,
   PlantModifyModalScreen,
   PlantAddModalScreen,
 } from '../screens/PlantModal';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import HomeScreen from '../screens/HomeScreen';
-import CalendarScreen from '../screens/CalendarScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
-import SettingsScreen from '../screens/SettingsScreen';
-import { NotificationProvider } from '../components/notification/NotificationProvider';
 
 export default function Navigation({
   colorScheme,

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import type { RootState } from './store';
 
 export interface Action {
@@ -7,7 +8,7 @@ export interface Action {
   type: string;
   id: number;
 }
-interface CalendarState {
+export interface CalendarState {
   actionDays: string[];
   selectedDay: string;
   actions: Action[];
@@ -36,11 +37,11 @@ export const calendarSlice = createSlice({
   name: 'calendar',
   initialState,
   reducers: {
-    setCurrentDay: (state, action: PayloadAction<string>) => {
+    setCurrentDay: (state: CalendarState, action: PayloadAction<string>) => {
       state.selectedDay = action.payload;
     },
     setActionStatus: (
-      state,
+      state: CalendarState,
       action: PayloadAction<{ id: number; done: boolean }>,
     ) => {
       const index = state.actions.findIndex(a => a.id === action.payload.id);

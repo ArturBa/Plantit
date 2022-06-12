@@ -1,3 +1,5 @@
+import moment, { Moment } from 'moment';
+import { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   NativeScrollEvent,
@@ -7,13 +9,13 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import moment, { Moment } from 'moment';
-import { useEffect, useRef, useState } from 'react';
+
 import { CalendarDay } from './CalendarDay';
-import { Layout } from '../../../constants';
-import { WeekDaysHeader } from './WeekDaysHeader';
 import { CalendarMonthHeader } from './CalendarMonthHeader';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
+import { WeekDaysHeader } from './WeekDaysHeader';
+
+import { Layout } from '../../../constants';
 
 type CalendarProps = {
   theme?: CalendarTheme;

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { PlantListItem } from '../components/plant';
-import { HomeHeader } from '../components/home/HomeHeader';
 
+import { HomeHeader } from '../components/home/HomeHeader';
+import { PlantListItem } from '../components/plant';
 import { View } from '../components/Themed';
+import { colors } from '../constants';
 import {
   getPlants,
   selectPlants,
@@ -11,7 +12,6 @@ import {
   useAppSelector,
 } from '../store';
 import { RootTabScreenProps } from '../types';
-import { colors } from '../constants';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
   const dispatch = useAppDispatch();

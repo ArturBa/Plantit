@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DatabaseContext } from '../data/config/ConnectionProvider';
 
-import { PlantModel } from '../model';
 import type { RootState } from './store';
 
-interface PlantState {
+import { DatabaseContext } from '../data/config/ConnectionProvider';
+import { PlantModel } from '../model';
+
+export interface PlantState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   plants: PlantModel[];
 }

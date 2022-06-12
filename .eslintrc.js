@@ -36,6 +36,21 @@ module.exports = {
       'error',
       { props: true, ignorePropertyModificationsFor: ['state'] },
     ],
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'external',
+          'builtin',
+          'internal',
+          'sibling',
+          'parent',
+          'index',
+        ],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        'newlines-between': 'always',
+      },
+    ],
   },
   overrides: [
     {

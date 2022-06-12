@@ -1,3 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
+import { Subscription } from 'expo-modules-core';
+import * as Notifications from 'expo-notifications';
 import React, {
   createContext,
   useContext,
@@ -6,14 +9,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Subscription } from 'expo-modules-core';
-import * as Notifications from 'expo-notifications';
-import { useNavigation } from '@react-navigation/native';
 
-import { registerForPushNotificationsAsync } from './config';
-import { CareScheduledNotificationHandler } from './CareScheduledNotification';
 import { AbstractNotificationHandler } from './AbstractNotificationHandler';
+import { CareScheduledNotificationHandler } from './CareScheduledNotification';
+import { registerForPushNotificationsAsync } from './config';
+
 import { ActivityIndicatorScreen } from '../../screens/ActivityIndicatorScreen';
 
 export interface NotificationContextData {

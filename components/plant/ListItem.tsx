@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import { colors, Typography } from '../../constants';
 
+import { colors, Typography } from '../../constants';
 import { selectPlantById, useAppSelector } from '../../store';
 
 export function PlantListItem({ plantId }: { plantId: number }) {
