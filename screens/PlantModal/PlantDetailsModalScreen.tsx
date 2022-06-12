@@ -3,8 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Alert, Image, Platform, StyleSheet } from 'react-native';
 
-import { Button, View } from '../../components/Themed';
-import { ReadOnly } from '../../components/Themed/ReadOnly';
+import { Button, View, ReadOnly } from '../../components/Themed';
 import {
   removePlant,
   selectPlantById,

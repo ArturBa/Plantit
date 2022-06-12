@@ -5,6 +5,7 @@ import {
   View,
   TextInput as DefaultTextInput,
   TextInputProps as DefaultTextInputProps,
+  ViewStyle,
 } from 'react-native';
 
 import { readOnlyStyleSheet } from './ReadOnly';
@@ -14,6 +15,7 @@ import { colors, Typography } from '../../constants';
 
 export type TextInputProps = FieldHookConfig<string> &
   DefaultTextInputProps & {
+    style?: ViewStyle;
     label: string;
     name: string;
   };
@@ -26,7 +28,7 @@ export const TextInput = (props: TextInputProps) => {
 
   const accentColor = colors.accentBasic;
   const warningColor = colors.warning;
-  const unfocusedColor = 'hsla(0, 0%, 0%, 0.26)';
+  const unfocusedColor = colors.textGray;
 
   const isError = (): boolean => meta.touched && meta.error !== undefined;
   const underlineColor = () => {
@@ -70,6 +72,10 @@ export const TextInput = (props: TextInputProps) => {
       </Text>
     </View>
   );
+};
+
+TextInput.defaultProps = {
+  style: null,
 };
 
 type TextInputStyleProps = {

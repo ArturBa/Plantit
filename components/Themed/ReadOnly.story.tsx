@@ -15,6 +15,6 @@ export const Basic: ComponentStory<typeof ReadOnly> = args => (
 );
 
 Basic.args = {
-  label: 'ReadOnly',
+  label: 'Label',
   value: 'Value',
 };
