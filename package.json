@@ -10,7 +10,7 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "prepare": "husky install",
-    "prestart": "sb-rn-get-stories",
+    "prestorybook": "sb-rn-get-stories",
     "storybook-watcher": "sb-rn-watcher",
     "storybook": "start-storybook -p 6006"
   },

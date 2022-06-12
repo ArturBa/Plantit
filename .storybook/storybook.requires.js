@@ -7,6 +7,10 @@ import {
   addArgsEnhancer,
 } from '@storybook/react-native';
 
+import '@storybook/addon-links/register';
+import '@storybook/addon-essentials/register';
+import '@storybook/addon-controls/register';
+import '@storybook/addon-react-native-web/register';
 import '@storybook/addon-ondevice-notes/register';
 import '@storybook/addon-ondevice-controls/register';
 import '@storybook/addon-ondevice-backgrounds/register';
