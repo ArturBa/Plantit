@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import calendarReducer from './calendar.slice';
-import plantReducer from './plant.slice';
+import { calendarReducer } from './calendar.slice';
+import { plantReducer } from './plant.slice';
 
 const isDevelopment = true; // process.env["NODE_ENV"] === "development";
 

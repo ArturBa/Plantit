@@ -4,7 +4,7 @@ import { DatabaseContext } from '../data/config/ConnectionProvider';
 import { PlantModel } from '../model';
 import type { RootState } from './store';
 
-interface PlantState {
+export interface PlantState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   plants: PlantModel[];
 }
@@ -125,4 +125,4 @@ export const selectPlants = (state: RootState) => state.plantReducer.plants;
 export const selectPlantById = (state: RootState, id: number): PlantModel =>
   state.plantReducer.plants.filter(plant => plant.id === id)[0] || undefined;
 
-export default plantSlice.reducer;
+export const plantReducer = plantSlice.reducer;

@@ -72,6 +72,8 @@ export function Button(props: ButtonProps) {
       {...otherProps}
       style={[styles.container, variantStyle && variantStyle, style && style]}
       onPress={onPress}
+      disabled={disabled}
+      aria-disabled={disabled}
     >
       {title && <Text style={styles.text}>{title}</Text>}
       {children}

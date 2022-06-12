@@ -14,7 +14,7 @@ const actions = {
 
 const variants: ButtonVariant[] = ['primary', 'secondary', 'inline', 'danger'];
 
-storiesOf('Button', module)
+storiesOf('Themed/Button', module)
   .addDecorator(story => <CenterView>{story()}</CenterView>)
   .add('Default', () => (
     <Button title={text('text', 'Primary')} onPress={actions.onTouch} />
