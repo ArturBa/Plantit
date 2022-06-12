@@ -25,13 +25,12 @@ export const buttonVariant = new Map<
   ['disabled', { background: 'textGray', text: 'background' }],
 ]);
 
-export type ButtonProps = ThemeProps &
-  TouchableOpacityProps & {
-    variant?: ButtonVariant;
-    title?: string;
-    children?: React.ReactNode;
-    disabled?: boolean;
-  };
+export type ButtonProps = TouchableOpacityProps & {
+  variant?: ButtonVariant;
+  title?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+};
 
 export function Button(props: ButtonProps) {
   const { disabled, variant, style, title, children, onPress, ...otherProps } =
