@@ -1,1 +1,1 @@
-export { HomePlant } from './HomePlant';
+export { HomeHeader } from './HomeHeader';

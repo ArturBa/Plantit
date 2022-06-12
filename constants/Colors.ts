@@ -7,6 +7,7 @@ const backgroundColor = 'hsl(0, 0%, 97%)';
 
 const accentColorBasic = 'hsl(137, 37%, 26%)';
 const accentColorLight = 'hsl(139, 15%, 42%)';
+const accentColorTransparent = 'hsl(140, 10%, 94%)';
 
 const waringColor = 'hsl(10, 37%, 38%)';
 
@@ -16,6 +17,7 @@ export interface Colors {
   background: string;
   accentBasic: string;
   accentLight: string;
+  accentTransparent: string;
   warning: string;
 }
 
@@ -26,6 +28,7 @@ export const colorPallettes: { light: Colors; dark: Colors } = {
     background: backgroundColor,
     accentBasic: accentColorBasic,
     accentLight: accentColorLight,
+    accentTransparent: accentColorTransparent,
     warning: waringColor,
   },
   dark: {
@@ -34,6 +37,7 @@ export const colorPallettes: { light: Colors; dark: Colors } = {
     background: backgroundColor,
     accentBasic: accentColorBasic,
     accentLight: accentColorLight,
+    accentTransparent: accentColorTransparent,
     warning: waringColor,
   },
 };

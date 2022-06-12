@@ -18,7 +18,7 @@ export function HomeHeader() {
     <View style={styles.container}>
       <Text style={styles.header}>Welcome back</Text>
       <View style={styles.subheader}>
-        <Text style={styles.subheader_text}>Take care of your plants</Text>
+        <Text style={Typography.subtitle_1}>Take care of your plants</Text>
         <Button onPress={onNewPlantPress} title="Add" variant="inline" />
       </View>
     </View>
@@ -28,8 +28,7 @@ export function HomeHeader() {
 const styleSheet = (accentColor: string) =>
   StyleSheet.create({
     container: {
-      marginHorizontal: 16,
-      marginTop: StatusBar.currentHeight ?? 0 + 16,
+      marginTop: (StatusBar.currentHeight ?? 0) + 16,
       marginBottom: 24,
     },
     header: {
@@ -40,8 +39,5 @@ const styleSheet = (accentColor: string) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
-    },
-    subheader_text: {
-      ...Typography.subtitle_1,
     },
   });
