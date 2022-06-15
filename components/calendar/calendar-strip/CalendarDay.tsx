@@ -10,7 +10,7 @@ import {
 
 import { CalendarTheme } from './CalendarTheme';
 
-import { Layout } from '../../../constants';
+import { Layout, Typography } from '../../../constants';
 
 type CalendarDayProps = {
   date: Moment;
@@ -96,7 +96,7 @@ const stylesSheet = ({
       borderRadius: (itemWidth - 2 * containerPadding) / 2,
     },
     dayText: {
-      fontSize: 20,
+      ...Typography.subtitle_2,
       color: textColor,
     },
     today: {

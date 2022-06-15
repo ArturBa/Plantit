@@ -5,6 +5,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { CalendarTheme } from './CalendarTheme';
 
+import { Typography } from '../../../constants';
+
 type CalendarMonthHeaderProps = {
   theme: CalendarTheme;
   nextWeek?: () => void;
@@ -28,7 +30,7 @@ export function CalendarMonthHeader({
   middleWeekDate,
   hideArrows,
 }: CalendarMonthHeaderProps) {
-  const lightText = theme.textLightColor;
+  const lightText = theme.todayTextColor;
   const styles = useMemo(() => styleSheet({ lightText }), [lightText]);
 
   return (
@@ -39,7 +41,7 @@ export function CalendarMonthHeader({
           onPress={() => prevWeek && prevWeek()}
         >
           <FontAwesome5
-            size={size}
+            size={size * 2}
             color={theme.indicatorColor}
             name="angle-left"
           />
@@ -52,7 +54,7 @@ export function CalendarMonthHeader({
           onPress={() => nextWeek && nextWeek()}
         >
           <FontAwesome5
-            size={size}
+            size={size * 2}
             color={theme.indicatorColor}
             name="angle-right"
           />
@@ -68,16 +70,17 @@ const styleSheet = ({ lightText }: { lightText: string }) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      paddingVertical: 8,
     },
     monthText: {
-      fontSize: size,
-      fontWeight: 'bold',
-      color: lightText,
-      paddingVertical: 4,
       textAlign: 'center',
       flex: 1,
+      ...Typography.subtitle_1,
+      color: lightText,
+      paddingVertical: (51 - Typography.subtitle_1.fontSize) / 2,
     },
     touchableIcon: {
+      fontWeight: 200,
       paddingVertical: 8,
       paddingHorizontal: 16,
     },

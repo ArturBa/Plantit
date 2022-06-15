@@ -21,7 +21,7 @@ type CalendarProps = {
   theme?: CalendarTheme;
   style?: StyleProp<ViewStyle>;
   selectedDay: string | Date | Moment;
-  onDayPressed?: (date: Moment) => void;
+  onDayPress?: (date: Moment) => void;
   markedDays?: string[] | Date[] | Moment[];
   hideArrows?: boolean;
 };
@@ -29,7 +29,7 @@ type CalendarProps = {
 Calendar.defaultProps = {
   theme: defaultTheme,
   style: {},
-  onDayPressed: () => {},
+  onDayPress: () => {},
   markedDays: [],
   hideArrows: false,
 };
@@ -87,7 +87,7 @@ export function Calendar({
   style,
   selectedDay,
   markedDays,
-  onDayPressed,
+  onDayPress,
   hideArrows,
 }: CalendarProps) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -158,7 +158,7 @@ export function Calendar({
           <CalendarDay
             date={item}
             theme={themeToUse}
-            onDayPress={() => onDayPressed && onDayPressed(item)}
+            onDayPress={() => onDayPress && onDayPress(item)}
             isSelectedDay={item.isSame(selectedDay)}
             isMarked={markedDaysMoment?.some(markedDay =>
               markedDay.isSame(item),

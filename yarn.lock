@@ -3116,6 +3116,11 @@
     prop-types "^15.7.2"
     simple-markdown "^0.7.3"
 
+"@storybook/addon-react-native-web@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-react-native-web/-/addon-react-native-web-0.0.18.tgz#920278a3a5d7e3cc03314d52429936cf231354da"
+  integrity sha512-tMZumiF+Dgk7sngMWFrbDdBN3h5C001traYM46CqNQvtJoZvwYe2MPGEeWy3wk+5D8vOv8TFw2i96f3wwfralg==
+
 "@storybook/addon-toolbars@6.3.13":
   version "6.3.13"
   resolved "https://registry.yarnpkg.com/@storybook/addon-toolbars/-/addon-toolbars-6.3.13.tgz#20c6e00a668dbf24de995c94ad474b31ef66f7bb"
@@ -4908,7 +4913,7 @@ babel-jest@^26.6.3:
     graceful-fs "^4.2.4"
     slash "^3.0.0"
 
-babel-loader@^8.2.2:
+babel-loader@^8.2.2, babel-loader@^8.2.5:
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.5.tgz#d45f585e654d5a5d90f5350a779d7647c5ed512e"
   integrity sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ==
@@ -7689,18 +7694,10 @@ expo-modules-autolinking@0.5.5, expo-modules-autolinking@~0.5.1:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@0.6.5:
+expo-modules-core@0.6.5, expo-modules-core@~0.6.4:
   version "0.6.5"
   resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.6.5.tgz"
   integrity sha512-h/9+SJ3m8XkDUV1QrPO8WeXaeRYWLBJrOqhokDyhgWUYSqe6JOuRx1ZkoGq/GmTiwjouRDbXPsXUBiU9HWLYyA==
-  dependencies:
-    compare-versions "^3.4.0"
-    invariant "^2.2.4"
-
-expo-modules-core@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.9.2.tgz#657a3d804e73f3d41e6fa35d40a44aee5a4a287e"
-  integrity sha512-p/C0GJxFIIDGwmrWi70Q0ggfsgeUFS25ZkkBgoaHT7MVgiMjlKA/DCC3D6ZUkHl/JlzUm0aTftIGS8LWXsnZBw==
   dependencies:
     compare-versions "^3.4.0"
     invariant "^2.2.4"

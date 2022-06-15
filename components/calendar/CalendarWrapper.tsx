@@ -50,7 +50,7 @@ export function CalendarWrapper() {
       style={styles.calendar}
       selectedDay={selectedDay}
       markedDays={actionDay}
-      onDayPressed={onDayPress}
+      onDayPress={onDayPress}
     />
   );
 }
