@@ -22,9 +22,9 @@ import CalendarScreen from '../screens/CalendarScreen';
 import HomeScreen from '../screens/HomeScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import {
-  PlantDetailsModalScreen,
-  PlantModifyModalScreen,
-  PlantAddModalScreen,
+  PlantDetailsCardScreen,
+  PlantModifyCardScreen,
+  PlantAddCardScreen,
 } from '../screens/PlantModal';
 import SettingsScreen from '../screens/SettingsScreen';
 import {
@@ -77,20 +77,20 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
       />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group>
         <Stack.Screen
           name="PlantDetailsModal"
-          component={PlantDetailsModalScreen}
+          component={PlantDetailsCardScreen}
           options={{ headerTitle: 'Plant Details' }}
         />
         <Stack.Screen
           name="PlantAddModal"
-          component={PlantAddModalScreen}
+          component={PlantAddCardScreen}
           options={{ headerTitle: 'New Plant' }}
         />
         <Stack.Screen
           name="PlantModifyModal"
-          component={PlantModifyModalScreen}
+          component={PlantModifyCardScreen}
           options={{ headerTitle: 'Update Plant' }}
         />
       </Stack.Group>

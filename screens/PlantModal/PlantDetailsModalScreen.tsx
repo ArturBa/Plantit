@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Alert, Image, Platform, StyleSheet } from 'react-native';
+import { Alert, Image, StyleSheet } from 'react-native';
 
 import { Button, View, ReadOnly } from '../../components/Themed';
 import {
@@ -12,7 +11,7 @@ import {
 } from '../../store';
 import { RootRouteProps } from '../../types';
 
-export function PlantDetailsModalScreen({
+export function PlantDetailsCardScreen({
   route,
 }: {
   route: RootRouteProps<'PlantDetailsModal'>;
@@ -89,8 +88,6 @@ export function PlantDetailsModalScreen({
           onPress={onPlantRemove}
         />
       </View>
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      {/* <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} /> */}
     </View>
   );
 }

@@ -1,3 +1,3 @@
-export { PlantAddModalScreen } from './PlantAddModalScreen';
-export { PlantDetailsModalScreen } from './PlantDetailsModalScreen';
-export { PlantModifyModalScreen } from './PlantModifyModalScreen';
+export { PlantAddCardScreen } from './PlantAddModalScreen';
+export { PlantDetailsCardScreen } from './PlantDetailsModalScreen';
+export { PlantModifyCardScreen } from './PlantModifyModalScreen';

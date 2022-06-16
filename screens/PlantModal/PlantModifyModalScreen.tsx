@@ -16,7 +16,7 @@ import {
 } from '../../store';
 import { RootRouteProps } from '../../types';
 
-export function PlantModifyModalScreen({
+export function PlantModifyCardScreen({
   route,
 }: {
   route: RootRouteProps<'PlantModifyModal'>;
