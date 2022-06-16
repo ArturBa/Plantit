@@ -77,7 +77,7 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
       />
-      <Stack.Group screenOptions={{ presentation: 'card' }}>
+      <Stack.Group>
         <Stack.Screen
           name="PlantDetailsModal"
           component={PlantDetailsCardScreen}
