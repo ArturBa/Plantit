@@ -1,3 +1,4 @@
+import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
@@ -14,8 +15,8 @@ if (Platform.OS !== 'web') {
 export async function registerForPushNotificationsAsync(): Promise<
   string | null
 > {
-  if (Platform.OS === 'web') {
-    // alert('Push notifications are not supported on web');
+  if (Platform.OS === 'web' || !Device.isDevice) {
+    console.warn('Push notifications are not supported on web and simulators');
     return null;
   }
 

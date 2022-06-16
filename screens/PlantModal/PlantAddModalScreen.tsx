@@ -15,7 +15,7 @@ export const plantValidationSchema = yup.object().shape({
   photoUrl: yup.string().required(),
 });
 
-export function PlantAddModalScreen() {
+export function PlantAddCardScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const onSubmit = (values: Omit<PlantModel, 'id'>) => {

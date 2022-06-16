@@ -12,7 +12,7 @@ import {
 } from '../../store';
 import { RootRouteProps } from '../../types';
 
-export function PlantDetailsModalScreen({
+export function PlantDetailsCardScreen({
   route,
 }: {
   route: RootRouteProps<'PlantDetailsModal'>;
