@@ -18,7 +18,7 @@ export default function App() {
     return null;
   }
 
-  const statusBarStyle: StatusBarStyle = 'inverted';
+  const statusBarStyle: StatusBarStyle = 'dark';
 
   return (
     <ProviderCombo>
