@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { colors, Typography } from '../../constants';
 import { Button, Text, View } from '../Themed';
@@ -28,7 +28,7 @@ export function HomeHeader() {
 const styleSheet = (accentColor: string) =>
   StyleSheet.create({
     container: {
-      marginTop: (StatusBar.currentHeight ?? 0) + 16,
+      marginTop: 24,
       marginBottom: 24,
     },
     header: {
