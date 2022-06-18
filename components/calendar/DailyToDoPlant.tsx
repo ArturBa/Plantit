@@ -1,24 +1,29 @@
-import { FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import { PlantAction } from './PlantAction';
 
 import { selectActionsByPlantId, useAppSelector } from '../../store';
-import { Text, View } from '../Themed';
+import { PlantListItem } from '../plant';
+import { View } from '../Themed';
 
 export function DailyToDoPlant({ plantId }: { plantId: number }) {
-  const action = useAppSelector(state =>
+  const plantActions = useAppSelector(state =>
     selectActionsByPlantId(state, plantId),
   );
   return (
     <View>
-      <Text>TODO</Text>
+      <PlantListItem plantId={plantId} />
+      <View style={styles.actions}>
+        {plantActions.map(action => (
+          <PlantAction action={action} key={action.id} />
+        ))}
+      </View>
     </View>
-    // <PlantCard plantId={plantId}>
-    //   <FlatList
-    //     data={action}
-    //     keyExtractor={item => `${item.id}`}
-    //     initialNumToRender={action.length}
-    //     renderItem={item => <PlantAction action={item.item} />}
-    //     ItemSeparatorComponent={() => ListSeparator({ height: 4 })}
-    //   />
-    // </PlantCard>
   );
 }
+
+const styles = StyleSheet.create({
+  actions: {
+    marginLeft: 20,
+  },
+});
