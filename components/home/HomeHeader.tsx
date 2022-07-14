@@ -37,7 +37,7 @@ const styleSheet = (accentColor: string) =>
     },
     subheader: {
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'baseline',
       flexDirection: 'row',
     },
   });

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
     marginBottom: 8,
   },
   title: {
