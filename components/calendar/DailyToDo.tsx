@@ -13,10 +13,6 @@ export function DailyToDo() {
       useAppSelector(selectActions).map((action: Action) => action.plant),
     ),
   ];
-  console.log(
-    '🚀 ~ file: DailyToDo.tsx ~ line 16 ~ DailyToDo ~ plantIds',
-    plantIds,
-  );
 
   return (
     <View style={styles.container}>
