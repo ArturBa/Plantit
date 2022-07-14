@@ -32,6 +32,7 @@ export const readOnlyStyleSheet = () =>
   StyleSheet.create({
     container: {
       flex: 1,
+      flexBasis: 72,
     },
     label: {
       ...Typography.subtitle_2,
