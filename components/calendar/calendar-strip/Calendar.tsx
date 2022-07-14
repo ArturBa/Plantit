@@ -10,10 +10,9 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { CalendarDay } from './CalendarDay';
+import { CalendarDay } from './calendar-day';
 import { CalendarMonthHeader } from './CalendarMonthHeader';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
-import { WeekDaysHeader } from './WeekDaysHeader';
 
 import { Layout } from '../../../constants';
 
@@ -143,7 +142,6 @@ export function Calendar({
         middleWeekDate={moment(renderDays[10])}
         hideArrows={hideArrows}
       />
-      <WeekDaysHeader theme={themeToUse} />
       <FlatList
         horizontal
         ref={flatListRef}

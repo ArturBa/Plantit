@@ -34,7 +34,12 @@ try {
 } catch {}
 
 const getStories = () => {
-  return [require('../components/Themed/Button.story.tsx')];
+  return [
+    require('../components/calendar/calendar-strip/calendar-day/CalendarDay.story.tsx'),
+    require('../components/themed/Button.story.tsx'),
+    require('../components/themed/ReadOnly.story.tsx'),
+    require('../components/themed/TextInput.story.tsx'),
+  ];
 };
 
 configure(getStories, module, false);

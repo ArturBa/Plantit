@@ -10,7 +10,7 @@ import {
 
 import { CalendarTheme } from './CalendarTheme';
 
-import { Layout } from '../../../constants';
+import { Layout, Typography } from '../../../constants';
 
 type CalendarDayProps = {
   date: Moment;
@@ -49,6 +49,7 @@ export function CalendarDay({
         ]}
         onPress={() => onDayPress && onDayPress()}
       >
+        <Text style={[styles.weekDay]}>{date.format('ddd')}</Text>
         <Text
           style={[
             styles.dayText,
@@ -74,6 +75,7 @@ const stylesSheet = ({
   dotColor,
   todayTextColor,
   textColor,
+  textLightColor,
 }: CalendarTheme) =>
   StyleSheet.create({
     container: {
@@ -104,6 +106,10 @@ const stylesSheet = ({
     },
     todaySelected: {
       color: backgroundColor,
+    },
+    weekDay: {
+      ...Typography.caption_2,
+      color: textLightColor,
     },
     marker: {
       position: 'absolute',

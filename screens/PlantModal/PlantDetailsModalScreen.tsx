@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { Alert, Image, StyleSheet } from 'react-native';
 
-import { Button, View, ReadOnly } from '../../components/Themed';
+import { Button, View, ReadOnly } from '../../components/themed';
 import {
   removePlant,
   selectPlantById,

@@ -6,7 +6,7 @@ import { plantValidationSchema } from './PlantAddModalScreen';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
 
 import { ImageModify } from '../../components/plant';
-import { Button, View, TextInput } from '../../components/Themed';
+import { Button, View, TextInput } from '../../components/themed';
 import { PlantModel } from '../../model';
 import {
   updatePlant,

@@ -5,7 +5,7 @@ import { DailyToDoPlant } from './DailyToDoPlant';
 import { Typography } from '../../constants';
 import { Action, selectActions, useAppSelector } from '../../store';
 import { ListSeparator } from '../common/ListSeparator';
-import { Button, Text, View } from '../Themed';
+import { Button, Text, View } from '../themed';
 
 export function DailyToDo() {
   const plantIds = [

@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../components/themed';
 import { colors } from '../constants';
 import { RootStackScreenProps } from '../types';
 

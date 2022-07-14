@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors, Typography } from '../../constants';
 import { Action, setActionStatus, useAppDispatch } from '../../store';
-import { View, Text } from '../Themed';
+import { View, Text } from '../themed';
 
 export function PlantAction({ action }: { action: Action }) {
   const accentColor = colors.accentBasic;
