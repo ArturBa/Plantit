@@ -57,6 +57,6 @@ export function CalendarWrapper() {
 
 const styles = StyleSheet.create({
   calendar: {
-    marginBottom: 20,
+    marginBottom: 8,
   },
 });

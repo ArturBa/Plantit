@@ -2,9 +2,10 @@ import { FlatList, StyleSheet } from 'react-native';
 
 import { DailyToDoPlant } from './DailyToDoPlant';
 
+import { Typography } from '../../constants';
 import { Action, selectActions, useAppSelector } from '../../store';
 import { ListSeparator } from '../common/ListSeparator';
-import { Text, View } from '../Themed';
+import { Button, Text, View } from '../Themed';
 
 export function DailyToDo() {
   const plantIds = [
@@ -15,12 +16,15 @@ export function DailyToDo() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {plantIds?.length > 1 ? 'Take care of your plants' : 'Nothing to do'}
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          {plantIds?.length > 0 ? 'Take care of your plants' : 'Nothing to do'}
+        </Text>
+        <Button title="Add" variant="inline" />
+      </View>
       <FlatList
         data={plantIds}
-        keyExtractor={item => item}
+        keyExtractor={item => `plant-action-${item}`}
         renderItem={item => <DailyToDoPlant plantId={item.item} />}
         ItemSeparatorComponent={() => ListSeparator({ height: 8 })}
       />
@@ -31,11 +35,15 @@ export function DailyToDo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+    ...Typography.title_3,
   },
 });

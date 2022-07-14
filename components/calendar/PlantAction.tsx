@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import { colors } from '../../constants';
+import { colors, Typography } from '../../constants';
 import { Action, setActionStatus, useAppDispatch } from '../../store';
 import { View, Text } from '../Themed';
 
@@ -16,10 +16,15 @@ export function PlantAction({ action }: { action: Action }) {
   };
 
   return (
-    <>
-      <View style={styles.action}>
-        <FontAwesome5 name="hand-holding-water" style={styles.icon} />
-        <Text style={styles.text}>{action.type}</Text>
+    <TouchableOpacity style={styles.content} onPressOut={onValueChange}>
+      <View style={styles.actionWithIcon}>
+        <View style={styles.iconWrapper}>
+          <FontAwesome5 name="hand-holding-water" style={styles.icon} />
+        </View>
+        <View style={styles.actionDetails}>
+          <Text style={styles.actionType}>{action.type}</Text>
+          <Text style={styles.actionDate}>Today</Text>
+        </View>
       </View>
       <Checkbox
         value={action.done}
@@ -27,7 +32,7 @@ export function PlantAction({ action }: { action: Action }) {
         color={accentColor}
         style={styles.checkbox}
       />
-    </>
+    </TouchableOpacity>
   );
 }
 
@@ -37,19 +42,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginLeft: 64,
+    padding: 8,
   },
-  action: {
-    display: 'flex',
-    flexDirection: 'row',
+  iconWrapper: {
+    backgroundColor: colors.accentBasic,
+    borderRadius: 48 / 2,
+    width: 48,
+    height: 48,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
-    fontSize: 20,
+    fontSize: 24,
+    color: colors.background,
   },
-  text: {
+  actionWithIcon: {
+    flexDirection: 'row',
+  },
+  actionDetails: {
     marginLeft: 16,
-    fontSize: 16,
+    justifyContent: 'center',
+  },
+  actionType: {
+    ...Typography.subtitle_2,
+    marginBottom: 4,
+  },
+  actionDate: {
+    ...Typography.body_2,
   },
   checkbox: {
     margin: 4,
