@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
 import { colors, Typography } from '../../constants';
-import { Button, Text, View } from '../Themed';
+import { Button, Text, View } from '../themed';
 
 export function HomeHeader() {
   const accentColor = colors.accentBasic;

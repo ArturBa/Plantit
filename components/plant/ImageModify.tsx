@@ -4,7 +4,7 @@ import { FieldHookConfig, useField } from 'formik';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '../../constants';
-import { View } from '../Themed';
+import { View } from '../themed';
 
 export type ImageModifyProps = FieldHookConfig<string> & {
   size?: number;

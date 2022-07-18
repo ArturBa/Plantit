@@ -3,49 +3,55 @@ import { Moment } from 'moment';
 import { useMemo } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { CalendarTheme } from './CalendarTheme';
+import { Typography } from '../../../../constants';
+import { CalendarTheme, defaultTheme } from '../CalendarTheme';
 
-type CalendarMonthHeaderProps = {
-  theme: CalendarTheme;
+type CalendarHeaderProps = {
+  theme?: CalendarTheme;
   nextWeek?: () => void;
   prevWeek?: () => void;
   middleWeekDate: Moment;
   hideArrows?: boolean;
+  firstWeek?: boolean;
 };
 
-CalendarMonthHeader.defaultProps = {
+CalendarHeader.defaultProps = {
+  theme: defaultTheme,
   nextWeek: () => {},
   prevWeek: () => {},
   hideArrows: false,
+  firstWeek: false,
 };
 
-const size = 16;
+const size = 24;
 
-export function CalendarMonthHeader({
+export function CalendarHeader({
   theme,
   prevWeek,
   nextWeek,
   middleWeekDate,
   hideArrows,
-}: CalendarMonthHeaderProps) {
-  const lightText = theme.textLightColor;
-  const styles = useMemo(() => styleSheet({ lightText }), [lightText]);
+  firstWeek,
+}: CalendarHeaderProps) {
+  const styles = useMemo(() => styleSheet(theme!), [theme]);
 
   return (
     <View style={styles.container}>
       {hideArrows ? null : (
         <TouchableOpacity
           style={styles.touchableIcon}
-          onPress={() => prevWeek && prevWeek()}
+          onPress={() => prevWeek && !firstWeek && prevWeek()}
         >
-          <FontAwesome5
-            size={size}
-            color={theme.indicatorColor}
-            name="angle-left"
-          />
+          {!firstWeek && (
+            <FontAwesome5
+              size={size}
+              color={theme!.textLightColor}
+              name="angle-left"
+            />
+          )}
         </TouchableOpacity>
       )}
-      <Text style={styles.monthText}>{middleWeekDate.format('MMMM YYYY')}</Text>
+      <Text style={styles.monthText}>{middleWeekDate.format('MMMM')}</Text>
       {hideArrows ? null : (
         <TouchableOpacity
           style={styles.touchableIcon}
@@ -53,7 +59,7 @@ export function CalendarMonthHeader({
         >
           <FontAwesome5
             size={size}
-            color={theme.indicatorColor}
+            color={theme!.textLightColor}
             name="angle-right"
           />
         </TouchableOpacity>
@@ -62,7 +68,7 @@ export function CalendarMonthHeader({
   );
 }
 
-const styleSheet = ({ lightText }: { lightText: string }) =>
+const styleSheet = ({ textLightColor }: CalendarTheme) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -70,15 +76,15 @@ const styleSheet = ({ lightText }: { lightText: string }) =>
       alignItems: 'center',
     },
     monthText: {
-      fontSize: size,
-      fontWeight: 'bold',
-      color: lightText,
-      paddingVertical: 4,
+      ...Typography.subtitle_2,
+      fontWeight: '700',
+      color: textLightColor,
       textAlign: 'center',
-      flex: 1,
     },
     touchableIcon: {
-      paddingVertical: 8,
-      paddingHorizontal: 16,
+      minHeight: 40,
+      minWidth: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

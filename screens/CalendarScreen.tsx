@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { Calendar, DailyToDo } from '../components/calendar';
-import { View } from '../components/Themed';
+import { View } from '../components/themed';
 import { RootTabScreenProps } from '../types';
 
 export default function CalendarScreen({

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { plantDetailsModalStyles } from './PlantDetailsModalScreen';
 
 import { ImageModify } from '../../components/plant';
-import { Button, View, TextInput } from '../../components/Themed';
+import { Button, View, TextInput } from '../../components/themed';
 import { PlantModel } from '../../model';
 import { addPlant, useAppDispatch } from '../../store';
 

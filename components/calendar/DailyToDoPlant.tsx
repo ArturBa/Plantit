@@ -4,7 +4,7 @@ import { PlantAction } from './PlantAction';
 
 import { selectActionsByPlantId, useAppSelector } from '../../store';
 import { PlantListItem } from '../plant';
-import { View } from '../Themed';
+import { View } from '../themed';
 
 export function DailyToDoPlant({ plantId }: { plantId: number }) {
   const plantActions = useAppSelector(state =>

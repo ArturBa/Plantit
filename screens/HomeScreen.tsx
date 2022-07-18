@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native';
 
 import { HomeHeader } from '../components/home/HomeHeader';
 import { PlantListItem } from '../components/plant';
-import { View } from '../components/Themed';
+import { View } from '../components/themed';
 import { colors } from '../constants';
 import {
   getPlants,

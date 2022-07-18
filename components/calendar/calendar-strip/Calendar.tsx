@@ -10,10 +10,10 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { CalendarDay } from './CalendarDay';
-import { CalendarMonthHeader } from './CalendarMonthHeader';
+import { CalendarDay } from './calendar-day';
+import { CalendarHeader } from './calendar-header';
+import { nextWeekDays, renderedDays, toMomentDate } from './Calendar.helper';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
-import { WeekDaysHeader } from './WeekDaysHeader';
 
 import { Layout } from '../../../constants';
 
@@ -35,52 +35,6 @@ Calendar.defaultProps = {
 };
 
 const { width } = Layout.window;
-
-const getBaseWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  const baseDay = currentDate.isValid() ? currentDate : moment().startOf('day');
-  const weekdaySelected = baseDay.weekday();
-
-  const baseDayWeekStart = baseDay.clone().subtract(weekdaySelected, 'day');
-
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(baseDayWeekStart).add(i, 'day');
-    days.push(newDay);
-  });
-
-  return days;
-};
-const prevWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(currentDate).subtract(i + 1, 'day');
-    days.push(newDay);
-  });
-  return days.sort((a, b) => a.diff(b));
-};
-const nextWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(currentDate).add(i + 1, 'day');
-    days.push(newDay);
-  });
-  return days.sort((a, b) => a.diff(b));
-};
-
-const renderedDays = (currentDate: Moment): Moment[] => {
-  const baseDays = getBaseWeekDays(currentDate);
-  return baseDays;
-};
-
-function toMomentDate(date: string | Date | Moment): Moment {
-  if (typeof date === 'string') {
-    return moment(date).startOf('day');
-  }
-  if (date instanceof Date) {
-    return moment(date).startOf('day');
-  }
-  return date;
-}
 
 export function Calendar({
   theme,
@@ -134,16 +88,23 @@ export function Calendar({
     return null;
   }
 
+  const endReached = () => {
+    setRenderDays([
+      ...renderDays,
+      ...nextWeekDays(renderDays[renderDays.length - 1]),
+    ]);
+  };
+
   return (
     <View style={[styles.container, style && style]}>
-      <CalendarMonthHeader
+      <CalendarHeader
         theme={themeToUse}
         nextWeek={() => setCurrentPage(currentPage + 1)}
         prevWeek={() => setCurrentPage(currentPage - 1)}
         middleWeekDate={moment(renderDays[10])}
         hideArrows={hideArrows}
+        firstWeek={currentPage === 0}
       />
-      <WeekDaysHeader theme={themeToUse} />
       <FlatList
         horizontal
         ref={flatListRef}
@@ -154,15 +115,15 @@ export function Calendar({
         decelerationRate="fast"
         keyExtractor={item => item.toISOString()}
         onMomentumScrollEnd={onScrollEnd}
+        onEndReached={endReached}
+        onEndReachedThreshold={0.7}
         renderItem={({ item }) => (
           <CalendarDay
             date={item}
             theme={themeToUse}
-            onDayPress={() => onDayPressed && onDayPressed(item)}
-            isSelectedDay={item.isSame(selectedDay)}
-            isMarked={markedDaysMoment?.some(markedDay =>
-              markedDay.isSame(item),
-            )}
+            onPress={() => onDayPressed && onDayPressed(item)}
+            selected={item.isSame(selectedDay)}
+            marked={markedDaysMoment?.some(markedDay => markedDay.isSame(item))}
           />
         )}
       />
