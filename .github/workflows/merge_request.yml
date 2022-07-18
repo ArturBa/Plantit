@@ -36,7 +36,8 @@ jobs:
       - uses: actions/setup-node@v2.4.1
         with:
           node-version: 16.x
-      - run: yarn install
+      - name: Install
+        run: yarn install
       - name: Linting eslint
         run: yarn eslint .
       - name: Linting prettier
