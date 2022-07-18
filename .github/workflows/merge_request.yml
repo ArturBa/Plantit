@@ -41,6 +41,6 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
       - name: Linting eslint
-        run: yarn eslint .
+        run: yarn eslint -c .eslintrc.js .
       - name: Linting prettier
         run: yarn prettier --check .
