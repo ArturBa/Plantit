@@ -12,6 +12,7 @@ type CalendarHeaderProps = {
   prevWeek?: () => void;
   middleWeekDate: Moment;
   hideArrows?: boolean;
+  firstWeek?: boolean;
 };
 
 CalendarHeader.defaultProps = {
@@ -19,6 +20,7 @@ CalendarHeader.defaultProps = {
   nextWeek: () => {},
   prevWeek: () => {},
   hideArrows: false,
+  firstWeek: false,
 };
 
 const size = 24;
@@ -29,6 +31,7 @@ export function CalendarHeader({
   nextWeek,
   middleWeekDate,
   hideArrows,
+  firstWeek,
 }: CalendarHeaderProps) {
   const styles = useMemo(() => styleSheet(theme!), [theme]);
 
@@ -37,13 +40,15 @@ export function CalendarHeader({
       {hideArrows ? null : (
         <TouchableOpacity
           style={styles.touchableIcon}
-          onPress={() => prevWeek && prevWeek()}
+          onPress={() => prevWeek && !firstWeek && prevWeek()}
         >
-          <FontAwesome5
-            size={size}
-            color={theme!.textLightColor}
-            name="angle-left"
-          />
+          {!firstWeek && (
+            <FontAwesome5
+              size={size}
+              color={theme!.textLightColor}
+              name="angle-left"
+            />
+          )}
         </TouchableOpacity>
       )}
       <Text style={styles.monthText}>{middleWeekDate.format('MMMM')}</Text>

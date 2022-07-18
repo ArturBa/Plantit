@@ -12,6 +12,7 @@ import {
 
 import { CalendarDay } from './calendar-day';
 import { CalendarHeader } from './calendar-header';
+import { nextWeekDays, renderedDays, toMomentDate } from './Calendar.helper';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
 
 import { Layout } from '../../../constants';
@@ -34,52 +35,6 @@ Calendar.defaultProps = {
 };
 
 const { width } = Layout.window;
-
-const getBaseWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  const baseDay = currentDate.isValid() ? currentDate : moment().startOf('day');
-  const weekdaySelected = baseDay.weekday();
-
-  const baseDayWeekStart = baseDay.clone().subtract(weekdaySelected, 'day');
-
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(baseDayWeekStart).add(i, 'day');
-    days.push(newDay);
-  });
-
-  return days;
-};
-const prevWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(currentDate).subtract(i + 1, 'day');
-    days.push(newDay);
-  });
-  return days.sort((a, b) => a.diff(b));
-};
-const nextWeekDays = (currentDate: Moment): Moment[] => {
-  const days: Moment[] = [];
-  [...Array(7).keys()].forEach(i => {
-    const newDay = moment(currentDate).add(i + 1, 'day');
-    days.push(newDay);
-  });
-  return days.sort((a, b) => a.diff(b));
-};
-
-const renderedDays = (currentDate: Moment): Moment[] => {
-  const baseDays = getBaseWeekDays(currentDate);
-  return baseDays;
-};
-
-function toMomentDate(date: string | Date | Moment): Moment {
-  if (typeof date === 'string') {
-    return moment(date).startOf('day');
-  }
-  if (date instanceof Date) {
-    return moment(date).startOf('day');
-  }
-  return date.startOf('day');
-}
 
 export function Calendar({
   theme,
@@ -133,6 +88,13 @@ export function Calendar({
     return null;
   }
 
+  const endReached = () => {
+    setRenderDays([
+      ...renderDays,
+      ...nextWeekDays(renderDays[renderDays.length - 1]),
+    ]);
+  };
+
   return (
     <View style={[styles.container, style && style]}>
       <CalendarHeader
@@ -141,6 +103,7 @@ export function Calendar({
         prevWeek={() => setCurrentPage(currentPage - 1)}
         middleWeekDate={moment(renderDays[10])}
         hideArrows={hideArrows}
+        firstWeek={currentPage === 0}
       />
       <FlatList
         horizontal
@@ -152,6 +115,8 @@ export function Calendar({
         decelerationRate="fast"
         keyExtractor={item => item.toISOString()}
         onMomentumScrollEnd={onScrollEnd}
+        onEndReached={endReached}
+        onEndReachedThreshold={0.7}
         renderItem={({ item }) => (
           <CalendarDay
             date={item}
