@@ -36,6 +36,8 @@ try {
 const getStories = () => {
   return [
     require('../components/calendar/calendar-strip/calendar-day/CalendarDay.story.tsx'),
+    require('../components/calendar/calendar-strip/calendar-header/CalendarHeader.story.tsx'),
+    require('../components/calendar/calendar-strip/Calendar.story.tsx'),
     require('../components/themed/Button.story.tsx'),
     require('../components/themed/ReadOnly.story.tsx'),
     require('../components/themed/TextInput.story.tsx'),

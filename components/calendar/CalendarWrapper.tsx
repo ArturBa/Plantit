@@ -2,7 +2,8 @@ import { Moment } from 'moment';
 import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Calendar, CalendarTheme } from './calendar-strip';
+import { Calendar } from './calendar-strip';
+import { CustomCalendarTheme } from './CalendarWrapper.helpers';
 
 import { colors } from '../../constants';
 import {
@@ -14,21 +15,7 @@ import {
 } from '../../store';
 
 export function CalendarWrapper() {
-  const accentColor = colors.accentBasic;
-  const backgroundColor = colors.background;
-  const textColor = colors.textBlack;
-  const textLightColor = colors.textGray;
-
-  const calendarTheme: CalendarTheme = {
-    backgroundColor,
-    indicatorColor: accentColor,
-    textColor,
-    textLightColor,
-    selectedDayBackgroundColor: accentColor,
-    dotColor: accentColor,
-    arrowColor: accentColor,
-    todayTextColor: accentColor,
-  };
+  const calendarTheme = CustomCalendarTheme(colors);
 
   const selectedDay = useAppSelector(selectSelectedDay);
   const actionDay = useAppSelector(selectActionDays);

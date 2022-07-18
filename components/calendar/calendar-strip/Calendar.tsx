@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { CalendarDay } from './calendar-day';
-import { CalendarMonthHeader } from './CalendarMonthHeader';
+import { CalendarHeader } from './calendar-header';
 import { CalendarTheme, defaultTheme } from './CalendarTheme';
 
 import { Layout } from '../../../constants';
@@ -78,7 +78,7 @@ function toMomentDate(date: string | Date | Moment): Moment {
   if (date instanceof Date) {
     return moment(date).startOf('day');
   }
-  return date;
+  return date.startOf('day');
 }
 
 export function Calendar({
@@ -135,7 +135,7 @@ export function Calendar({
 
   return (
     <View style={[styles.container, style && style]}>
-      <CalendarMonthHeader
+      <CalendarHeader
         theme={themeToUse}
         nextWeek={() => setCurrentPage(currentPage + 1)}
         prevWeek={() => setCurrentPage(currentPage - 1)}
@@ -156,11 +156,9 @@ export function Calendar({
           <CalendarDay
             date={item}
             theme={themeToUse}
-            onDayPress={() => onDayPressed && onDayPressed(item)}
-            isSelectedDay={item.isSame(selectedDay)}
-            isMarked={markedDaysMoment?.some(markedDay =>
-              markedDay.isSame(item),
-            )}
+            onPress={() => onDayPressed && onDayPressed(item)}
+            selected={item.isSame(selectedDay)}
+            marked={markedDaysMoment?.some(markedDay => markedDay.isSame(item))}
           />
         )}
       />
