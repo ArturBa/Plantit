@@ -51,7 +51,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'import/extensions': ['error', 'always', { tsx: 'never', ts: 'never' }],
+    'import/extensions': ['error', 'never', { tsx: 'never', ts: 'never' }],
   },
   overrides: [
     {
