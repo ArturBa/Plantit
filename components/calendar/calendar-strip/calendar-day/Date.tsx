@@ -59,7 +59,7 @@ const styleSheet = ({
     },
     today: {
       color: todayTextColor,
-      fontWeight: '600',
+      fontWeight: '700',
     },
     selected: {
       backgroundColor: selectedDayBackgroundColor,
